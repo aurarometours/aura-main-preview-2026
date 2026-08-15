@@ -1,0 +1,8 @@
+RewriteEngine On
+
+# /tours → serve tours.html internamente (URL resta /tours)
+RewriteRule ^tours/?$ tours.html [L]
+
+# /tours.html → redirect 301 a /tours (pulizia SEO)
+RewriteCond %{THE_REQUEST} \s/+tours\.html[\s?] [NC]
+RewriteRule ^ /tours [R=301,L]

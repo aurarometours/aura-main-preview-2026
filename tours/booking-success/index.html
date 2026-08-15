@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Booking Confirmed — Aura Rome Tours</title>
+  <meta name="description" content="Your Aura Rome Tours booking has been confirmed." />
+  <meta name="robots" content="noindex,nofollow,noarchive,nosnippet" />
+  <meta name="theme-color" content="#f9f1e6" />
+  <style>
+    :root{
+      --bg:#f9f1e6; --bg2:#fffbf6; --text:#24170f; --muted:rgba(36,23,15,.62);
+      --gold:#cf9652; --line:rgba(120,79,38,.10); --panel:rgba(255,251,245,.85);
+      --shadow:0 28px 90px rgba(86,58,28,.14); --green:#1f7a42;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; min-height:100vh; color:var(--text);
+      font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      background:
+        radial-gradient(circle at top right, rgba(255,223,178,.8), transparent 24%),
+        radial-gradient(circle at 12% 6%, rgba(255,255,255,.95), transparent 26%),
+        linear-gradient(180deg,var(--bg2) 0%, var(--bg) 52%, #f4e4cd 100%);
+      display:flex; align-items:center; justify-content:center; padding:22px;
+    }
+    .card{
+      width:min(100%,860px); border-radius:34px; padding:30px; background:var(--panel);
+      border:1px solid var(--line); box-shadow:var(--shadow); backdrop-filter:blur(14px);
+    }
+    .eyebrow{font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:900;color:#b57a37}
+    h1{margin:10px 0 10px;font-size:clamp(2.2rem,5vw,4.2rem);line-height:.92;letter-spacing:-.06em}
+    .sub{max-width:60ch;color:var(--muted);line-height:1.75}
+    .ok{
+      display:inline-flex;align-items:center;gap:8px;margin-top:18px;
+      padding:10px 14px;border-radius:999px;background:rgba(37,211,102,.12);
+      border:1px solid rgba(37,211,102,.25);font-size:12px;font-weight:900;letter-spacing:.12em;
+      text-transform:uppercase;color:var(--green)
+    }
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:20px}
+    .item{padding:16px;border-radius:22px;background:rgba(255,255,255,.7);border:1px solid rgba(126,84,44,.08)}
+    .item small{display:block;margin-bottom:5px;font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#9c632d}
+    .item strong{font-size:16px}
+    .note{margin-top:18px;padding:16px 18px;border-radius:22px;background:rgba(255,255,255,.64);border:1px solid rgba(46,139,87,.12);line-height:1.7;color:#2d5c44}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px}
+    .btn,.btn-ghost{
+      display:flex;align-items:center;justify-content:center;padding:15px 16px;border-radius:18px;
+      text-decoration:none;font-size:12px;font-weight:900;letter-spacing:.16em;text-transform:uppercase
+    }
+    .btn{background:linear-gradient(135deg,#fff3df 0%,#f1cf9a 46%,#cd9252 100%);color:#23160f;box-shadow:0 18px 40px rgba(207,150,82,.22)}
+    .btn-ghost{background:rgba(255,255,255,.62);border:1px solid rgba(126,84,44,.09);color:var(--text)}
+    @media (max-width:760px){ .card{padding:20px;border-radius:24px}.grid,.actions{grid-template-columns:1fr} }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="eyebrow" id="eyebrow">Aura Rome Tours · Prenotazione confermata</div>
+    <h1 id="title">Booking confirmed.</h1>
+    <p class="sub" id="sub">Thank you for choosing Aura Rome Tours. Your private experience is confirmed and our team is already getting everything ready for your time in Rome.</p>
+    <div class="ok" id="badge">✓ Stripe payment verified</div>
+
+    <section class="grid">
+      <div class="item"><small id="labelCode">Booking code</small><strong id="bookingCode">—</strong></div>
+      <div class="item"><small id="labelTour">Tour</small><strong id="tourName">—</strong></div>
+      <div class="item"><small id="labelPeople">Guests</small><strong id="peopleCount">—</strong></div>
+      <div class="item"><small id="labelTotal">Total</small><strong id="totalValue">—</strong></div>
+    </section>
+
+    <div class="note" id="note">We are also sending you a confirmation email. If you booked for the same day, we will message you on WhatsApp within 15 minutes. For later bookings, we will contact you before the tour for pickup and final details.</div>
+
+    <div class="actions">
+      <a class="btn" id="waBtn" href="#" target="_blank" rel="noopener">Open WhatsApp</a>
+      <a class="btn-ghost" id="backBtn" href="../">Back to tours</a>
+    </div>
+  </main>
+
+  <script>
+    const WA_NUMBER = '393206891014';
+    const I18N = {
+      it: {
+        title: 'Prenotazione confermata.',
+        sub: 'Grazie per aver scelto Aura Rome Tours. La tua esperienza privata è confermata e il nostro team è già pronto ad accoglierti a Roma.',
+        badge: '✓ Pagamento Stripe verificato',
+        code: 'Codice prenotazione',
+        tour: 'Tour',
+        people: 'Persone',
+        total: 'Totale',
+        note: 'Ti inviamo anche una conferma via email. Se hai prenotato per il giorno stesso, ti scriviamo su WhatsApp entro 15 minuti. Per le prenotazioni dei giorni successivi, ti contattiamo prima del tour per pickup e ultimi dettagli.',
+        back: 'Torna ai tour',
+        wa: 'Apri WhatsApp',
+        eyebrow: 'Aura Rome Tours · Prenotazione confermata'
+      },
+      en: {
+        title: 'Booking confirmed.',
+        sub: 'Thank you for choosing Aura Rome Tours. Your private experience is confirmed and our team is already getting everything ready for your time in Rome.',
+        badge: '✓ Stripe payment verified',
+        code: 'Booking code',
+        tour: 'Tour',
+        people: 'Guests',
+        total: 'Total',
+        note: 'We are also sending you a confirmation email. If you booked for the same day, we will message you on WhatsApp within 15 minutes. For later bookings, we will contact you before the tour for pickup and final details.',
+        back: 'Back to tours',
+        wa: 'Open WhatsApp',
+        eyebrow: 'Aura Rome Tours · Prenotazione confermata'
+      },
+      fr: {
+        title: 'Réservation confirmée.',
+        sub: 'Merci d’avoir choisi Aura Rome Tours. Votre expérience privée est confirmée et notre équipe prépare déjà tout pour votre moment à Rome.',
+        badge: '✓ Paiement Stripe vérifié',
+        code: 'Code de réservation',
+        tour: 'Tour',
+        people: 'Personnes',
+        total: 'Total',
+        note: 'Nous vous envoyons aussi une confirmation par email. Si vous avez réservé pour aujourd’hui, nous vous écrivons sur WhatsApp sous 15 minutes. Pour les réservations des jours suivants, nous vous contactons avant le tour pour le pickup et les derniers détails.',
+        back: 'Retour aux tours',
+        wa: 'Ouvrir WhatsApp',
+        eyebrow: 'Aura Rome Tours · Réservation confirmée'
+      }
+    };
+
+    function readData(){
+      const params = new URLSearchParams(window.location.search);
+      let data = {
+        booking: params.get('booking') || '',
+        tour: params.get('tour') || '',
+        people: params.get('people') || '',
+        total: params.get('total') || '',
+        lang: params.get('lang') || 'it',
+        tx: params.get('tx') || ''
+      };
+      try {
+        const cachedSession = JSON.parse(sessionStorage.getItem('aura_last_booking') || '{}');
+        const cachedLocal = JSON.parse(localStorage.getItem('aura_last_booking') || '{}');
+        const cached = (cachedSession && Object.keys(cachedSession).length) ? cachedSession : cachedLocal;
+        data = {
+          booking: data.booking || cached.booking || '',
+          tour: data.tour || cached.tour || '',
+          people: data.people || cached.people || '',
+          total: data.total || cached.total || '',
+          lang: data.lang || cached.lang || 'it',
+          tx: data.tx || cached.tx || ''
+        };
+      } catch (_) {}
+      return data;
+    }
+
+    function hasValidBookingData(data){
+      return !!(data && data.booking && data.tour && data.total);
+    }
+
+    function formatPrice(val){
+      const n = Number(val || 0);
+      return n ? `€${n.toFixed(0)}` : '—';
+    }
+
+    function buildWaLink(tour){
+      const msg = tour
+        ? `Hi! My Aura Rome Tours booking is confirmed for ${tour}. Can you help me with the final details?`
+        : 'Hi! My Aura Rome Tours booking is confirmed. Can you help me with the final details?';
+      return `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    }
+
+    (function init(){
+      const params = new URLSearchParams(window.location.search);
+      const bookingFromUrl = params.get('booking') || '';
+      const data = readData();
+      if (!bookingFromUrl || !hasValidBookingData(data)) {
+        try {
+          sessionStorage.removeItem('aura_last_booking');
+          localStorage.removeItem('aura_last_booking');
+        } catch (_) {}
+        window.location.replace('../');
+        return;
+      }
+      const lang = I18N[data.lang] ? data.lang : 'it';
+      const t = I18N[lang];
+      document.documentElement.lang = lang;
+      document.getElementById('title').textContent = t.title;
+      document.getElementById('sub').textContent = t.sub;
+      document.getElementById('badge').textContent = t.badge;
+      document.getElementById('labelCode').textContent = t.code;
+      document.getElementById('labelTour').textContent = t.tour;
+      document.getElementById('labelPeople').textContent = t.people;
+      document.getElementById('labelTotal').textContent = t.total;
+      document.getElementById('note').textContent = t.note;
+      document.getElementById('backBtn').textContent = t.back;
+      document.getElementById('waBtn').textContent = t.wa;
+      document.getElementById('eyebrow').textContent = t.eyebrow;
+      document.getElementById('bookingCode').textContent = data.booking || '—';
+      document.getElementById('tourName').textContent = data.tour || '—';
+      document.getElementById('peopleCount').textContent = data.people || '—';
+      document.getElementById('totalValue').textContent = formatPrice(data.total);
+      document.getElementById('waBtn').href = buildWaLink(data.tour);
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'booking_success_page',
+        booking_code: data.booking || '',
+        transaction_id: data.tx || data.booking || '',
+        value: Number(data.total || 0),
+        currency: 'EUR',
+        tour_name: data.tour || ''
+      });
+
+
+      // Aura Admin conversion tracking fallback — works without Stripe webhook.
+      (function(){
+        var API = window.AURA_ADMIN_API || window.AURA_API_BASE || 'https://REPLACE-WITH-RAILWAY-BACKEND.up.railway.app';
+        if(!API || API.indexOf('REPLACE-WITH') !== -1) return;
+        var p = new URLSearchParams(location.search);
+        var payload = {
+          booking: data.booking || p.get('booking') || '',
+          tour: data.tour || p.get('tour') || '',
+          people: data.people || p.get('people') || '',
+          total: data.total || p.get('total') || '',
+          coupon: p.get('coupon') || '',
+          couponPct: p.get('couponPct') || '',
+          lang: data.lang || p.get('lang') || '',
+          tx: data.tx || p.get('tx') || '',
+          url: location.href
+        };
+        try {
+          fetch(API + '/api/track/conversion', {
+            method:'POST',
+            headers:{'Content-Type':'application/json'},
+            keepalive:true,
+            body: JSON.stringify({ type:'paid_booking_success', page:'/tours/booking-success', source:'stripe_success_redirect', referrer:document.referrer, payload:payload, ts:new Date().toISOString() })
+          });
+        } catch(_) {}
+      })();
+
+      if (typeof gtag === 'function') {
+        gtag('event', 'purchase', {
+          transaction_id: data.tx || data.booking || '',
+          value: Number(data.total || 0),
+          currency: 'EUR'
+        });
+        gtag('event', 'booking_confirmed', {
+          transaction_id: data.tx || data.booking || '',
+          value: Number(data.total || 0),
+          currency: 'EUR',
+          tour_name: data.tour || ''
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

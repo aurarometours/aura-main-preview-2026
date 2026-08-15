@@ -1,0 +1,688 @@
+/* ═══════════════════════════════════════════════════════════
+   AURA ENGINE — widget condiviso: prenotazione + concierge AI
+   Si usa da qualsiasi pagina con:
+     <script src="/js/aura-booking.js" defer></script>
+     AURA.openBooking('grande_bellezza')  ·  AURA.toggleChat()
+   Inietta da solo i propri stili (tema chiaro "Travertino").
+═══════════════════════════════════════════════════════════ */
+(function () {
+'use strict';
+
+const API = localStorage.getItem('aura_api') || 'https://back-end-production-8a61.up.railway.app';
+const getStripePk = () => window.AURA_STRIPE_PK || localStorage.getItem('aura_stripe_pk') || '';
+
+/* ── BASE del sito: auto-rilevata dalla posizione di questo script.
+   Permette di ospitare il sito anche in una sottocartella (es. /aiutomyg/). ── */
+const BASE = (() => {
+  try {
+    const src = document.currentScript.src;
+    return src.slice(0, src.lastIndexOf('/js/') + 1);
+  } catch (_) { return '/'; }
+})();
+/* converte i percorsi assoluti storici ('/media/x.jpg') in percorsi basati su BASE */
+const rel = p => (typeof p === 'string' && p.startsWith('/')) ? BASE + p.slice(1) : p;
+
+/* ── Stripe.js caricato SOLO quando si arriva al pagamento (pagina più veloce) ── */
+let stripeJsPromise = null;
+function loadStripeJs() {
+  if (window.Stripe) return Promise.resolve();
+  if (stripeJsPromise) return stripeJsPromise;
+  stripeJsPromise = new Promise((resolve, reject) => {
+    const s = document.createElement('script');
+    s.src = 'https://js.stripe.com/v3/';
+    s.onload = resolve;
+    s.onerror = () => { stripeJsPromise = null; reject(new Error('Stripe.js load failed')); };
+    document.head.appendChild(s);
+  });
+  return stripeJsPromise;
+}
+
+/* ── Attribuzione marketing: ogni prenotazione ricorda da dove arriva ──
+   Cattura utm_*, gclid, fbclid dal primo atterraggio e li allega al checkout. */
+function captureAttribution() {
+  try {
+    const qs = new URLSearchParams(location.search);
+    const keys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'fbclid'];
+    const found = {};
+    keys.forEach(k => { const v = qs.get(k); if (v) found[k] = v.slice(0, 200); });
+    const prev = JSON.parse(localStorage.getItem('aura_attr') || 'null');
+    if (Object.keys(found).length) {
+      const attr = {
+        ...found,
+        landing: location.pathname,
+        referrer: (document.referrer || '').slice(0, 200),
+        firstSeen: prev?.firstSeen || new Date().toISOString(),
+      };
+      localStorage.setItem('aura_attr', JSON.stringify(attr));
+      return attr;
+    }
+    return prev;
+  } catch (_) { return null; }
+}
+const ATTRIBUTION = captureAttribution();
+
+/* ── i18n del widget ── */
+const W = {
+it:{next:'Continua',back:'Indietro',pay:'Paga e conferma',title:'La tua Roma privata',
+ s1:'Scegli l\'esperienza',s2:'Data e ospiti',s3:'I tuoi dati',s4:'Pagamento sicuro',
+ date:'Data',time:'Orario',pax:'Ospiti',extras:'Extra',childseat:'Seggiolino bimbo',free:'gratis',
+ name:'Nome e cognome',email:'Email',phone:'Telefono / WhatsApp',notes:'Note (hotel, richieste speciali…)',
+ coupon:'Codice sconto',apply:'Applica',total:'Totale',discount:'Sconto',from:'da',pp:'a persona',
+ secure:'Pagamento crittografato con Stripe · Visa · Mastercard · Amex · Apple Pay',processing:'Un istante…',
+ extrastops:'Tappe extra (+€19,50 cad.)',mode:'Formula',private:'Privato',shared:'Condiviso',
+ dateFull:'Data non disponibile, scegline un\'altra',est:'Totale stimato',
+ chatHello:'Ciao! 👋 Sono il concierge Aura. Prezzi, itinerari, consigli: chiedimi tutto.',
+ chatPh:'Scrivi un messaggio…',chatName:'Aura Concierge',chatSub:'Risposta immediata',
+ chips:['Quanto costa per 4 persone?','Che tour consigli per la prima volta?','Venite a prenderci in hotel?','Va bene con bambini?'],
+ waText:'Ciao! Vorrei informazioni sui tour Aura 🛺'},
+en:{next:'Continue',back:'Back',pay:'Pay & confirm',title:'Your private Rome',
+ s1:'Choose your experience',s2:'Date & guests',s3:'Your details',s4:'Secure payment',
+ date:'Date',time:'Time',pax:'Guests',extras:'Extras',childseat:'Child seat',free:'free',
+ name:'Full name',email:'Email',phone:'Phone / WhatsApp',notes:'Notes (hotel, special requests…)',
+ coupon:'Promo code',apply:'Apply',total:'Total',discount:'Discount',from:'from',pp:'per person',
+ secure:'Encrypted payment with Stripe · Visa · Mastercard · Amex · Apple Pay',processing:'One moment…',
+ extrastops:'Extra stops (+€19.50 each)',mode:'Format',private:'Private',shared:'Shared',
+ dateFull:'Date unavailable, please pick another',est:'Estimated total',
+ chatHello:"Hi! 👋 I'm the Aura concierge. Prices, routes, tips — ask me anything.",
+ chatPh:'Type a message…',chatName:'Aura Concierge',chatSub:'Instant reply',
+ chips:['How much for 4 people?','Which tour for first-timers?','Do you pick up at hotels?','Is it OK with kids?'],
+ waText:'Hi! I would like some info about Aura tours 🛺'},
+fr:{next:'Continuer',back:'Retour',pay:'Payer et confirmer',title:'Votre Rome privée',
+ s1:'Choisissez l\'expérience',s2:'Date et hôtes',s3:'Vos coordonnées',s4:'Paiement sécurisé',
+ date:'Date',time:'Horaire',pax:'Hôtes',extras:'Extras',childseat:'Siège enfant',free:'gratuit',
+ name:'Nom complet',email:'Email',phone:'Téléphone / WhatsApp',notes:'Notes (hôtel, demandes…)',
+ coupon:'Code promo',apply:'Appliquer',total:'Total',discount:'Remise',from:'dès',pp:'par personne',
+ secure:'Paiement chiffré avec Stripe',processing:'Un instant…',
+ extrastops:'Arrêts extra (+19,50 € chacun)',mode:'Formule',private:'Privé',shared:'Partagé',
+ dateFull:'Date indisponible, choisissez-en une autre',est:'Total estimé',
+ chatHello:'Bonjour ! 👋 Je suis le concierge Aura. Prix, itinéraires, conseils : je vous écoute.',
+ chatPh:'Écrivez un message…',chatName:'Aura Concierge',chatSub:'Réponse immédiate',
+ chips:['Prix pour 4 personnes ?','Quel tour pour une première fois ?','Pickup à l\'hôtel ?','Adapté aux enfants ?'],
+ waText:'Bonjour ! Je voudrais des infos sur les tours Aura 🛺'},
+de:{next:'Weiter',back:'Zurück',pay:'Bezahlen & bestätigen',title:'Ihr privates Rom',
+ s1:'Erlebnis wählen',s2:'Datum & Gäste',s3:'Ihre Daten',s4:'Sichere Zahlung',
+ date:'Datum',time:'Uhrzeit',pax:'Gäste',extras:'Extras',childseat:'Kindersitz',free:'gratis',
+ name:'Vollständiger Name',email:'E-Mail',phone:'Telefon / WhatsApp',notes:'Hinweise (Hotel, Wünsche…)',
+ coupon:'Promo-Code',apply:'Anwenden',total:'Gesamt',discount:'Rabatt',from:'ab',pp:'pro Person',
+ secure:'Verschlüsselte Zahlung mit Stripe',processing:'Einen Moment…',
+ extrastops:'Extra-Stopps (+19,50 € je)',mode:'Formel',private:'Privat',shared:'Geteilt',
+ dateFull:'Datum nicht verfügbar, bitte anderes wählen',est:'Geschätzte Summe',
+ chatHello:'Hallo! 👋 Ich bin der Aura-Concierge. Preise, Routen, Tipps — fragen Sie mich.',
+ chatPh:'Nachricht schreiben…',chatName:'Aura Concierge',chatSub:'Sofortige Antwort',
+ chips:['Preis für 4 Personen?','Welche Tour beim ersten Mal?','Holen Sie uns im Hotel ab?','Geht es mit Kindern?'],
+ waText:'Hallo! Ich hätte gern Infos zu den Aura-Touren 🛺'},
+es:{next:'Continuar',back:'Atrás',pay:'Pagar y confirmar',title:'Tu Roma privada',
+ s1:'Elige la experiencia',s2:'Fecha y huéspedes',s3:'Tus datos',s4:'Pago seguro',
+ date:'Fecha',time:'Hora',pax:'Huéspedes',extras:'Extras',childseat:'Silla infantil',free:'gratis',
+ name:'Nombre completo',email:'Email',phone:'Teléfono / WhatsApp',notes:'Notas (hotel, peticiones…)',
+ coupon:'Código promo',apply:'Aplicar',total:'Total',discount:'Descuento',from:'desde',pp:'por persona',
+ secure:'Pago cifrado con Stripe',processing:'Un momento…',
+ extrastops:'Paradas extra (+19,50 € c/u)',mode:'Modalidad',private:'Privado',shared:'Compartido',
+ dateFull:'Fecha no disponible, elige otra',est:'Total estimado',
+ chatHello:'¡Hola! 👋 Soy el concierge Aura. Precios, rutas, consejos: pregúntame.',
+ chatPh:'Escribe un mensaje…',chatName:'Aura Concierge',chatSub:'Respuesta inmediata',
+ chips:['¿Precio para 4 personas?','¿Qué tour para la primera vez?','¿Recogéis en el hotel?','¿Va bien con niños?'],
+ waText:'¡Hola! Quisiera información sobre los tours Aura 🛺'},
+};
+
+/* ── stato condiviso ── */
+const S = {
+  lang: (() => {
+    const valid = ['it','en','fr','de','es'];
+    const q = (new URLSearchParams(location.search).get('lang') || '').slice(0,2);
+    if (valid.includes(q)) { try { localStorage.setItem('aura_lang', q); } catch(_){} return q; }
+    const saved = localStorage.getItem('aura_lang');
+    if (valid.includes(saved)) return saved;
+    const nav = (navigator.language || 'en').slice(0,2);
+    return valid.includes(nav) ? nav : 'en';
+  })(),
+  tours: [], content: {}, blocked: new Set(),
+  settings: { whatsapp:'+39 320 689 1014', whatsappHref:'https://wa.me/393206891014', phone:'', email:'aura.intravel@gmail.com', timeSlots:['09:00','10:30','12:00','14:30','16:00','17:30','19:00','20:30'] },
+  extras: { childSeat:{ price:25 } },
+  reviews: null,
+  google: null,
+  loaded: null,
+};
+
+/* link pubblici Google (funzionano anche senza API configurata) */
+const GOOGLE_LINKS = {
+  read: g => (g && g.url) || 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Aura Rome Tours Roma'),
+  write: g => (g && g.placeId)
+    ? 'https://search.google.com/local/writereview?placeid=' + encodeURIComponent(g.placeId)
+    : 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent('Aura Rome Tours Roma'),
+};
+
+const t = k => (W[S.lang] || W.en)[k] || W.en[k];
+const loc = (o, fb='') => o ? (o[S.lang] || o.en || o.it || Object.values(o)[0] || fb) : fb;
+const eur = n => '€' + (Number(n) % 1 === 0 ? Number(n) : Number(n).toFixed(2));
+const esc = v => String(v ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+
+const FALLBACK_TOURS = [
+ {id:'grande_bellezza',names:{it:'La Grande Bellezza',en:'La Grande Bellezza'},taglines:{it:'2h30 tra i gioielli del centro storico',en:'2.5 hours among the jewels of the historic centre'},descriptions:{it:'Il tour firma di Aura: le icone del centro storico con ritmo elegante e comfort assoluto.',en:'Aura\'s signature tour: the icons of the historic centre at an elegant pace.'},duration:'2h30',badge:{it:'Signature',en:'Signature'},pricing:{private:{'1-3':390,'4-5':490,'6-7':590}},maxPax:7,stops:['Colosseo','Fori Imperiali','Piazza Venezia','Pantheon','Piazza Navona','Fontana di Trevi'],features:{it:['Centro storico UNESCO','Piazze iconiche','Ritmo elegante'],en:['UNESCO historic centre','Iconic squares','Elegant pace']},image:'/media/home-card-grande.jpg',featured:true},
+ {id:'full_roma',names:{it:'Full Roma Experience',en:'Full Roma Experience'},taglines:{it:'Dieci tappe. Una città eterna.',en:'Ten stops. One eternal city.'},descriptions:{it:'La panoramica più completa: dieci tappe curate, sosta caffè storico, tempo per fermarsi davvero.',en:'The most complete overview: ten curated stops, historic café break, time to truly linger.'},duration:'3h',badge:{it:'Grand Tour',en:'Grand Tour'},pricing:{private:{'1-3':390,'4-5':490,'6-7':590}},maxPax:7,stops:['Colosseo','Fori Imperiali','Piazza Venezia','Pantheon','Piazza Navona','Fontana di Trevi','Piazza di Spagna','Trastevere','Gianicolo','Aventino'],features:{it:['10 tappe incluse','Percorso personalizzabile','Sosta caffè storico'],en:['10 stops included','Customisable route','Historic café stop']},image:'/media/scene1-full-roma.jpg'},
+ {id:'roma_night',names:{it:'Roma by Night',en:'Rome by Night'},taglines:{it:'La città quando si accende',en:'The city as it lights up'},descriptions:{it:'Trevi illuminata, Navona sotto le stelle, i vicoli d\'oro: la Roma più cinematografica è quella notturna.',en:'Trevi lit up, Navona under the stars, golden alleys: the most cinematic Rome comes out at night.'},duration:'2h–2h30',badge:{it:'Sera',en:'Evening'},pricing:{private:{'1-3':390,'4-5':490,'6-7':590}},maxPax:7,stops:['Fontana di Trevi','Piazza Navona','Pantheon','Piazza di Spagna','Piazza Venezia'],features:{it:['Atmosfera notturna','Trevi illuminata','Foto pazzesche'],en:['Night atmosphere','Trevi lit up','Incredible photos']},image:'/media/home-card-night.jpg'},
+ {id:'custom',names:{it:'Tour Su Misura',en:'Tailor-Made Tour'},taglines:{it:'La tua Roma, tappa per tappa',en:'Your Rome, stop by stop'},descriptions:{it:'Base Full Roma con dieci tappe incluse, poi aggiungi tu: quartieri, botteghe, panorami segreti.',en:'Full Roma base with ten stops included, then you add: districts, workshops, secret views.'},duration:'3h+',badge:{it:'Bespoke',en:'Bespoke'},pricing:{private:{'1-3':390,'4-5':490,'6-7':590}},custom:{includedStops:10,extraStopFee:19.5},maxPax:7,stops:[],features:{it:['10 tappe incluse','Extra €19,50/tappa','Itinerario libero'],en:['10 stops included','Extra €19.50/stop','Free routing']},image:'/media/home-card-family.png'},
+];
+
+/* Le esperienze solo-condivise sono state ritirate dal sito:
+   qualunque tour senza prezzo privato viene nascosto ovunque
+   (widget, landing, sito) anche se presente nel catalogo API. */
+const onlyPrivate = list => (Array.isArray(list) ? list : []).filter(v => v?.pricing?.private);
+
+/* i fallback sono visibili da subito: l'API poi li sovrascrive */
+S.tours = onlyPrivate(FALLBACK_TOURS);
+
+/* ── caricamento dati (una sola volta, condiviso con la pagina) ── */
+function load() {
+  if (S.loaded) return S.loaded;
+  S.loaded = (async () => {
+    const [tours, content, blocked, reviews, google] = await Promise.all([
+      fetch(API + '/catalog/tours').then(r => r.json()).catch(() => null),
+      fetch(API + '/site-content').then(r => r.json()).catch(() => ({})),
+      fetch(API + '/blocked-dates').then(r => r.json()).catch(() => []),
+      fetch(API + '/reviews').then(r => r.json()).catch(() => null),
+      fetch(API + '/reviews/google').then(r => r.json()).catch(() => null),
+    ]);
+    const fromApi = onlyPrivate(tours);
+    S.tours = fromApi.length ? fromApi : onlyPrivate(FALLBACK_TOURS);
+    S.content = content || {};
+    if (S.content.business_settings) S.settings = { ...S.settings, ...S.content.business_settings };
+    if (S.content.booking_extras) S.extras = { ...S.extras, ...S.content.booking_extras };
+    S.blocked = new Set((blocked || []).map(b => b.date));
+    S.reviews = reviews;
+    S.google = (google && google.configured && google.rating) ? google : null;
+    document.dispatchEvent(new CustomEvent('aura:data', { detail: S }));
+    return S;
+  })();
+  return S.loaded;
+}
+
+function track(event, data) {
+  fetch(API + '/analytics/track', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ event, page: location.pathname, data }),
+  }).catch(() => {});
+}
+
+/* ── WhatsApp con attribuzione: aggancia il gclid al messaggio (per Offline
+   Conversion Import) e traccia l'evento whatsapp_click (segnale secondario Ads). ── */
+function waRef() {
+  try {
+    const a = JSON.parse(localStorage.getItem('aura_attr') || 'null');
+    if (a && a.gclid) return '\n\n— rif. ' + a.gclid;
+  } catch (_) {}
+  return '';
+}
+function waClick(source) {
+  try { if (typeof window.gtag === 'function') window.gtag('event', 'whatsapp_click', { source: source || 'site' }); } catch (_) {}
+  track('whatsapp_click', { source: source || 'site' });
+}
+/* Un solo listener per TUTTI i link WhatsApp della pagina (FAB, footer, hero, modal) */
+function wireWhatsApp() {
+  document.addEventListener('click', e => {
+    const a = e.target.closest && e.target.closest('a[href*="wa.me"], a[href*="api.whatsapp.com"]');
+    if (!a) return;
+    waClick(a.id || a.dataset.wa || 'link');
+    const ref = waRef();
+    if (ref && a.href.includes('text=') && !a.href.includes('rif.')) {
+      try { a.href = a.href + encodeURIComponent(ref); } catch (_) {}
+    }
+  }, true);
+}
+
+/* ═══════════ STILI DEL WIDGET (tema Travertino) ═══════════ */
+const CSS = `
+:root{--au-paper:#F7F2E9;--au-paper2:#EFE7D8;--au-ink:#1D160F;--au-ink2:#4a4033;--au-terra:#A4441F;--au-terra2:#8C3717;--au-gold:#A9853F;--au-line:rgba(29,22,15,.14);--au-serif:'Fraunces',Georgia,serif;--au-sans:'Archivo',Inter,system-ui,sans-serif}
+#aura-bk{position:fixed;inset:0;z-index:900;background:rgba(29,22,15,.45);backdrop-filter:blur(7px);display:none;align-items:flex-end;justify-content:center}
+#aura-bk.open{display:flex}
+@media(min-width:720px){#aura-bk{align-items:center;padding:28px}}
+.au-sheet{background:var(--au-paper);color:var(--au-ink);width:min(640px,100%);max-height:94svh;overflow-y:auto;border-radius:26px 26px 0 0;padding:30px 26px 42px;font-family:var(--au-sans);font-size:15px;box-shadow:0 -20px 80px rgba(0,0,0,.3);animation:auUp .4s cubic-bezier(.22,1,.36,1)}
+@media(min-width:720px){.au-sheet{border-radius:18px;padding:40px 44px}}
+@keyframes auUp{from{opacity:0;transform:translateY(30px)}}
+.au-top{display:flex;justify-content:space-between;align-items:flex-start}
+.au-top h3{font-family:var(--au-serif);font-weight:500;font-size:30px;letter-spacing:-.02em;line-height:1.05}
+.au-top .au-x{background:none;border:1px solid var(--au-line);border-radius:50%;width:38px;height:38px;font-size:16px;color:var(--au-ink);cursor:pointer;transition:.2s}
+.au-top .au-x:hover{background:var(--au-ink);color:var(--au-paper)}
+.au-steps{display:flex;gap:6px;margin:20px 0 28px}
+.au-steps i{height:3px;flex:1;background:var(--au-line);border-radius:99px;transition:background .3s}
+.au-steps i.on{background:var(--au-terra)}
+.au-lbl{font-size:10.5px;letter-spacing:.22em;text-transform:uppercase;color:var(--au-ink2);display:block;margin:0 0 8px;font-weight:600}
+.au-field{margin-bottom:16px}
+.au-in{width:100%;background:#fff;border:1px solid var(--au-line);border-radius:12px;color:var(--au-ink);padding:13px 15px;font-size:15px;outline:none;font-family:inherit;transition:border-color .2s;box-sizing:border-box}
+.au-in:focus{border-color:var(--au-terra)}
+.au-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:520px){.au-row{grid-template-columns:1fr}}
+.au-opt{display:flex;align-items:center;gap:14px;background:#fff;border:1px solid var(--au-line);border-radius:14px;padding:14px 16px;cursor:pointer;transition:.2s;margin-bottom:10px}
+.au-opt:hover{border-color:var(--au-terra)}
+.au-opt.sel{border-color:var(--au-terra);box-shadow:0 0 0 1px var(--au-terra);background:#FDF9F1}
+.au-opt .t{flex:1}
+.au-opt .t b{display:block;font-family:var(--au-serif);font-size:17px;font-weight:600}
+.au-opt .t small{color:var(--au-ink2);font-size:12.5px}
+.au-opt .p{font-weight:700;color:var(--au-terra);white-space:nowrap;font-size:15px}
+.au-btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:999px;font-weight:600;font-size:13px;letter-spacing:.1em;text-transform:uppercase;padding:15px 28px;border:1px solid transparent;cursor:pointer;transition:.25s;font-family:var(--au-sans)}
+.au-btn.fill{background:var(--au-ink);color:var(--au-paper)}
+.au-btn.fill:hover{background:var(--au-terra);transform:translateY(-2px)}
+.au-btn.line{border-color:var(--au-line);color:var(--au-ink);background:transparent}
+.au-btn.line:hover{border-color:var(--au-ink)}
+.au-btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.au-pax{display:flex;align-items:center;gap:18px;background:#fff;border:1px solid var(--au-line);border-radius:12px;padding:8px 14px;width:fit-content}
+.au-pax button{width:34px;height:34px;border-radius:50%;border:1px solid var(--au-line);background:transparent;color:var(--au-ink);font-size:17px;cursor:pointer;transition:.15s}
+.au-pax button:hover{background:var(--au-ink);color:var(--au-paper)}
+.au-pax b{min-width:26px;text-align:center;font-size:18px;font-family:var(--au-serif)}
+.au-slots{display:flex;flex-wrap:wrap;gap:8px}
+.au-slot{border:1px solid var(--au-line);background:#fff;color:var(--au-ink2);border-radius:999px;padding:9px 16px;font-size:13.5px;cursor:pointer;transition:.15s;font-family:inherit}
+.au-slot.sel{border-color:var(--au-terra);color:var(--au-terra);background:#FDF9F1;font-weight:700}
+.au-sum{background:#fff;border:1px solid var(--au-line);border-radius:14px;padding:18px 20px;margin:10px 0 18px}
+.au-sum .li{display:flex;justify-content:space-between;font-size:13.5px;color:var(--au-ink2);padding:4px 0}
+.au-sum .li.tot{border-top:1px solid var(--au-line);margin-top:9px;padding-top:12px;color:var(--au-ink);font-weight:700;font-size:18px;font-family:var(--au-serif)}
+.au-sum .li.disc{color:#0d7a3f;font-weight:600}
+.au-nav{display:flex;gap:11px;justify-content:space-between;margin-top:24px}
+.au-err{color:#B3261E;font-size:13px;min-height:18px;margin-top:10px}
+.au-check{display:flex;align-items:center;gap:11px;font-size:14px;color:var(--au-ink);cursor:pointer;background:#fff;border:1px solid var(--au-line);border-radius:12px;padding:13px 15px}
+.au-check input{width:17px;height:17px;accent-color:var(--au-terra)}
+.au-secure{display:flex;align-items:center;gap:8px;justify-content:center;font-size:11px;color:var(--au-ink2);margin-top:16px;letter-spacing:.04em;text-align:center}
+.au-spin{display:inline-block;width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:auSp 1s linear infinite;vertical-align:-2px}
+@keyframes auSp{to{transform:rotate(360deg)}}
+#aura-payel{margin:10px 0 4px}
+/* chat */
+#aura-chat-fab{position:fixed;right:20px;bottom:92px;z-index:890;width:58px;height:58px;border-radius:50%;background:var(--au-ink);border:none;color:var(--au-paper);font-size:21px;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 40px rgba(29,22,15,.35);cursor:pointer;transition:transform .25s}
+#aura-chat-fab:hover{transform:scale(1.08) rotate(8deg)}
+#aura-wa-fab{position:fixed;right:20px;bottom:20px;z-index:890;width:58px;height:58px;border-radius:50%;background:#1faa53;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 40px rgba(0,0,0,.28);transition:transform .25s}
+#aura-wa-fab:hover{transform:scale(1.08)}
+#aura-wa-fab svg{width:29px;height:29px;fill:#fff}
+#aura-chat{position:fixed;right:20px;bottom:92px;z-index:895;width:min(380px,calc(100vw - 32px));height:min(540px,72vh);background:var(--au-paper);border:1px solid var(--au-line);border-radius:22px;display:none;flex-direction:column;overflow:hidden;box-shadow:0 30px 90px rgba(29,22,15,.35);font-family:var(--au-sans);color:var(--au-ink)}
+#aura-chat.open{display:flex;animation:auUp .3s cubic-bezier(.22,1,.36,1)}
+.au-ch-head{padding:16px 18px;border-bottom:1px solid var(--au-line);display:flex;align-items:center;gap:11px;background:#fff}
+.au-ch-head .dot{width:9px;height:9px;border-radius:50%;background:#0d7a3f;box-shadow:0 0 8px #0d7a3f}
+.au-ch-head b{font-family:var(--au-serif);font-size:18px;font-weight:600}
+.au-ch-head small{color:var(--au-ink2);font-size:11px;display:block}
+.au-ch-head .au-x{margin-left:auto;background:none;border:none;color:var(--au-ink2);font-size:18px;cursor:pointer}
+#aura-chat-msgs{flex:1;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:9px}
+.au-msg{max-width:84%;padding:10px 14px;border-radius:15px;font-size:13.5px;line-height:1.55;white-space:pre-wrap}
+.au-msg.u{background:var(--au-ink);color:var(--au-paper);align-self:flex-end;border-bottom-right-radius:4px}
+.au-msg.a{background:#fff;border:1px solid var(--au-line);align-self:flex-start;border-bottom-left-radius:4px}
+.au-ch-in{display:flex;gap:8px;padding:12px;border-top:1px solid var(--au-line);background:#fff}
+.au-ch-in input{flex:1;background:var(--au-paper);border:1px solid var(--au-line);border-radius:999px;color:var(--au-ink);padding:11px 16px;font-size:13.5px;outline:none;font-family:inherit}
+.au-ch-in button{background:var(--au-terra);border:none;border-radius:50%;width:42px;height:42px;color:#fff;font-size:15px;cursor:pointer;flex:none}
+.au-typing{display:inline-flex;gap:4px;align-items:center;padding:3px 2px}
+.au-typing i{width:6px;height:6px;border-radius:50%;background:#8b7f6d;animation:auTy 1.1s infinite}
+.au-typing i:nth-child(2){animation-delay:.18s}
+.au-typing i:nth-child(3){animation-delay:.36s}
+@keyframes auTy{0%,60%,100%{transform:none;opacity:.45}30%{transform:translateY(-4px);opacity:1}}
+.au-chips{display:flex;flex-wrap:wrap;gap:7px;padding:2px 0 4px}
+.au-chip{border:1px solid var(--au-line);background:#fff;color:var(--au-ink2);border-radius:999px;padding:7px 13px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;font-family:var(--au-sans)}
+.au-chip:hover{border-color:var(--au-terra);color:var(--au-terra)}
+.au-opt .au-thumb{width:58px;height:46px;border-radius:9px;object-fit:cover;flex:none;border:1px solid var(--au-line)}
+@media(max-width:720px){#aura-chat{right:10px;left:10px;width:auto}}
+`;
+
+/* ═══════════ MARKUP ═══════════ */
+function inject() {
+  const style = document.createElement('style');
+  style.textContent = CSS;
+  document.head.appendChild(style);
+
+  const root = document.createElement('div');
+  root.innerHTML = `
+  <div id="aura-bk"><div class="au-sheet">
+    <div class="au-top"><h3 id="au-title"></h3><button class="au-x" data-au-close>✕</button></div>
+    <div class="au-steps"><i class="on"></i><i></i><i></i><i></i></div>
+    <div id="au-body"></div>
+    <div class="au-err" id="au-err"></div>
+  </div></div>
+  <a id="aura-wa-fab" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg viewBox="0 0 32 32"><path d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4.5 28l6.2-1.6c1.9 1 4 1.6 6.3 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm6.6 17c-.3.8-1.6 1.5-2.2 1.6-.6.1-1.3.1-2.1-.1-.5-.2-1.1-.4-1.9-.7-3.4-1.5-5.6-4.9-5.8-5.1-.2-.2-1.4-1.8-1.4-3.5s.9-2.5 1.2-2.8c.3-.3.7-.4.9-.4h.7c.2 0 .5-.1.8.6.3.7 1 2.4 1.1 2.6.1.2.1.4 0 .6-.1.2-.2.4-.4.6l-.6.7c-.2.2-.4.4-.2.8.2.4 1 1.6 2.1 2.6 1.4 1.3 2.6 1.7 3 1.9.4.2.6.2.8-.1.2-.2.9-1 1.1-1.4.2-.4.5-.3.8-.2.3.1 2 .9 2.3 1.1.3.2.6.3.6.4.1.2.1.8-.2 1.6z"/></svg>
+  </a>
+  <button id="aura-chat-fab" aria-label="Chat">✦</button>
+  <div id="aura-chat">
+    <div class="au-ch-head"><span class="dot"></span>
+      <div><b id="au-ch-name"></b><small id="au-ch-sub"></small></div>
+      <button class="au-x" data-au-chat-close>✕</button></div>
+    <div id="aura-chat-msgs"></div>
+    <div class="au-ch-in"><input id="aura-chat-input" autocomplete="off"><button id="aura-chat-send">➤</button></div>
+  </div>`;
+  document.body.appendChild(root);
+
+  document.getElementById('au-ch-name').textContent = t('chatName');
+  document.getElementById('au-ch-sub').textContent = t('chatSub');
+  document.getElementById('aura-chat-input').placeholder = t('chatPh');
+  document.getElementById('aura-wa-fab').href = S.settings.whatsappHref + '?text=' + encodeURIComponent(t('waText'));
+
+  root.querySelector('[data-au-close]').onclick = closeBooking;
+  root.querySelector('[data-au-chat-close]').onclick = toggleChat;
+  document.getElementById('aura-bk').addEventListener('click', e => { if (e.target.id === 'aura-bk') closeBooking(); });
+  document.getElementById('aura-chat-fab').onclick = toggleChat;
+  document.getElementById('aura-chat-send').onclick = sendChat;
+  document.getElementById('aura-chat-input').addEventListener('keydown', e => { if (e.key === 'Enter') sendChat(); });
+}
+
+/* ═══════════ BOOKING ═══════════ */
+const bk = { step:1, tourId:null, mode:'private', people:2, date:'', time:'', extraStops:0, childSeat:false, coupon:'', name:'', email:'', phone:'', notes:'', quote:null, clientSecret:null, bookingId:null };
+let stripeObj = null, stripeElements = null;
+
+function openBooking(tourId) {
+  load();
+  bk.step = tourId ? 2 : 1;
+  if (tourId) bk.tourId = tourId;
+  bk.quote = null; bk.clientSecret = null;
+  document.getElementById('au-title').textContent = t('title');
+  document.getElementById('aura-bk').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  if (S.tours.length) render();
+  else load().then(render);
+  track('booking_open', { tour: tourId || null });
+}
+function closeBooking() {
+  document.getElementById('aura-bk').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function err(m) { document.getElementById('au-err').textContent = m || ''; }
+function tour() { return S.tours.find(x => x.id === bk.tourId) || null; }
+function fromPrice(x) {
+  if (x.pricing?.private) return Math.min(...Object.values(x.pricing.private).filter(Number.isFinite));
+  if (x.pricing?.shared) return x.pricing.shared.perPerson;
+  return null;
+}
+function estimate() {
+  const x = tour(); if (!x) return null;
+  let base = 0;
+  if (bk.mode === 'shared' && x.pricing?.shared) base = x.pricing.shared.perPerson * bk.people;
+  else if (x.pricing?.private) {
+    const band = bk.people <= 3 ? '1-3' : bk.people <= 5 ? '4-5' : '6-7';
+    base = x.pricing.private[band] || 0;
+    if (x.custom?.extraStopFee) base += bk.extraStops * x.custom.extraStopFee;
+  }
+  if (bk.childSeat) base += (S.extras.childSeat?.price ?? 25);
+  return base;
+}
+
+function render() {
+  err('');
+  document.querySelectorAll('#aura-bk .au-steps i').forEach((el, i) => el.classList.toggle('on', i < bk.step));
+  const body = document.getElementById('au-body');
+
+  /* pausa prenotazioni: gestita anche lato server, qui il messaggio gentile */
+  if (S.settings.bookingPaused) {
+    body.innerHTML = `<div style="text-align:center;padding:26px 8px">
+      <div style="font-size:40px;margin-bottom:12px">🛠</div>
+      <p style="font-size:15px;line-height:1.7;color:var(--au-ink2);max-width:380px;margin:0 auto 20px">${esc(S.settings.pausedMessage || 'Prenotazioni online momentaneamente in pausa. Scrivici su WhatsApp: rispondiamo subito!')}</p>
+      <a class="au-btn fill" href="${esc(S.settings.whatsappHref)}?text=${encodeURIComponent(t('waText'))}" target="_blank" rel="noopener">WhatsApp</a>
+    </div>`;
+    return;
+  }
+
+  /* promo attiva dal CMS: coupon precompilato */
+  const promo = S.content?.promo;
+  if (promo?.active && promo.code && !bk.coupon) bk.coupon = String(promo.code).toUpperCase();
+
+  const x = tour();
+
+  if (bk.step === 1) {
+    body.innerHTML = `<span class="au-lbl">${t('s1')}</span>
+      ${S.tours.map(v => {
+        const price = fromPrice(v);
+        const isShared = !v.pricing?.private && v.pricing?.shared;
+        return `<div class="au-opt ${bk.tourId === v.id ? 'sel' : ''}" data-tour="${esc(v.id)}">
+          ${v.image ? `<img class="au-thumb" src="${esc(rel(v.image))}" alt="" loading="lazy">` : ''}
+          <div class="t"><b>${esc(loc(v.names))}</b><small>${esc(v.duration || '')} · ${esc(loc(v.taglines))}</small></div>
+          <div class="p">${t('from')} ${eur(price)}${isShared ? ' ' + t('pp') : ''}</div>
+        </div>`;
+      }).join('')}
+      <div class="au-nav"><span></span>
+        <button class="au-btn fill" id="au-n1" ${bk.tourId ? '' : 'disabled'}>${t('next')}</button></div>`;
+    body.querySelectorAll('[data-tour]').forEach(el => el.onclick = () => { bk.tourId = el.dataset.tour; render(); });
+    body.querySelector('#au-n1').onclick = () => { if (bk.tourId) { bk.step = 2; render(); } };
+    return;
+  }
+
+  if (bk.step === 2) {
+    const hasShared = !!x?.pricing?.shared, hasPrivate = !!x?.pricing?.private;
+    if (!hasPrivate && hasShared) bk.mode = 'shared';
+    if (!hasShared && hasPrivate) bk.mode = 'private';
+    const maxPax = bk.mode === 'shared' ? (x?.pricing?.shared?.maxPax || 15) : (x?.maxPax || 7);
+    if (bk.people > maxPax) bk.people = maxPax;
+    const minDate = new Date(Date.now() + 86400000).toISOString().slice(0, 10);
+    const est = estimate();
+    body.innerHTML = `
+      <span class="au-lbl">${t('s2')} — ${esc(loc(x.names))}</span>
+      ${hasShared && hasPrivate ? `<div class="au-field"><span class="au-lbl">${t('mode')}</span><div class="au-row">
+        <div class="au-opt ${bk.mode === 'private' ? 'sel' : ''}" data-mode="private" style="margin:0"><div class="t"><b>${t('private')}</b></div></div>
+        <div class="au-opt ${bk.mode === 'shared' ? 'sel' : ''}" data-mode="shared" style="margin:0"><div class="t"><b>${t('shared')}</b><small>${eur(x.pricing.shared.perPerson)} ${t('pp')}</small></div></div>
+      </div></div>` : ''}
+      <div class="au-row">
+        <div class="au-field"><span class="au-lbl">${t('date')}</span><input type="date" class="au-in" id="au-date" min="${minDate}" value="${bk.date}"></div>
+        <div class="au-field"><span class="au-lbl">${t('pax')}</span><div class="au-pax">
+          <button id="au-pm">−</button><b>${bk.people}</b><button id="au-pp">+</button></div></div>
+      </div>
+      <div class="au-field"><span class="au-lbl">${t('time')}</span><div class="au-slots">
+        ${(S.settings.timeSlots || []).map(s => `<button class="au-slot ${bk.time === s ? 'sel' : ''}" data-slot="${s}">${s}</button>`).join('')}</div></div>
+      ${x?.custom?.extraStopFee ? `<div class="au-field"><span class="au-lbl">${t('extrastops')}</span><div class="au-pax">
+        <button id="au-sm">−</button><b>${bk.extraStops}</b><button id="au-sp">+</button></div></div>` : ''}
+      <div class="au-field"><span class="au-lbl">${t('extras')}</span>
+        <label class="au-check"><input type="checkbox" id="au-seat" ${bk.childSeat ? 'checked' : ''}> ${t('childseat')} ${(S.extras.childSeat?.price ?? 25) > 0 ? '(+' + eur(S.extras.childSeat?.price ?? 25) + ')' : '(' + t('free') + ')'}</label></div>
+      ${est ? `<div class="au-sum"><div class="li tot"><span>${t('est')}</span><span>${eur(est)}</span></div></div>` : ''}
+      <div class="au-nav">
+        <button class="au-btn line" id="au-b2">${t('back')}</button>
+        <button class="au-btn fill" id="au-n2">${t('next')}</button></div>`;
+    body.querySelectorAll('[data-mode]').forEach(el => el.onclick = () => { bk.mode = el.dataset.mode; render(); });
+    body.querySelectorAll('[data-slot]').forEach(el => el.onclick = () => { bk.time = el.dataset.slot; render(); });
+    const pm = body.querySelector('#au-pm'), pp = body.querySelector('#au-pp');
+    pm.onclick = () => { bk.people = Math.max(1, bk.people - 1); render(); };
+    pp.onclick = () => { bk.people = Math.min(maxPax, bk.people + 1); render(); };
+    const sm = body.querySelector('#au-sm'), sp = body.querySelector('#au-sp');
+    if (sm) sm.onclick = () => { bk.extraStops = Math.max(0, bk.extraStops - 1); render(); };
+    if (sp) sp.onclick = () => { bk.extraStops = Math.min(20, bk.extraStops + 1); render(); };
+    body.querySelector('#au-seat').onchange = e => { bk.childSeat = e.target.checked; render(); };
+    body.querySelector('#au-date').addEventListener('change', e => { bk.date = e.target.value; });
+    body.querySelector('#au-b2').onclick = () => { bk.step = 1; render(); };
+    body.querySelector('#au-n2').onclick = () => {
+      const d = body.querySelector('#au-date').value;
+      bk.date = d || bk.date;
+      if (!bk.date) return err(t('date') + ' ✱');
+      if (!bk.time) return err(t('time') + ' ✱');
+      if (S.blocked.has(bk.date)) return err(t('dateFull'));
+      bk.step = 3; render();
+    };
+    return;
+  }
+
+  if (bk.step === 3) {
+    body.innerHTML = `
+      <span class="au-lbl">${t('s3')}</span>
+      <div class="au-field"><input class="au-in" id="au-name" placeholder="${t('name')}" value="${esc(bk.name)}" autocomplete="name"></div>
+      <div class="au-row">
+        <div class="au-field"><input class="au-in" id="au-email" type="email" placeholder="${t('email')}" value="${esc(bk.email)}" autocomplete="email"></div>
+        <div class="au-field"><input class="au-in" id="au-phone" type="tel" placeholder="${t('phone')}" value="${esc(bk.phone)}" autocomplete="tel"></div>
+      </div>
+      <div class="au-field"><textarea class="au-in" id="au-notes" rows="2" placeholder="${t('notes')}">${esc(bk.notes)}</textarea></div>
+      <div class="au-field"><span class="au-lbl">${t('coupon')}</span>
+        <div style="display:flex;gap:9px">
+          <input class="au-in" id="au-coupon" placeholder="AURA15" value="${esc(bk.coupon)}" style="text-transform:uppercase;flex:1">
+          <button class="au-btn line" id="au-cbtn" style="padding:10px 20px;flex:none">${t('apply')}</button>
+        </div><div id="au-cmsg" style="font-size:12px;margin-top:6px"></div></div>
+      <div class="au-sum"><div class="li tot"><span>${t('est')}</span><span>${eur(estimate() || 0)}</span></div></div>
+      <div class="au-nav">
+        <button class="au-btn line" id="au-b3">${t('back')}</button>
+        <button class="au-btn fill" id="au-n3">${t('next')}</button></div>`;
+    body.querySelector('#au-b3').onclick = () => { bk.step = 2; render(); };
+    body.querySelector('#au-cbtn').onclick = applyCoupon;
+    body.querySelector('#au-n3').onclick = startCheckout;
+    return;
+  }
+
+  if (bk.step === 4) {
+    const qd = bk.quote;
+    body.innerHTML = `
+      <span class="au-lbl">${t('s4')} — ${esc(bk.bookingId || '')}</span>
+      <div class="au-sum">
+        ${(qd?.items || []).map(it => `<div class="li"><span>${esc(it.label)}</span><span>${eur(it.amount)}</span></div>`).join('')}
+        ${qd?.discount > 0 ? `<div class="li disc"><span>${t('discount')}</span><span>−${eur(qd.discount)}</span></div>` : ''}
+        <div class="li tot"><span>${t('total')}</span><span>${eur(qd?.total || 0)}</span></div>
+      </div>
+      <div id="aura-payel"></div>
+      <div class="au-nav">
+        <button class="au-btn line" id="au-b4">${t('back')}</button>
+        <button class="au-btn fill" id="au-pay">${t('pay')}</button></div>
+      <div class="au-secure">🔒 ${t('secure')}</div>`;
+    body.querySelector('#au-b4').onclick = () => { bk.step = 3; render(); };
+    body.querySelector('#au-pay').onclick = confirmPay;
+    mountStripe();
+    return;
+  }
+}
+
+async function applyCoupon() {
+  const code = document.getElementById('au-coupon').value.trim().toUpperCase();
+  const msg = document.getElementById('au-cmsg');
+  bk.coupon = code;
+  if (!code) { msg.textContent = ''; return; }
+  try {
+    const r = await fetch(API + '/coupon/validate', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ code }) }).then(r => r.json());
+    if (r.valid) { msg.style.color = '#0d7a3f'; msg.textContent = '✓ ' + code + ' — ' + (r.percent > 0 ? '−' + r.percent + '%' : '−' + eur(r.amountOff)); }
+    else { msg.style.color = '#B3261E'; msg.textContent = r.error || '✗'; bk.coupon = ''; }
+  } catch (_) { msg.textContent = ''; }
+}
+
+async function startCheckout() {
+  bk.name = document.getElementById('au-name').value.trim();
+  bk.email = document.getElementById('au-email').value.trim();
+  bk.phone = document.getElementById('au-phone').value.trim();
+  bk.notes = document.getElementById('au-notes').value.trim();
+  bk.coupon = document.getElementById('au-coupon').value.trim().toUpperCase();
+  if (!bk.name) return err(t('name') + ' ✱');
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(bk.email)) return err(t('email') + ' ✱');
+  const btn = document.getElementById('au-n3');
+  btn.disabled = true; btn.innerHTML = `<span class="au-spin"></span> ${t('processing')}`;
+  err('');
+  try {
+    const r = await fetch(API + '/checkout', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        customer: { name: bk.name, email: bk.email, phone: bk.phone },
+        booking: { tourId: bk.tourId, people: bk.people, mode: bk.mode, extraStops: bk.extraStops,
+          extras: { childSeat: bk.childSeat }, coupon: bk.coupon || undefined,
+          date: bk.date, time: bk.time, notes: bk.notes },
+        attribution: ATTRIBUTION || undefined,
+      }),
+    });
+    const data = await r.json();
+    if (!r.ok || !data.clientSecret) throw new Error(data.error || 'Checkout error');
+    bk.clientSecret = data.clientSecret; bk.bookingId = data.bookingId; bk.quote = data.quote;
+    bk.step = 4; render();
+    track('checkout_start', { tour: bk.tourId, total: data.quote?.total });
+  } catch (e) {
+    err(e.message + ' — WhatsApp: ' + S.settings.whatsapp);
+    btn.disabled = false; btn.textContent = t('next');
+  }
+}
+
+async function mountStripe() {
+  const pk = getStripePk();
+  const box = document.getElementById('aura-payel');
+  if (!pk) { box.innerHTML = `<div style="color:#B3261E;font-size:13px;padding:10px 0">Stripe publishable key mancante (window.AURA_STRIPE_PK).</div>`; return; }
+  box.innerHTML = `<div style="text-align:center;padding:14px"><span class="au-spin" style="border-color:rgba(29,22,15,.2);border-top-color:#A4441F"></span></div>`;
+  try { await loadStripeJs(); } catch (_) { box.innerHTML = `<div style="color:#B3261E;font-size:13px">Stripe.js non raggiungibile — riprova.</div>`; return; }
+  box.innerHTML = '';
+  stripeObj = stripeObj || Stripe(pk);
+  stripeElements = stripeObj.elements({
+    clientSecret: bk.clientSecret,
+    appearance: { theme: 'stripe', variables: { colorPrimary: '#A4441F', colorBackground: '#ffffff', colorText: '#1D160F', borderRadius: '12px', fontFamily: 'Archivo, sans-serif' } },
+  });
+  stripeElements.create('payment', { layout: 'tabs' }).mount('#aura-payel');
+}
+
+async function confirmPay() {
+  if (!stripeObj || !stripeElements) return;
+  const btn = document.getElementById('au-pay');
+  btn.disabled = true; btn.innerHTML = `<span class="au-spin"></span> ${t('processing')}`;
+  err('');
+  const { error } = await stripeObj.confirmPayment({
+    elements: stripeElements,
+    confirmParams: {
+      return_url: BASE + 'booking-success/?booking=' + encodeURIComponent(bk.bookingId || ''),
+      receipt_email: bk.email,
+    },
+  });
+  if (error) { err(error.message || 'Payment error'); btn.disabled = false; btn.textContent = t('pay'); }
+}
+
+/* ═══════════ CHAT — typing indicator + quick replies ═══════════ */
+let chatHistory = [], chatSession = null;
+function toggleChat() {
+  const p = document.getElementById('aura-chat');
+  p.classList.toggle('open');
+  if (p.classList.contains('open') && !chatHistory.length) {
+    addMsg('a', t('chatHello'));
+    showChips();
+    track('chat_open');
+  }
+}
+function addMsg(role, text) {
+  const box = document.getElementById('aura-chat-msgs');
+  const el = document.createElement('div');
+  el.className = 'au-msg ' + role;
+  el.textContent = text;
+  box.appendChild(el);
+  box.scrollTop = box.scrollHeight;
+  return el;
+}
+function showChips() {
+  const chips = t('chips');
+  if (!Array.isArray(chips) || !chips.length) return;
+  const box = document.getElementById('aura-chat-msgs');
+  const wrap = document.createElement('div');
+  wrap.className = 'au-chips';
+  wrap.id = 'aura-chips';
+  chips.forEach(c => {
+    const b = document.createElement('button');
+    b.className = 'au-chip';
+    b.textContent = c;
+    b.onclick = () => sendChatText(c);
+    wrap.appendChild(b);
+  });
+  box.appendChild(wrap);
+  box.scrollTop = box.scrollHeight;
+}
+async function sendChatText(msg) {
+  msg = String(msg || '').trim();
+  if (!msg) return;
+  const chips = document.getElementById('aura-chips');
+  if (chips) chips.remove();
+  addMsg('u', msg);
+  chatHistory.push({ role: 'user', content: msg });
+  const wait = addMsg('a', '');
+  wait.innerHTML = '<span class="au-typing"><i></i><i></i><i></i></span>';
+  try {
+    const r = await fetch(API + '/chat', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ messages: chatHistory.slice(-14), lang: S.lang, sessionId: chatSession }),
+    }).then(r => r.json());
+    chatSession = r.sessionId || chatSession;
+    wait.textContent = r.reply || '…';
+    chatHistory.push({ role: 'assistant', content: r.reply || '' });
+  } catch (_) { wait.textContent = 'WhatsApp: ' + S.settings.whatsapp + ' 💬'; }
+  document.getElementById('aura-chat-msgs').scrollTop = 1e6;
+}
+function sendChat() {
+  const input = document.getElementById('aura-chat-input');
+  const msg = input.value;
+  input.value = '';
+  sendChatText(msg);
+}
+
+/* ═══════════ API PUBBLICA ═══════════ */
+window.AURA = {
+  API, state: S, load, track, waClick, waRef,
+  openBooking, closeBooking, toggleChat,
+  googleLinks: GOOGLE_LINKS,
+  loadStripeJs,
+  base: BASE, rel,
+  attribution: ATTRIBUTION,
+  t: k => t(k), loc, eur, esc, fromPrice,
+  setLang(l) { S.lang = l; localStorage.setItem('aura_lang', l); },
+  get lang() { return S.lang; },
+};
+
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', () => { inject(); load(); wireWhatsApp(); });
+else { inject(); load(); wireWhatsApp(); }
+})();

@@ -1,0 +1,13 @@
+<!-- Inserisci prima di </body> in /tours/booking-success/index.html se NON usi il file già patchato -->
+<script>
+(function(){
+  var API = "https://TUO-BACKEND-RAILWAY.up.railway.app";
+  try {
+    var p = new URLSearchParams(location.search);
+    fetch(API + "/api/track/conversion", {
+      method:"POST", headers:{"Content-Type":"application/json"}, keepalive:true,
+      body: JSON.stringify({ type:"paid_booking_success", page:"/tours/booking-success", source:"stripe_success_redirect", referrer:document.referrer, payload:{ booking:p.get("booking"), tour:p.get("tour"), people:p.get("people"), total:p.get("total"), coupon:p.get("coupon"), couponPct:p.get("couponPct"), lang:p.get("lang"), tx:p.get("tx"), url:location.href } })
+    });
+  } catch(e){}
+})();
+</script>

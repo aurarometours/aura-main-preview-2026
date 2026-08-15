@@ -1,0 +1,1659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  /* Set the chosen language before first paint. English is the only default. */
+  (function () {
+    var valid = ['en', 'it', 'fr', 'de', 'es'];
+    var query = (new URLSearchParams(location.search).get('lang') || '').slice(0, 2);
+    var saved = null;
+    try { saved = localStorage.getItem('aura_lang'); } catch (_) {}
+    var initial = valid.includes(query) ? query : (valid.includes(saved) ? saved : 'en');
+    if (valid.includes(query)) { try { localStorage.setItem('aura_lang', query); } catch (_) {} }
+    document.documentElement.lang = initial;
+  })();
+</script>
+<script>window.AURA_PREVIEW = true;</script>
+<!-- ═══ TRACKING AURA — Google Ads + GA4 + Clarity (ripristinato dal sistema precedente) ═══ -->
+<!-- Production analytics are disabled in this public preview. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', 'AW-18053970309');
+  gtag('config', 'G-DGX5MSN0T6');
+  window.AURA_ADS_SEND_TO = 'AW-18053970309/L8gQCJiH15scEIXz5qBD';
+  /* conversione Google Ads: chiamata al pagamento confermato (valore in EUR, dedup per bookingId) */
+  window.auraFireConversion = function(value, txnId){
+    try {
+      var p = { send_to: window.AURA_ADS_SEND_TO };
+      if (value != null) { p.value = Number(value) || 0; p.currency = 'EUR'; }
+      if (txnId) p.transaction_id = String(txnId);
+      gtag('event', 'conversion', p);
+      gtag('event', 'purchase', { transaction_id: txnId || '', value: Number(value) || 0, currency: 'EUR' });
+    } catch(_){}
+  };
+  /* Microsoft Clarity: heatmap e registrazione sessioni */
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    if (window.AURA_PREVIEW) return;
+    t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+    y=l.getElementsByTagName(r)[0];if(y&&y.parentNode)y.parentNode.insertBefore(t,y);
+  })(window, document, 'clarity', 'script', 'wl9y0jbfoy');
+</script>
+<title>Aura Rome Tours — Private Golf Cart Tours in Rome</title>
+<meta name="description" content="Private golf cart tours in Rome's historic centre. Reserved cart for up to 7 guests, hotel pickup and secure online booking. From €390.">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<link rel="canonical" href="https://www.aurarometours.it/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Aura Rome Tours — Private Golf Cart Tours in Rome">
+<meta property="og:description" content="Premium private golf cart tours in Rome. Reserved cart, hotel pickup, instant confirmation. From €390.">
+<meta property="og:url" content="https://www.aurarometours.it/">
+<meta property="og:image" content="https://www.aurarometours.it/media/home-card-grande.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Golf cart tour privato nel centro storico di Roma">
+<meta property="og:site_name" content="Aura Rome Tours">
+<meta property="og:locale" content="en_GB">
+<meta property="og:locale:alternate" content="it_IT">
+<meta property="og:locale:alternate" content="fr_FR">
+<meta property="og:locale:alternate" content="de_DE">
+<meta property="og:locale:alternate" content="es_ES">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Aura Rome Tours — Private Golf Cart Tours in Rome">
+<meta name="twitter:description" content="Private golf cart tours in the historic centre of Rome. Reserved cart up to 7 guests, hotel pickup, instant confirmation. From €390.">
+<meta name="twitter:image" content="https://www.aurarometours.it/media/home-card-grande.jpg">
+<link rel="alternate" hreflang="it" href="https://www.aurarometours.it/">
+<link rel="alternate" hreflang="en" href="https://www.aurarometours.it/?lang=en">
+<link rel="alternate" hreflang="fr" href="https://www.aurarometours.it/?lang=fr">
+<link rel="alternate" hreflang="de" href="https://www.aurarometours.it/?lang=de">
+<link rel="alternate" hreflang="es" href="https://www.aurarometours.it/?lang=es">
+<link rel="alternate" hreflang="x-default" href="https://www.aurarometours.it/?lang=en">
+<link rel="icon" href="aura-favicon/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="aura-favicon/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="theme-color" content="#F7F2E9">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"TouristTrip","name":"Aura Rome Tours — Private Golf Cart Tours",
+"description":"Private golf cart tours in the historic centre of Rome. Reserved cart up to 7 guests, hotel pickup, secure online booking.",
+"provider":{"@type":"LocalBusiness","name":"Aura Rome Tours","url":"https://www.aurarometours.it","image":"https://www.aurarometours.it/media/home-card-grande.jpg","telephone":"+39 320 689 1014","priceRange":"€390 - €590","address":{"@type":"PostalAddress","addressLocality":"Roma","addressRegion":"RM","addressCountry":"IT"},"geo":{"@type":"GeoCoordinates","latitude":41.9028,"longitude":12.4964},"areaServed":"Roma","aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"120"}},
+"offers":{"@type":"Offer","price":"390","priceCurrency":"EUR","availability":"https://schema.org/InStock"}}
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+{"@type":"Question","name":"Dove ci venite a prendere?","acceptedAnswer":{"@type":"Answer","text":"Direttamente al vostro hotel o Airbnb nel centro di Roma, oppure in un punto di incontro concordato."}},
+{"@type":"Question","name":"I prezzi sono a persona?","acceptedAnswer":{"@type":"Answer","text":"No: i tour hanno un prezzo per gruppo — l'intero cart è vostro, fino a 7 ospiti."}},
+{"@type":"Question","name":"Come funziona la cancellazione?","acceptedAnswer":{"@type":"Answer","text":"Cancellazione gratuita fino a 24 ore prima del tour, con rimborso completo."}},
+{"@type":"Question","name":"Come si paga?","acceptedAnswer":{"@type":"Answer","text":"Online con carta tramite Stripe: Visa, Mastercard, Amex, Apple Pay e Google Pay. Conferma immediata via email."}}
+]}
+</script>
+<style>
+/* ═════════════════ AURA · TRAVERTINO ROMANO ═════════════════
+   Palette: travertino, inchiostro espresso, terracotta imperiale.
+   Tipografia: Fraunces (display) + Archivo (testo).            */
+:root{
+  --paper:#F7F2E9; --paper2:#EFE7D8; --paper3:#E7DCC6;
+  --ink:#1D160F; --ink2:#4a4033; --ink3:#8b7f6d;
+  --terra:#A4441F; --terra2:#8C3717; --gold:#A9853F;
+  --line:rgba(29,22,15,.14); --line2:rgba(29,22,15,.3);
+  --serif:'Fraunces',Georgia,serif; --sans:'Archivo',system-ui,sans-serif;
+  --max:1280px; --ease:cubic-bezier(.22,1,.36,1);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);font-size:16px;line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+::selection{background:var(--terra);color:var(--paper)}
+img,video{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:var(--max);margin:0 auto;padding:0 24px}
+.serif{font-family:var(--serif)}
+
+/* texture carta */
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .03 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ── ornamento di sezione (sostituisce il vecchio colonnato) ── */
+.orn{display:flex;align-items:center;justify-content:center;gap:14px;margin:0 auto clamp(30px,4vw,44px)}
+.orn::before,.orn::after{content:'';width:64px;height:1px;background:var(--line2)}
+.orn svg{width:20px;height:20px;flex:none;opacity:.85}
+
+/* ── preloader ── */
+#loader{position:fixed;inset:0;z-index:200;background:var(--paper);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;transition:opacity .6s var(--ease),visibility .6s}
+#loader.off{opacity:0;visibility:hidden}
+#loader svg{width:74px;height:74px}
+#loader svg path{stroke-dasharray:200;stroke-dashoffset:200;animation:draw 1.4s var(--ease) forwards}
+#loader svg path:nth-child(2){animation-delay:.25s}
+@keyframes draw{to{stroke-dashoffset:0}}
+#loader .w{font-family:var(--serif);font-size:15px;letter-spacing:.55em;text-transform:uppercase;color:var(--ink2);padding-left:.55em;opacity:0;animation:fadein .8s .5s forwards}
+#loader .pct{font-family:var(--serif);font-style:italic;font-size:13px;color:var(--terra);opacity:0;animation:fadein .6s .3s forwards;min-height:18px}
+@keyframes fadein{to{opacity:1}}
+
+/* ── scroll progress ── */
+#prog{position:fixed;top:0;left:0;height:2.5px;background:var(--terra);z-index:130;width:0;transition:width .1s linear}
+
+/* ── logo ── */
+.logo-mark{width:34px;height:34px;flex:none}
+nav .brand{flex-direction:row;align-items:center;gap:11px}
+.brand .bt{display:flex;flex-direction:column;line-height:1;white-space:nowrap}
+nav .brand .b1{font-size:23px;line-height:1}
+nav .brand .b2{margin-top:3px;letter-spacing:.42em}
+
+/* ── hero: reveal a righe mascherate ── */
+.mask-line{display:block;overflow:hidden}
+.mask-line>span{display:block;transform:translateY(110%);transition:transform 1.1s var(--ease)}
+body.ready .mask-line>span{transform:none}
+body.ready .mask-line:nth-child(2)>span{transition-delay:.12s}
+
+/* nav auto-hide */
+nav{transition:transform .4s var(--ease)}
+nav.hide{transform:translateY(-100%)}
+
+/* parallax immagini tour */
+.trow .visual img{will-change:transform}
+
+/* cursore custom (solo desktop con mouse) */
+#cur{position:fixed;z-index:1000;pointer-events:none;width:10px;height:10px;border-radius:50%;background:var(--terra);transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s;mix-blend-mode:multiply;display:none}
+#cur.big{width:64px;height:64px;background:rgba(164,68,31,.16)}
+@media(hover:hover) and (pointer:fine){#cur{display:block}}
+
+/* reveals */
+.rv{opacity:0;transform:translateY(34px);transition:opacity 1s var(--ease),transform 1s var(--ease)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.1s}.rv-d2{transition-delay:.2s}.rv-d3{transition-delay:.3s}
+.clip{clip-path:inset(0 0 100% 0);transition:clip-path 1.2s var(--ease)}
+.clip.in{clip-path:inset(0 0 0% 0)}
+@media(prefers-reduced-motion:reduce){.rv,.clip{opacity:1;transform:none;clip-path:none;transition:none}html{scroll-behavior:auto}}
+
+/* ── ticker ── */
+.ticker{background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap;font-size:11px;letter-spacing:.3em;text-transform:uppercase;padding:9px 0;position:relative;z-index:5}
+.ticker-track{display:inline-flex;gap:0;animation:tick 30s linear infinite}
+.ticker span{padding:0 26px}
+.ticker b{color:var(--paper3);font-weight:600}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ── annuncio CMS ── */
+#annbar{display:none;background:var(--terra);color:#fff;text-align:center;font-size:12.5px;letter-spacing:.05em;padding:9px 16px;position:relative;z-index:5}
+
+/* ── nav ── */
+nav{position:sticky;top:0;z-index:80;background:rgba(247,242,233,.9);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:74px;gap:18px}
+.brand{display:flex;flex-direction:column;line-height:1}
+.brand .b1{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.02em}
+.brand .b2{font-size:8.5px;letter-spacing:.5em;text-transform:uppercase;color:var(--ink3);margin-top:4px}
+.nav-links{display:flex;gap:34px}
+.nav-links a{font-size:13px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--ink2);position:relative;transition:color .2s}
+.nav-links a:hover{color:var(--terra)}
+.nav-right{display:flex;gap:12px;align-items:center}
+.lang{background:transparent;border:1px solid var(--line);color:var(--ink2);border-radius:999px;padding:7px 10px;font-size:12px;font-weight:600;outline:none;cursor:pointer}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;border-radius:999px;font-weight:600;font-size:12.5px;letter-spacing:.12em;text-transform:uppercase;padding:15px 30px;border:1px solid var(--ink);transition:all .3s var(--ease);position:relative;overflow:hidden}
+.btn.fill::before,.btn.terra::before{content:'';position:absolute;top:0;left:-90%;width:55%;height:100%;background:linear-gradient(105deg,transparent,rgba(255,255,255,.4),transparent);transform:skewX(-20deg);transition:left .1s;pointer-events:none}
+.btn.fill:hover::before,.btn.terra:hover::before{left:140%;transition:left .65s var(--ease)}
+.btn.fill{background:var(--ink);color:var(--paper)}
+.btn.fill:hover{background:var(--terra);border-color:var(--terra);transform:translateY(-2px);box-shadow:0 16px 34px rgba(164,68,31,.28)}
+.btn.hollow{background:transparent;color:var(--ink)}
+.btn.hollow:hover{background:var(--ink);color:var(--paper)}
+.btn.terra{background:var(--terra);border-color:var(--terra);color:#fff}
+.btn.terra:hover{background:var(--terra2);transform:translateY(-2px)}
+.btn.paper{background:var(--paper);border-color:var(--paper);color:var(--ink)}
+.btn.paper:hover{background:var(--paper3)}
+.btn.sm{padding:11px 20px;font-size:11.5px}
+#hamb{display:none;background:none;border:1px solid var(--line);border-radius:999px;width:42px;height:42px;font-size:17px;color:var(--ink)}
+@media(max-width:960px){.nav-links{display:none}#hamb{display:block}}
+#mobmenu{position:fixed;inset:0;background:var(--paper);z-index:120;display:none;flex-direction:column;align-items:flex-start;justify-content:center;padding:0 34px;gap:8px}
+#mobmenu.open{display:flex}
+#mobmenu a{font-family:var(--serif);font-size:44px;font-weight:500;letter-spacing:-.02em;border-bottom:1px solid var(--line);width:100%;padding:14px 0}
+#mobmenu .x{position:absolute;top:20px;right:22px;background:var(--ink);color:var(--paper);border:none;border-radius:50%;width:46px;height:46px;font-size:19px}
+
+/* ── hero ── */
+.hero{position:relative;padding:64px 0 40px;overflow:hidden}
+.hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:44px;align-items:center}
+@media(max-width:960px){.hero-grid{grid-template-columns:1fr;gap:30px}}
+.hero-kicker{display:flex;align-items:center;gap:12px;font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:26px}
+.hero-kicker::before{content:'';width:44px;height:1px;background:var(--terra)}
+.hero h1{font-family:var(--serif);font-weight:400;font-size:clamp(40px,6vw,104px);line-height:.96;letter-spacing:-.03em}
+.hero h1 .l2{display:block;padding-left:.9em}
+.hero h1 em{font-style:italic;color:var(--terra);font-weight:340}
+.hero-sub{max-width:440px;color:var(--ink2);font-size:16.5px;line-height:1.75;margin-top:30px}
+.hero-ctas{display:flex;gap:14px;margin-top:36px;flex-wrap:wrap;align-items:center}
+.hero-meta{display:flex;gap:26px;margin-top:44px;flex-wrap:wrap}
+.hero-meta div b{font-family:var(--serif);font-size:21px;font-weight:600;display:block}
+.hero-meta div span{font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink3)}
+.hero-visual{position:relative}
+.arch{position:relative;border-radius:999px 999px 18px 18px;overflow:hidden;aspect-ratio:3/4;border:1px solid var(--line2);background:var(--paper2)}
+.arch video,.arch img{width:100%;height:100%;object-fit:cover}
+.hero-visual .arch video{transform:scale(1.22);transition:transform 3s var(--ease)}
+body.ready .hero-visual .arch video{transform:scale(1.02)}
+.hero-visual .arch{box-shadow:26px 26px 0 -1px var(--paper2),26px 26px 0 0 var(--line)}
+.stamp{position:absolute;left:-46px;bottom:26px;width:132px;height:132px;animation:rot 16s linear infinite;filter:drop-shadow(0 8px 18px rgba(29,22,15,.18));cursor:pointer;z-index:3}
+@keyframes rot{to{transform:rotate(360deg)}}
+@media(max-width:960px){.stamp{left:auto;right:-8px;bottom:-18px;width:110px;height:110px}.hero-visual .arch{box-shadow:14px 14px 0 -1px var(--paper2),14px 14px 0 0 var(--line)}}
+
+/* ── manifesto ── */
+.manifesto{padding:clamp(52px,6.5vw,92px) 0 clamp(44px,5.5vw,78px);border-top:1px solid var(--line)}
+.manifesto p{font-family:var(--serif);font-weight:400;font-size:clamp(27px,4vw,46px);line-height:1.28;letter-spacing:-.015em;max-width:1080px}
+.manifesto p em{font-style:italic;color:var(--terra)}
+.manifesto .inicon{display:inline-flex;align-items:center;justify-content:center;width:1.7em;height:1.15em;border-radius:999px;vertical-align:-14%;margin:0 .14em;border:1px solid var(--line2);background:var(--paper2);color:var(--terra)}
+.manifesto .inicon svg{width:58%;height:58%}
+.manifesto .sig{margin-top:34px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--ink3)}
+
+/* ── section head ── */
+.shead{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:64px;flex-wrap:wrap}
+.shead .k{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:var(--terra);font-weight:600;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.shead .k::before{content:'';width:34px;height:1px;background:var(--terra)}
+.shead h2{font-family:var(--serif);font-weight:400;font-size:clamp(30px,4.4vw,66px);line-height:1.02;letter-spacing:-.025em}
+.shead h2 em{font-style:italic;color:var(--terra)}
+.shead .side{max-width:320px;color:var(--ink2);font-size:14.5px;line-height:1.7;padding-bottom:8px}
+
+/* ── tours editoriale ── */
+#tours{padding:clamp(52px,7vw,92px) 0}
+.trow{display:grid;grid-template-columns:90px 1fr 1.05fr;gap:40px;align-items:center;padding:54px 0;border-top:1px solid var(--line);position:relative}
+.trow:last-child{border-bottom:1px solid var(--line)}
+.trow .num{font-family:var(--serif);font-style:italic;font-weight:300;font-size:56px;color:var(--paper3);-webkit-text-stroke:1px var(--ink3);line-height:1}
+.trow .info h3{font-family:var(--serif);font-weight:500;font-size:clamp(30px,3.4vw,44px);letter-spacing:-.02em;line-height:1.05}
+.trow .info .tg{font-family:var(--serif);font-style:italic;font-size:19px;color:var(--terra);margin-top:8px}
+.trow .info .ds{color:var(--ink2);font-size:14.5px;line-height:1.75;margin-top:16px;max-width:460px}
+.trow .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.trow .chips span{font-size:11px;letter-spacing:.06em;border:1px solid var(--line2);border-radius:999px;padding:5px 13px;color:var(--ink2)}
+.trow .meta{display:flex;align-items:center;gap:22px;margin-top:28px;flex-wrap:wrap}
+.tlink{font-size:12px;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--terra);border-bottom:1px solid rgba(164,68,31,.35);padding-bottom:2px;transition:.2s}
+.tlink:hover{border-bottom-color:var(--terra)}
+.trow .price b{font-family:var(--serif);font-size:32px;font-weight:600}
+.trow .price span{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);display:block}
+.trow .visual{position:relative}
+.trow .visual .arch{aspect-ratio:4/3.4;border-radius:999px 999px 20px 20px}
+/* .par = strato parallasse (JS trasla), l'img dentro fa zoom+colore all'hover: mai in conflitto */
+.trow .visual .par{position:absolute;inset:0;will-change:transform}
+.trow .visual img{width:100%;height:100%;object-fit:cover;transform:scale(1.02);transition:transform 1s var(--ease)}
+.trow:hover .visual img{transform:scale(1.08)}
+.trow .visual .hvid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s var(--ease);pointer-events:none}
+.trow:hover .visual .hvid{opacity:1}
+.trow .badge{position:absolute;bottom:16px;left:16px;background:var(--paper);border:1px solid var(--line2);border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;padding:8px 15px;z-index:2}
+.trow .dur{position:absolute;bottom:16px;right:16px;background:var(--ink);color:var(--paper);border-radius:999px;font-size:11.5px;font-weight:600;letter-spacing:.08em;padding:8px 15px;z-index:2}
+@media(min-width:901px){
+  /* zigzag: righe pari con la card a sinistra e il testo a destra */
+  .trow:nth-child(even) .info{order:3}
+  .trow:nth-child(even) .visual{order:2}
+}
+@media(max-width:900px){
+  .trow{grid-template-columns:1fr;gap:22px;padding:44px 0}
+  .trow .num{font-size:40px;position:absolute;top:44px;right:0}
+  .trow .visual{order:-1}
+}
+
+/* ── steps ── */
+.steps{background:var(--paper2);border-block:1px solid var(--line);padding:clamp(48px,6.5vw,88px) 0}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.step{padding:36px 34px;border-left:1px solid var(--line)}
+.step:first-child{border-left:none}
+.step .rn{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--terra);letter-spacing:.2em;margin-bottom:22px}
+.step h3{font-family:var(--serif);font-weight:500;font-size:27px;letter-spacing:-.01em;margin-bottom:13px}
+.step p{color:var(--ink2);font-size:14.5px;line-height:1.75}
+@media(max-width:860px){.steps-grid{grid-template-columns:1fr}.step{border-left:none;border-top:1px solid var(--line);padding:30px 4px}.step:first-child{border-top:none}}
+
+/* ── banda scura stats ── */
+.dark{background:var(--ink);color:var(--paper);padding:clamp(50px,7vw,92px) 0;position:relative;overflow:hidden}
+.dark .shead .k,.dark .shead h2 em{color:#D98E5F}
+.dark .shead .k::before{background:#D98E5F}
+.dark .shead .side{color:rgba(247,242,233,.6)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:20px}
+.stat{border:1px solid rgba(247,242,233,.16);border-radius:18px;padding:34px 28px;transition:.3s}
+.stat:hover{border-color:#D98E5F;transform:translateY(-4px)}
+.stat b{font-family:var(--serif);font-weight:400;font-size:clamp(40px,4.6vw,64px);line-height:1;display:block;letter-spacing:-.02em}
+.stat span{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,242,233,.55);display:block;margin-top:12px}
+@media(max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+.dark-marq{margin-top:90px;overflow:hidden;white-space:nowrap;border-top:1px solid rgba(247,242,233,.14);padding-top:34px}
+.dark-marq .in{display:inline-flex;animation:tick 26s linear infinite;font-family:var(--serif);font-style:italic;font-weight:300;font-size:clamp(30px,4.4vw,54px);color:rgba(247,242,233,.35)}
+.dark-marq span{padding:0 34px}
+.dark-marq b{color:#D98E5F;font-weight:400}
+
+/* ── itinerario orizzontale ── */
+.iti{padding:clamp(50px,7vw,92px) 0 clamp(34px,4vw,52px)}
+.iti-track{display:flex;gap:16px;overflow-x:auto;padding:10px 24px 34px;scroll-snap-type:x proximity;scrollbar-width:none}
+.iti-track::-webkit-scrollbar{display:none}
+.iti-card{flex:0 0 min(280px,74vw);scroll-snap-align:start;background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;position:relative;transition:transform .35s var(--ease),border-color .3s,box-shadow .35s var(--ease)}
+.iti-card:hover{border-color:var(--terra);transform:translateY(-6px);box-shadow:0 22px 50px rgba(29,22,15,.14)}
+.iti-card .im{aspect-ratio:16/10;overflow:hidden;position:relative}
+.iti-card .im img{width:100%;height:100%;object-fit:cover;filter:saturate(.7);transition:transform .9s var(--ease),filter .5s}
+.iti-card:hover .im img{transform:scale(1.08);filter:none}
+.iti-card .n{position:absolute;top:12px;left:14px;z-index:2;font-family:var(--serif);font-style:italic;font-size:13px;color:#fff;background:rgba(29,22,15,.65);backdrop-filter:blur(4px);border-radius:999px;padding:4px 12px}
+.iti-card .bd{padding:18px 22px 22px}
+.iti-card h4{font-family:var(--serif);font-weight:500;font-size:22px;letter-spacing:-.01em}
+.iti-card p{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:6px}
+.iti-hint{text-align:center;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink3)}
+
+/* ── Google badge ── */
+.gbadge{display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:999px;padding:9px 16px;box-shadow:0 6px 22px rgba(29,22,15,.08);transition:.25s;cursor:pointer}
+.gbadge:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(29,22,15,.14)}
+.gbadge .gl{width:19px;height:19px;flex:none}
+.gbadge b{font-size:14px}
+.gbadge .st{color:#FBBC04;letter-spacing:1px;font-size:12px}
+.gbadge small{font-size:11px;color:var(--ink3)}
+
+/* ── reviews ── */
+.revs{padding:clamp(50px,7vw,92px) 0;border-top:1px solid var(--line)}
+.rev-grid2{display:grid;grid-template-columns:330px 1fr;gap:56px;align-items:start}
+@media(max-width:960px){.rev-grid2{grid-template-columns:1fr;gap:34px}}
+.rev-sum{background:#fff;border:1px solid var(--line);border-radius:22px;padding:34px 32px;text-align:center;position:sticky;top:110px}
+.rev-sum .gl{width:30px;height:30px;margin:0 auto 14px}
+.rev-sum .big{font-family:var(--serif);font-weight:500;font-size:74px;line-height:1;letter-spacing:-.03em}
+.rev-sum .st{color:#FBBC04;font-size:19px;letter-spacing:4px;margin-top:8px}
+.rev-sum .cnt{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-top:10px}
+.rev-sum .gsub{font-size:11px;color:var(--ink3);margin-top:4px}
+.rev-sum .btns{display:flex;flex-direction:column;gap:9px;margin-top:24px}
+.rev-sum .btns a{font-size:11.5px}
+.rev-who-row{display:flex;align-items:center;gap:13px;margin-top:26px}
+.rev-who-row img{width:44px;height:44px;border-radius:50%;border:1px solid var(--line2);object-fit:cover}
+.rev-who-row .ini{width:44px;height:44px;border-radius:50%;background:var(--terra);color:#fff;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:19px}
+.rev-who-row .wt b{display:block;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.rev-who-row .wt span{font-size:11.5px;color:var(--ink3)}
+.rev-gmark{display:inline-flex;align-items:center;gap:6px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);margin-left:auto}
+.rev-gmark svg{width:15px;height:15px}
+.rev-stage{position:relative;min-height:300px}
+.rev-slide{position:absolute;inset:0;opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .7s var(--ease);pointer-events:none}
+.rev-slide.on{opacity:1;transform:none;pointer-events:auto;position:relative}
+.rev-slide .stars{color:var(--terra);letter-spacing:5px;font-size:15px;margin-bottom:24px}
+.rev-slide blockquote{font-family:var(--serif);font-weight:400;font-size:clamp(24px,3.4vw,40px);line-height:1.3;letter-spacing:-.015em;max-width:940px}
+.rev-slide .who{margin-top:28px;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink3)}
+.rev-slide .who b{color:var(--ink);font-weight:600}
+.rev-nav{display:flex;gap:10px;margin-top:44px;align-items:center}
+.rev-nav button{width:52px;height:52px;border-radius:50%;border:1px solid var(--line2);background:transparent;font-size:18px;transition:.2s}
+.rev-nav button:hover{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.rev-nav .cnt{font-family:var(--serif);font-style:italic;font-size:15px;color:var(--ink3);margin-left:8px}
+
+/* ── ESPLORA — la Roma segreta ── */
+.esplora{padding:clamp(50px,7vw,92px) 0 clamp(46px,6vw,80px);background:var(--paper2);border-block:1px solid var(--line);overflow:hidden}
+.esp-track{display:flex;gap:18px;overflow-x:auto;padding:6px 24px 30px;cursor:grab;scrollbar-width:none;user-select:none;-webkit-user-select:none}
+.esp-track::-webkit-scrollbar{display:none}
+.esp-track.drag{cursor:grabbing}
+.esp-item{position:relative;flex:0 0 auto;height:min(430px,58vw);border-radius:18px;overflow:hidden;border:1px solid var(--line2);background:var(--paper3)}
+.esp-item:nth-child(3n+1){aspect-ratio:3/4}
+.esp-item:nth-child(3n+2){aspect-ratio:4/3;align-self:flex-end;height:min(360px,48vw)}
+.esp-item:nth-child(3n){aspect-ratio:1/1;height:min(390px,52vw)}
+.esp-item img{width:100%;height:100%;object-fit:cover;transition:transform 1.1s var(--ease),filter .5s;pointer-events:none}
+.esp-item:hover img{transform:scale(1.07)}
+.esp-item::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 52%,rgba(18,13,9,.86) 100%);opacity:.85;transition:opacity .4s}
+.esp-item .cap{position:absolute;left:0;right:0;bottom:0;padding:22px 20px;z-index:2;transform:translateY(8px);transition:transform .5s var(--ease)}
+.esp-item:hover .cap{transform:none}
+.esp-item .cap .rn{font-family:var(--serif);font-style:italic;font-size:12px;color:#D98E5F;letter-spacing:.16em;margin-bottom:5px}
+.esp-item .cap h4{font-family:var(--serif);font-weight:500;font-size:23px;color:#fff;letter-spacing:-.01em;line-height:1.1}
+.esp-item .cap p{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(247,242,233,.6);margin-top:5px;opacity:0;transition:opacity .4s .1s}
+.esp-item:hover .cap p{opacity:1}
+.esp-hint{display:flex;align-items:center;justify-content:center;gap:16px;font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink3)}
+.esp-hint .ln{width:60px;height:1px;background:var(--line2)}
+/* lightbox */
+#lb{position:fixed;inset:0;z-index:150;background:rgba(18,13,9,.96);display:none;align-items:center;justify-content:center;flex-direction:column;padding:26px}
+#lb.open{display:flex;animation:fade .3s}
+@keyframes fade{from{opacity:0}}
+#lb img{max-width:min(1040px,94vw);max-height:74vh;border-radius:14px;box-shadow:0 40px 120px rgba(0,0,0,.6)}
+#lb .lb-cap{color:var(--paper);text-align:center;margin-top:22px}
+#lb .lb-cap h4{font-family:var(--serif);font-weight:500;font-size:30px;letter-spacing:-.02em}
+#lb .lb-cap h4 em{font-style:italic;color:#D98E5F}
+#lb .lb-cap p{font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(247,242,233,.55);margin-top:7px}
+#lb .lb-x{position:absolute;top:20px;right:22px;background:rgba(247,242,233,.08);border:1px solid rgba(247,242,233,.25);color:var(--paper);border-radius:50%;width:48px;height:48px;font-size:18px;transition:.2s}
+#lb .lb-x:hover{background:var(--terra);border-color:var(--terra);color:#1D160F}
+#lb .lb-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(247,242,233,.08);border:1px solid rgba(247,242,233,.25);color:var(--paper);border-radius:50%;width:54px;height:54px;font-size:19px;transition:.2s}
+#lb .lb-nav:hover{background:var(--terra);border-color:var(--terra);color:#1D160F}
+#lb .lb-prev{left:20px} #lb .lb-next{right:20px}
+#lb .lb-cnt{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font-family:var(--serif);font-style:italic;color:rgba(247,242,233,.45);font-size:14px}
+@media(max-width:700px){#lb .lb-nav{width:44px;height:44px;top:auto;bottom:70px;transform:none}}
+
+/* ── faq ── */
+.faqs{padding:clamp(48px,6.5vw,88px) 0;background:var(--paper2);border-top:1px solid var(--line)}
+.faq-cols{max-width:840px;margin:0 auto}
+.faq{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:24px 4px;cursor:pointer;font-family:var(--serif);font-size:21px;font-weight:500;letter-spacing:-.01em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:'+';font-size:26px;color:var(--terra);transition:transform .3s;flex:none}
+.faq[open] summary::after{transform:rotate(45deg)}
+.faq p{color:var(--ink2);font-size:14.5px;line-height:1.8;padding:0 4px 26px;max-width:700px}
+
+/* ── final ── */
+.final{background:var(--terra);color:#fff;padding:clamp(58px,7.5vw,100px) 0;text-align:center;position:relative;overflow:hidden}
+.final::before{content:'';position:absolute;inset:0;background:radial-gradient(700px 340px at 50% 120%,rgba(0,0,0,.22),transparent 70%)}
+.final .wrap{position:relative}
+.final .k{font-size:11px;letter-spacing:.4em;text-transform:uppercase;opacity:.75;margin-bottom:24px}
+.final h2{font-family:var(--serif);font-weight:400;font-size:clamp(38px,5.8vw,88px);line-height:1;letter-spacing:-.03em}
+.final h2 em{font-style:italic}
+.final p{opacity:.85;max-width:480px;margin:26px auto 0;font-size:15.5px}
+.final .btn{margin-top:38px}
+
+/* ── footer ── */
+footer{background:var(--ink);color:var(--paper);padding:80px 0 30px}
+.foot-grid{display:grid;grid-template-columns:1.3fr 1fr 1fr 1fr;gap:44px;padding-bottom:64px}
+@media(max-width:820px){.foot-grid{grid-template-columns:1fr}}
+.foot-grid h4{font-size:10.5px;letter-spacing:.3em;text-transform:uppercase;color:rgba(247,242,233,.45);margin-bottom:18px}
+.foot-grid a,.foot-grid p{display:block;color:rgba(247,242,233,.75);font-size:14px;margin-bottom:10px;transition:color .2s}
+.foot-grid a:hover{color:#D98E5F}
+.foot-word{font-family:var(--serif);font-weight:500;font-size:clamp(70px,14vw,190px);line-height:.9;letter-spacing:-.04em;color:rgba(247,242,233,.1);text-align:center;user-select:none}
+.foot-bottom{border-top:1px solid rgba(247,242,233,.12);padding-top:24px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:11.5px;color:rgba(247,242,233,.4)}
+
+/* ── rifinitura responsive ── */
+@media(max-width:960px){
+  section{padding:64px 0}
+  .hero{padding:40px 0 30px}
+  .shead{margin-bottom:36px}
+  .esplora{padding:66px 0 58px}
+  .revs{padding:66px 0}
+  .rev-sum{position:static}
+  .manifesto{padding:70px 0 58px}
+}
+@media(max-width:640px){
+  .wrap{padding:0 18px}
+  .hero-ctas .btn{width:100%;justify-content:center}
+  .hero-meta{gap:16px 22px}
+  .gbadge{padding:8px 13px}
+  .trust-in,.stats{gap:14px}
+  .trow .meta{gap:12px}
+  .trow .meta .price{order:1}
+  .trow .meta .tlink{order:2;margin-left:auto}
+  .trow .meta .btn{order:3;flex:1 1 100%;justify-content:center;white-space:nowrap}
+  .steps,.faqs{padding:60px 0}
+  .final{padding:70px 0}
+  .foot-grid{gap:28px}
+  .iti-card{flex-basis:min(240px,80vw)}
+  .esp-item{height:min(340px,66vw)!important}
+  .btn{padding:14px 24px}
+}
+@media(max-width:400px){
+  .hero h1{font-size:44px}
+  .nav-in{gap:10px}
+  .lang{padding:6px 7px}
+}
+
+/* ═══ MYG 2026-08 · isolated Aura Main refinements ═══ */
+.book-seal{position:absolute;left:-42px;bottom:26px;width:110px;height:110px;border-radius:50%;border:1px solid #A4441F;background:#F4EDE5;color:#A4441F;padding:0;z-index:3;box-shadow:0 8px 24px rgba(29,22,15,.12);display:grid;place-items:center;transition:transform .3s var(--ease);overflow:hidden}
+.book-seal:hover{transform:translateY(-3px)}
+.book-seal:focus-visible{outline:2px solid #A4441F;outline-offset:3px}
+.book-seal-ring{position:absolute;inset:3px;width:calc(100% - 6px);height:calc(100% - 6px);animation:bookSealRotate 18s linear infinite;transform-origin:center}
+.book-seal-ring text{fill:#A4441F;font-family:var(--sans);font-size:8.2px;font-weight:700;letter-spacing:1.35px}
+.book-seal-core{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;position:relative;z-index:2}
+.book-seal-core img{width:36px;height:36px}
+.book-seal-core span{font-size:8px;font-weight:700;letter-spacing:.14em;color:#1D160F}
+@keyframes bookSealRotate{to{transform:rotate(360deg)}}
+@media(hover:hover){.book-seal:hover .book-seal-ring{animation-duration:28s}}
+
+.aura-way{background:#F4EDE5;padding:112px 0;overflow:hidden}
+.aura-way-grid{display:grid;grid-template-columns:5fr 7fr;gap:clamp(54px,7vw,96px);align-items:center;height:650px;min-height:650px}
+.aura-way-copy{max-width:520px}
+.aura-way-copy .k,.experience-intro .k{font-size:11px;letter-spacing:.34em;text-transform:uppercase;color:#A4441F;font-weight:700;margin-bottom:20px}
+.aura-way-copy h2,.experience-intro h2{font-family:var(--serif);font-weight:400;font-size:clamp(42px,5vw,72px);line-height:1.02;letter-spacing:-.025em}
+.aura-way-copy p{margin-top:28px;color:#1D160F;font-size:17px;line-height:1.8;max-width:500px}
+.aura-way-signature{font-size:10.5px;letter-spacing:.24em;color:#8E6837;margin-top:28px}
+.arch-sequence,.arch-colonnade{display:flex;align-items:flex-end;gap:8px}
+.arch-sequence{margin-top:34px}
+.arch-sequence i,.arch-colonnade i{display:block;width:22px;height:28px;border:1px solid #8E6837;border-bottom:0;border-radius:22px 22px 0 0;opacity:.72}
+.arch-sequence i:nth-child(2){height:36px}.arch-sequence i:nth-child(3){height:44px}
+.aura-way-visual{position:relative;min-height:620px;padding-left:70px}
+.aura-way-primary{height:100%;min-height:620px;border-radius:999px 999px 20px 20px;overflow:hidden;border:1px solid rgba(142,104,55,.45)}
+.aura-way-primary img,.aura-way-detail img{width:100%;height:100%;object-fit:cover}
+.aura-way-detail{position:absolute;width:230px;aspect-ratio:1;left:0;bottom:46px;overflow:hidden;border:10px solid #F4EDE5;box-shadow:0 18px 48px rgba(29,22,15,.16)}
+
+.experience-intro{height:112px;background:#F2E4D7;display:grid;grid-template-columns:auto auto 1fr;align-items:center;gap:24px;padding:0 max(24px,calc((100vw - 1280px)/2 + 72px));border-block:1px solid rgba(142,104,55,.32)}
+.experience-intro .arch-colonnade{align-self:end;margin-bottom:24px}
+.experience-intro .arch-colonnade i{width:14px;height:34px;opacity:.85}
+.experience-intro .k{margin:0;white-space:nowrap}
+.experience-intro h2{font-size:clamp(28px,3.2vw,48px);justify-self:end}
+
+#tours{background:#F2E4D7;padding:112px 0}
+.tour-collection{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
+.tour-card{grid-column:span 3;background:#F4EDE5;border:1px solid rgba(142,104,55,.35);display:flex;flex-direction:column;min-width:0;overflow:hidden;transition:transform .35s var(--ease),border-color .25s}
+.tour-card.secondary{grid-column:span 2}
+.tour-card:hover{transform:translateY(-5px);border-color:#A4441F}
+.tour-card .tour-visual{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:999px 999px 0 0;background:#F2E4D7}
+.tour-card.secondary .tour-visual{aspect-ratio:4/5}
+.tour-card .tour-visual img,.tour-card .tour-visual video{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
+.tour-card:hover .tour-visual img{transform:scale(1.045)}
+.tour-card .hvid{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .35s}
+.tour-card:hover .hvid{opacity:1}
+.tour-card .badge,.tour-card .dur{position:absolute;bottom:14px;z-index:2;border-radius:999px;padding:7px 12px;font-size:10px;font-weight:700;letter-spacing:.08em}
+.tour-card .badge{left:14px;background:#F4EDE5;color:#1D160F;border:1px solid rgba(142,104,55,.4)}
+.tour-card .dur{right:14px;background:#1D160F;color:#F4EDE5}
+.tour-card-body{display:flex;flex-direction:column;flex:1;padding:28px}
+.tour-card h3{font-family:var(--serif);font-size:clamp(27px,2.8vw,40px);line-height:1.05;font-weight:500}
+.tour-card .tg{font-family:var(--serif);font-style:italic;color:#A4441F;font-size:18px;margin-top:7px}
+.tour-card .ds{color:#1D160F;font-size:14px;line-height:1.7;margin-top:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.tour-card .chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:17px;max-height:62px;overflow:hidden}
+.tour-card .chips span{font-size:10.5px;border:1px solid rgba(142,104,55,.45);border-radius:999px;padding:5px 10px}
+.tour-card .meta{margin-top:auto;padding-top:24px;display:grid;grid-template-columns:auto 1fr;gap:12px 18px;align-items:end}
+.tour-card .price b{font-family:var(--serif);font-size:30px;display:block}.tour-card .price span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8E6837}
+.tour-card .meta .btn{justify-self:end}.tour-card .meta .tlink{grid-column:1/-1}
+.tour-swipe-controls{display:none}
+
+.steps{background:#F4EDE5;padding:112px 0;border-color:rgba(142,104,55,.35)}
+.steps-grid{gap:22px}
+.step{padding:0;background:#F2E4D7;border:1px solid rgba(142,104,55,.35)!important;display:flex;flex-direction:column;overflow:hidden}
+.step figure{height:260px;border-radius:999px 999px 0 0;overflow:hidden;background:#F4EDE5}
+.step figure img{width:100%;height:100%;object-fit:cover}
+.step>div{padding:28px 26px 32px}.step h3{font-size:28px}.step p{color:#1D160F}
+
+.aura-standard{background:#062748;padding:112px 0;max-height:none}
+.aura-standard .shead h2{color:#F4EDE5}.aura-standard .shead .k,.aura-standard .shead h2 em{color:#A4441F}.aura-standard .shead .k::before{background:#A4441F}.aura-standard .shead .side{color:#F4EDE5;opacity:.78}
+.standard-grid{display:grid;grid-template-columns:1.25fr 1fr;gap:18px}
+.standard-card{background:rgba(244,237,229,.06);border:1px solid rgba(244,237,229,.18);display:grid;grid-template-columns:180px 1fr;min-height:185px;overflow:hidden;color:#F4EDE5}
+.standard-card.standard-feature{grid-row:span 3;grid-template-columns:1fr;grid-template-rows:minmax(360px,1fr) auto}
+.standard-card figure{overflow:hidden;background:#1D160F}.standard-card figure img{width:100%;height:100%;object-fit:cover}
+.standard-card>div{padding:28px}.standard-card h3{font-family:var(--serif);font-size:27px;font-weight:500;line-height:1.1}.standard-card p{margin-top:10px;color:#F4EDE5;opacity:.78;font-size:14px;line-height:1.65}
+
+.revs{background:#F4EDE5;padding:112px 0}
+.rev-grid2>*{min-width:0}.rev-sum{box-sizing:border-box;max-width:100%}
+.rev-stage{position:relative;display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 40px)/3);gap:20px;min-height:0;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;padding-bottom:4px}
+.rev-stage::-webkit-scrollbar{display:none}
+.rev-slide,.rev-slide.on{position:relative;inset:auto;opacity:1;transform:none;pointer-events:auto;background:#F2E4D7;border:1px solid rgba(142,104,55,.35);padding:26px;min-height:310px;display:flex;flex-direction:column;scroll-snap-align:start}
+.rev-slide blockquote{font-size:clamp(19px,2vw,28px);line-height:1.4}.rev-who-row{margin-top:auto;padding-top:22px}
+.rev-nav{margin-top:24px}.voices-explore-separator{height:80px;background:#F4EDE5;display:flex;align-items:flex-end;justify-content:center}
+.voices-explore-separator .arch-colonnade{gap:10px}.voices-explore-separator i{width:30px;height:48px;opacity:.45}
+.esplora{background:#F2E4D7}
+
+.faqs{background:#F2E4D7;padding:112px 0}
+.faq-layout{display:grid;grid-template-columns:minmax(300px,4fr) minmax(0,6fr);gap:72px;align-items:start}
+.faq-photo{position:sticky;top:110px;aspect-ratio:4/5;border-radius:999px 999px 18px 18px;overflow:hidden;border:1px solid rgba(142,104,55,.4)}
+.faq-photo img{width:100%;height:100%;object-fit:cover}
+.faq-content .shead{margin-bottom:24px}.faq-cols{max-width:none}.faq summary{font-size:24px;padding:24px 0}.faq p{padding-left:0}
+.faq summary::after{content:'';width:21px;height:14px;border:1.5px solid #A4441F;border-bottom:0;border-radius:999px 999px 0 0;transition:transform .25s;transform-origin:center}
+.faq[open] summary::after{transform:rotate(90deg)}
+.faq summary:focus-visible{outline:2px solid #A4441F;outline-offset:3px}
+.faq-more{margin-top:22px}
+
+footer{position:relative;background:#1D160F;overflow:hidden}
+footer .wrap{position:relative;z-index:1}.foot-grid,.foot-bottom{position:relative;z-index:2}
+.foot-watermark{position:relative;max-width:560px;margin:0 auto;display:grid;place-items:center;min-height:240px}
+.foot-watermark img{position:absolute;width:100%;height:100%;object-fit:contain;opacity:.1;filter:brightness(0) invert(1)}
+.foot-watermark .foot-word{position:relative;z-index:1;color:rgba(242,228,215,.18)}
+
+body.aura-overlay-open #aura-chat-fab,body.aura-overlay-open #aura-wa-fab,body.tour-interacting #aura-chat-fab,body.tour-interacting #aura-wa-fab,body.faq-open #aura-chat-fab,body.faq-open #aura-wa-fab{opacity:0!important;pointer-events:none!important;transform:translateY(16px)!important}
+body.float-collision #aura-chat-fab,body.float-collision #aura-wa-fab{opacity:0!important;visibility:hidden!important;pointer-events:none!important}
+
+@media(min-width:1200px){.aura-way>.wrap,#tours>.wrap,.steps>.wrap,.aura-standard>.wrap,.revs>.wrap,.faqs>.wrap{padding-inline:72px}}
+@media(min-width:768px) and (max-width:1199px){.aura-way>.wrap,#tours>.wrap,.steps>.wrap,.aura-standard>.wrap,.revs>.wrap,.faqs>.wrap{padding-inline:40px}.aura-way{padding-block:88px}.aura-way-grid{grid-template-columns:1fr 1fr;height:620px;min-height:620px}.aura-way-visual{min-height:540px}.aura-way-primary{min-height:540px}.standard-card{grid-template-columns:145px 1fr}}
+@media(max-width:767px){
+  .book-seal{left:auto;right:-4px;bottom:-18px;width:84px;height:84px}.book-seal-ring text{font-size:8px;letter-spacing:1.1px}.book-seal-core img{width:28px;height:28px}.book-seal-core span{font-size:7px}
+  .aura-way{padding:72px 0}.aura-way>.wrap,#tours>.wrap,.steps>.wrap,.aura-standard>.wrap,.revs>.wrap,.faqs>.wrap{padding-inline:20px}.aura-way-grid{grid-template-columns:1fr;gap:32px;height:auto;min-height:0}.aura-way-copy h2{font-size:42px}.aura-way-copy p{font-size:15px}.aura-way-visual{min-height:0;padding:0;display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding-inline:20px 52px;scrollbar-width:none}.aura-way-visual::-webkit-scrollbar{display:none}.aura-way-primary,.aura-way-detail{position:relative;left:auto;bottom:auto;flex:0 0 min(84vw,360px);height:372px;min-height:0;border-width:1px;scroll-snap-align:start}.aura-way-detail{flex-basis:72vw;aspect-ratio:auto;box-shadow:none}
+  .experience-intro{height:72px;padding:0 20px;grid-template-columns:auto 1fr;gap:14px}.experience-intro .arch-colonnade{display:none}.experience-intro .k{font-size:9px}.experience-intro h2{font-size:24px;text-align:right}
+  #tours{padding:72px 0}.tour-collection{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-20px;padding:4px 56px 14px 20px}.tour-collection::-webkit-scrollbar{display:none}.tour-card,.tour-card.secondary{grid-column:auto;flex:0 0 min(84vw,360px);max-height:690px;scroll-snap-align:start}.tour-card .tour-visual,.tour-card.secondary .tour-visual{height:245px;aspect-ratio:auto;flex:none}.tour-card-body{padding:18px 22px}.tour-card h3{font-size:30px}.tour-card .ds{font-size:13.5px;margin-top:10px}.tour-card .chips{margin-top:10px}.tour-card .meta{padding-top:12px;gap:9px}.tour-card .meta .btn{grid-column:1/-1;width:100%}.tour-card .price b{font-size:28px}.tour-swipe-controls{display:flex;align-items:center;gap:9px;margin-top:18px;padding-right:64px;font-size:10px;letter-spacing:.16em;color:#8E6837}.tour-swipe-controls strong{margin-left:auto;color:#1D160F}.tour-swipe-controls button{width:38px;height:38px;border:1px solid rgba(142,104,55,.5);background:transparent;border-radius:50%;flex:none}
+  .steps{padding:72px 0}.steps-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-20px;padding:4px 56px 14px 20px}.steps-grid::-webkit-scrollbar{display:none}.step{flex:0 0 min(84vw,360px);max-height:560px;scroll-snap-align:start}.step figure{height:240px}.step>div{padding:24px}
+  .aura-standard{padding:72px 0}.standard-grid{display:flex;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;margin-inline:-20px;padding:4px 56px 14px 20px}.standard-grid::-webkit-scrollbar{display:none}.standard-card,.standard-card.standard-feature{flex:0 0 min(84vw,360px);height:400px;display:grid;grid-template-columns:1fr;grid-template-rows:190px 1fr;scroll-snap-align:start}.standard-card>div{padding:22px 24px}.standard-card h3{font-size:26px}
+  .revs{padding:72px 0}.rev-stage{grid-auto-columns:88%;gap:14px}.rev-slide,.rev-slide.on{min-height:320px;padding:22px}.voices-explore-separator{height:56px}.voices-explore-separator i{width:20px;height:34px}
+  .faqs{padding:72px 0}.faq-layout{grid-template-columns:1fr;gap:36px}.faq-photo{position:relative;top:auto;aspect-ratio:4/3;max-height:240px}.faq summary{font-size:22px;line-height:1.2;padding:22px 0}.faq p{font-size:14px}
+  footer{padding:52px 0 24px}.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px;padding-bottom:34px}.foot-grid>div:first-child,.foot-grid>div:last-child{grid-column:1/-1}.foot-grid h4{margin-bottom:12px}.foot-grid a,.foot-grid p{font-size:13px;margin-bottom:7px}.foot-watermark{position:absolute;left:7vw;bottom:62px;width:86vw;height:210px;min-height:0;margin:0;z-index:0}.foot-bottom{padding-top:18px}
+}
+@media(max-width:380px){.nav-right{gap:5px}.nav-right .btn.sm{padding:10px 13px;font-size:10.5px}#hamb{width:38px;height:38px}}
+@media(prefers-reduced-motion:reduce){.book-seal-ring{animation:none}.tour-card,.standard-card,.step{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<div id="loader" aria-hidden="true">
+  <svg viewBox="0 0 48 48" fill="none">
+    <path d="M8 44V24C8 15 15 8 24 8s16 7 16 16v20" stroke="#A4441F" stroke-width="3"/>
+    <path d="M17 44V27c0-4.5 3-8 7-8s7 3.5 7 8v17" stroke="#1D160F" stroke-width="2"/>
+  </svg>
+  <div class="w">Aura</div>
+  <div class="pct" id="loader-pct">I</div>
+</div>
+<script>
+/* failsafe indipendente: se qualsiasi cosa va storta, il sipario si alza comunque */
+setTimeout(function(){
+  var l=document.getElementById('loader');
+  if(l&&!l.classList.contains('off')){l.classList.add('off');document.body.classList.add('ready');}
+},2500);
+</script>
+<div id="prog"></div>
+<div id="cur"></div>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+<div id="annbar"></div>
+
+<nav>
+  <div class="wrap nav-in">
+    <a href="#" class="brand">
+      <svg class="logo-mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
+        <path d="M8 44V24C8 15 15 8 24 8s16 7 16 16v20" stroke="#A4441F" stroke-width="3.2"/>
+        <path d="M17 44V27c0-4.5 3-8 7-8s7 3.5 7 8v17" stroke="#1D160F" stroke-width="2.1"/>
+      </svg>
+      <span class="bt"><span class="b1">Aura</span><span class="b2">Rome Tours</span></span>
+    </a>
+    <div class="nav-links">
+      <a href="#tours" data-i="nav.tours">Experiences</a>
+      <a href="https://www.aurarometours.it/tours/" data-i="nav.tourspage">Tours</a>
+      <a href="#metodo" data-i="nav.how">The Method</a>
+      <a href="#esplora" data-i="nav.esp">Explore</a>
+      <a href="#voci" data-i="nav.rev">Voices</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <div class="nav-right">
+      <select class="lang" id="lang-sel" aria-label="Language">
+        <option value="en" selected>EN</option><option value="it">IT</option><option value="fr">FR</option>
+        <option value="de">DE</option><option value="es">ES</option>
+      </select>
+      <button class="btn fill sm" onclick="AURA.openBooking()" data-i="nav.book">Book now</button>
+      <button id="hamb" aria-label="Open menu" onclick="openMob()">☰</button>
+    </div>
+  </div>
+</nav>
+
+<div id="mobmenu">
+  <button class="x" aria-label="Close menu" onclick="mob()">✕</button>
+  <a href="#tours" onclick="mob()" data-i="nav.tours">Experiences</a>
+  <a href="https://www.aurarometours.it/tours/" onclick="mob()" data-i="nav.tourspage">Tours</a>
+  <a href="#metodo" onclick="mob()" data-i="nav.how">The Method</a>
+  <a href="#esplora" onclick="mob()" data-i="nav.esp">Explore</a>
+  <a href="#voci" onclick="mob()" data-i="nav.rev">Voices</a>
+  <a href="#faq" onclick="mob()">FAQ</a>
+  <button class="btn terra" style="margin-top:22px" onclick="mob();AURA.openBooking()" data-i="nav.book">Book now</button>
+</div>
+
+<!-- ═══ HERO ═══ -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <div class="hero-kicker rv" data-i="hero.k">Rome · Private golf cart tours</div>
+      <h1 id="hero-h1"><span class="mask-line"><span>The eternal city,</span></span><span class="mask-line l2"><span><em>at Aura's pace.</em></span></span></h1>
+      <p class="hero-sub rv rv-d2" id="hero-sub">A reserved golf cart, a driver who knows every alley, and Rome flowing past you at the right speed: the speed of wonder.</p>
+      <div class="hero-ctas rv rv-d3">
+        <button class="btn terra" onclick="AURA.openBooking()" data-i="hero.cta">Book your date</button>
+        <a class="btn hollow" href="#tours" data-i="hero.cta2">The experiences</a>
+      </div>
+      <div class="hero-meta rv rv-d3" style="align-items:center">
+        <div><b>€390</b><span data-i="hero.m1">from · per group</span></div>
+        <div><b>1–7</b><span data-i="hero.m2">guests per cart</span></div>
+        <div><b>24h</b><span data-i="hero.m3">free cancellation</span></div>
+        <a class="gbadge" id="g-chip" href="https://www.google.com/maps/search/?api=1&query=Aura%20Rome%20Tours%20Roma" target="_blank" rel="noopener">
+          <svg class="gl" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.2H12v4.1h6.5c-.1 1.1-.8 2.7-2.4 3.8l3.7 2.9c2.2-2 3.7-5 3.7-8.6z"/><path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.7-2.9c-1 .7-2.4 1.2-4.2 1.2-3.2 0-5.9-2.1-6.9-5.1L1.3 17.2C3.3 21.2 7.3 24 12 24z"/><path fill="#FBBC05" d="M5.1 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3L1.3 6.8C.5 8.4 0 10.1 0 12s.5 3.6 1.3 5.2l3.8-2.9z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1.1 15.2 0 12 0 7.3 0 3.3 2.8 1.3 6.8l3.8 2.9c1-3 3.7-5 6.9-5z"/></svg>
+          <b id="g-chip-val">5.0</b><span class="st">★★★★★</span><small id="g-chip-cnt">Google</small>
+        </a>
+      </div>
+    </div>
+    <div class="hero-visual rv rv-d2">
+      <div class="arch">
+        <video autoplay muted loop playsinline poster="assets/video/exploringrome_hero_1min_poster.jpg">
+          <source src="media/hero-rome.mp4" type="video/mp4">
+        </video>
+      </div>
+      <button class="book-seal" type="button" onclick="AURA.openBooking()" aria-label="Book your private Rome tour">
+        <svg class="book-seal-ring" viewBox="0 0 120 120" aria-hidden="true">
+          <defs><path id="book-seal-path" d="M60,60 m-44,0 a44,44 0 1,1 88,0 a44,44 0 1,1 -88,0"/></defs>
+          <text><textPath href="#book-seal-path">BOOK YOUR PRIVATE ROME · BOOK YOUR PRIVATE ROME · </textPath></text>
+        </svg>
+        <span class="book-seal-core"><img src="assets/Aura_Arch_Logo.svg" alt=""><span>BOOK NOW</span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ═══ THE AURA WAY ═══ -->
+<section class="aura-way" aria-labelledby="aura-way-title">
+  <div class="wrap aura-way-grid">
+    <div class="aura-way-copy rv">
+      <div class="k" data-i="way.k">THE AURA WAY</div>
+      <h2 id="aura-way-title" data-i="way.h">Rome, with time to notice it.</h2>
+      <p data-i="way.p">A private electric cart, a local driver and a route shaped around you. The stops, the pace and the small detours follow the day.</p>
+      <div class="arch-sequence" aria-hidden="true"><i></i><i></i><i></i></div>
+      <div class="aura-way-signature" data-i="way.sig">AURA ROME TOURS · PRIVATE EXPERIENCES</div>
+    </div>
+    <div class="aura-way-visual rv rv-d1">
+      <figure class="aura-way-primary" data-asset-slot="aura-way-primary">
+        <img src="media/home-card-pickup.png" alt="Private Aura Rome Tours experience" width="900" height="1125">
+      </figure>
+      <figure class="aura-way-detail" data-asset-slot="aura-way-detail">
+        <img src="R1.JPG" alt="A real view of Rome from an Aura tour" width="900" height="900">
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="experience-intro" aria-labelledby="experience-intro-title">
+  <div class="arch-colonnade" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="k" data-i="exp.k">PRIVATE EXPERIENCES</div>
+  <h2 id="experience-intro-title" data-i="exp.h">Choose how Rome should feel.</h2>
+</section>
+
+<!-- ═══ TOURS ═══ -->
+<section id="tours">
+  <div class="wrap">
+    <div class="shead rv">
+      <div>
+        <div class="k" data-i="tours.k">The experiences</div>
+        <h2 data-i-html="tours.h">Our ways<br>to say <em>Rome</em></h2>
+      </div>
+      <p class="side" data-i="tours.side">Routes curated like a collection. Prices per group, reserved cart, pickup included in the centre. Choose yours.</p>
+    </div>
+    <div id="tours-list" class="tour-collection" aria-label="Aura private experiences"></div>
+    <div class="tour-swipe-controls" aria-label="Experience carousel controls">
+      <span data-i="tours.swipe">SWIPE TO EXPLORE</span>
+      <strong id="tour-count">1 / 7</strong>
+      <button type="button" onclick="tourGo(-1)" aria-label="Previous experience">←</button>
+      <button type="button" onclick="tourGo(1)" aria-label="Next experience">→</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ METODO ═══ -->
+<section class="steps" id="metodo">
+  <div class="orn" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 26V16a12 12 0 0 1 24 0v10" stroke="#A4441F" stroke-width="2.2"/></svg></div>
+  <div class="wrap">
+    <div class="shead rv">
+      <div>
+        <div class="k" data-i="how.k">THE AURA METHOD</div>
+        <h2 data-i-html="how.h">Simple, considered,<br><em>entirely yours.</em></h2>
+      </div>
+    </div>
+    <div class="steps-grid" aria-label="The Aura Method">
+      <article class="step rv" data-asset-slot="method-booking"><figure><img src="media/home-card-grande.jpg" alt="Choose your private Rome experience" width="800" height="600"></figure><div><h3 data-i="how.1t">Choose your experience</h3><p data-i="how.1p">Select the date, time and number of guests. Your private cart is confirmed by email.</p></div></article>
+      <article class="step rv rv-d1" data-asset-slot="method-pickup"><figure><img src="media/home-card-pickup.png" alt="Hotel pickup in central Rome" width="800" height="600"></figure><div><h3 data-i="how.2t">We meet you at your hotel</h3><p data-i="how.2p">Your driver arrives at the agreed entrance in central Rome, ready when you are.</p></div></article>
+      <article class="step rv rv-d2" data-asset-slot="method-pace"><figure><img src="media/scene1-full-roma.jpg" alt="Rome at your own pace" width="800" height="600"></figure><div><h3 data-i="how.3t">Rome follows your pace</h3><p data-i="how.3p">Stops and small detours adapt to the day, the light and what interests you most.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ THE AURA STANDARD ═══ -->
+<section class="dark aura-standard">
+  <div class="wrap">
+    <div class="shead rv">
+      <div>
+        <div class="k" data-i="standard.k">THE AURA STANDARD</div>
+        <h2 data-i-html="standard.h">What private<br><em>should feel like.</em></h2>
+      </div>
+      <p class="side" data-i="standard.side">Four details that turn a route through Rome into a genuinely private experience.</p>
+    </div>
+    <div class="standard-grid">
+      <article class="standard-card standard-feature rv" data-asset-slot="standard-private"><figure><img src="media/home-card-family.png" alt="A private cart reserved for one party" width="900" height="675"></figure><div><h3 data-i="standard.1t">Only your party</h3><p data-i="standard.1p">No shared seats. The cart, the pace and the stops are yours.</p></div></article>
+      <article class="standard-card rv rv-d1" data-asset-slot="standard-pickup"><figure><img src="media/home-card-pickup.png" alt="Door to door pickup in central Rome" width="800" height="600"></figure><div><h3 data-i="standard.2t">Door to door ease</h3><p data-i="standard.2p">Pickup and return in central Rome, coordinated around your hotel.</p></div></article>
+      <article class="standard-card rv rv-d2" data-asset-slot="standard-flexible"><figure><img src="media/esplora/via_appia.webp" alt="A flexible route through Rome" width="800" height="600"></figure><div><h3 data-i="standard.3t">A route that can change</h3><p data-i="standard.3p">Traffic, heat and curiosity can reshape the order without disrupting the experience.</p></div></article>
+      <article class="standard-card rv rv-d3" data-asset-slot="standard-local"><figure><img src="media/esplora/monti.webp" alt="Local knowledge in the streets of Rome" width="800" height="600"></figure><div><h3 data-i="standard.4t">Local judgement</h3><p data-i="standard.4p">Your driver reads the city in real time and chooses the better sequence.</p></div></article>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ ITINERARIO ═══ -->
+<section class="iti">
+  <div class="wrap">
+    <div class="shead rv">
+      <div>
+        <div class="k" data-i="iti.k">L'itinerario firma</div>
+        <h2 data-i-html="iti.h">Tappa dopo<br><em>tappa</em></h2>
+      </div>
+      <p class="side" data-i="iti.side">Il percorso della Full Roma Experience: dieci capolavori in tre ore. E se volete di più, il Tour Su Misura non ha limiti.</p>
+    </div>
+  </div>
+  <div class="iti-track" id="iti-track"></div>
+  <div class="iti-hint" data-i="iti.hint">← Scorrete →</div>
+</section>
+
+<!-- ═══ VOCI ═══ -->
+<section class="revs" id="voci">
+  <div class="wrap">
+    <div class="shead rv">
+      <div>
+        <div class="k" data-i="rev.k">Le voci</div>
+        <h2 data-i-html="rev.h">Parola<br>agli <em>ospiti</em></h2>
+      </div>
+    </div>
+    <div class="rev-grid2">
+      <aside class="rev-sum rv">
+        <svg class="gl" viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.2H12v4.1h6.5c-.1 1.1-.8 2.7-2.4 3.8l3.7 2.9c2.2-2 3.7-5 3.7-8.6z"/><path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.7-2.9c-1 .7-2.4 1.2-4.2 1.2-3.2 0-5.9-2.1-6.9-5.1L1.3 17.2C3.3 21.2 7.3 24 12 24z"/><path fill="#FBBC05" d="M5.1 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3L1.3 6.8C.5 8.4 0 10.1 0 12s.5 3.6 1.3 5.2l3.8-2.9z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1.1 15.2 0 12 0 7.3 0 3.3 2.8 1.3 6.8l3.8 2.9c1-3 3.7-5 6.9-5z"/></svg>
+        <div class="big" id="g-rating">5.0</div>
+        <div class="st" id="g-stars">★★★★★</div>
+        <div class="cnt" id="g-count" data-i="rev.g.fallback">Recensioni dei nostri ospiti</div>
+        <div class="gsub" data-i="rev.g.sub">Valutazione reale · Google</div>
+        <div class="btns">
+          <a class="btn fill" id="g-read" href="https://www.google.com/maps/search/?api=1&query=Aura%20Rome%20Tours%20Roma" target="_blank" rel="noopener" data-i="rev.read">Leggi su Google</a>
+          <a class="btn hollow" id="g-write" href="https://www.google.com/maps/search/?api=1&query=Aura%20Rome%20Tours%20Roma" target="_blank" rel="noopener" data-i="rev.write">Lascia una recensione ★</a>
+        </div>
+      </aside>
+      <div>
+        <div class="rev-stage" id="rev-stage"></div>
+        <div class="rev-nav rv">
+          <button onclick="revGo(-1)" aria-label="prev">←</button>
+          <button onclick="revGo(1)" aria-label="next">→</button>
+          <span class="cnt" id="rev-cnt"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="voices-explore-separator" aria-hidden="true"><div class="arch-colonnade"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+
+<!-- ═══ ESPLORA — la Roma segreta ═══ -->
+<section class="esplora" id="esplora">
+  <div class="wrap">
+    <div class="shead rv">
+      <div>
+        <div class="k" data-i="esp.k">Esplora</div>
+        <h2 data-i-html="esp.h">La Roma che i bus<br><em>non vedranno mai</em></h2>
+      </div>
+      <p class="side" data-i="esp.side">Trenta luoghi fotografati dai nostri tour: albe su Trevi, serrature segrete, quartieri fatati. Trascina, clicca, innamorati.</p>
+    </div>
+  </div>
+  <div class="esp-track" id="esp-track"></div>
+  <div class="esp-hint"><span class="ln"></span><span data-i="esp.hint">Trascina per esplorare · clicca per ingrandire</span><span class="ln"></span></div>
+</section>
+
+<div id="lb" role="dialog" aria-modal="true">
+  <button class="lb-x" onclick="lbClose()">✕</button>
+  <button class="lb-nav lb-prev" onclick="lbGo(-1)">←</button>
+  <img id="lb-img" src="" alt="">
+  <div class="lb-cap"><h4 id="lb-title"></h4><p id="lb-sub"></p></div>
+  <button class="lb-nav lb-next" onclick="lbGo(1)">→</button>
+  <div class="lb-cnt" id="lb-cnt"></div>
+</div>
+
+<!-- ═══ FAQ ═══ -->
+<section class="faqs" id="faq">
+  <div class="orn" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none"><path d="M4 26V16a12 12 0 0 1 24 0v10" stroke="#A4441F" stroke-width="2.2"/></svg></div>
+  <div class="wrap">
+    <div class="faq-layout">
+      <figure class="faq-photo rv"><img src="media/esplora/giardino_aranci_panorama.webp" alt="Rome seen from an Aura tour" width="800" height="1000"></figure>
+      <div class="faq-content">
+        <div class="shead rv"><div>
+          <div class="k" data-i="faq.k">All clear</div>
+          <h2 data-i-html="faq.h">Frequently asked <em>questions</em></h2>
+        </div></div>
+        <div class="faq-cols" id="faq-list"></div>
+        <div class="faq-more"><a class="tlink" href="https://www.aurarometours.it/faq/" data-i="faq.more">All FAQs →</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FINALE ═══ -->
+<section class="final">
+  <div class="wrap rv">
+    <div class="k" data-i="fin.k">Limited daily availability</div>
+    <h2 data-i-html="fin.h">See you<br>in <em>Rome.</em></h2>
+    <p data-i="fin.p">You pick the date, we ride the logistics. All you have to do is look around.</p>
+    <button class="btn paper" onclick="AURA.openBooking()" data-i="fin.cta">Book your tour</button>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <h4>Aura Rome Tours</h4>
+        <p style="max-width:300px" data-i="foot.about">Private golf cart tours in Rome's historic centre. The Eternal City, without the fatigue or the crowds.</p>
+      </div>
+      <div>
+        <h4 data-i="foot.tours">Tours</h4>
+        <a href="https://www.aurarometours.it/tour/la-grande-bellezza/">La Grande Bellezza</a>
+        <a href="https://www.aurarometours.it/tour/full-roma-experience/">Full Roma Experience</a>
+        <a href="https://www.aurarometours.it/tour/roma-by-night/">Roma by Night</a>
+        <a href="https://www.aurarometours.it/tour/tour-su-misura/">Tour Su Misura</a>
+        <a href="https://www.aurarometours.it/tour/tour-in-500/">Tour in 500</a>
+        <a href="https://www.aurarometours.it/tours/" data-i="foot.fast">Prenotazione rapida</a>
+      </div>
+      <div>
+        <h4 data-i="foot.nav">Navigation</h4>
+        <a href="#tours" data-i="nav.tours">Experiences</a>
+        <a href="#metodo" data-i="nav.how">The Method</a>
+        <a href="https://www.aurarometours.it/esplora/" data-i="nav.esp">Explore</a>
+        <a href="https://www.aurarometours.it/recensioni/" data-i="nav.rev">Voices</a>
+        <a href="https://www.aurarometours.it/faq/">FAQ</a>
+        <a href="https://www.aurarometours.it/contatti/" data-i="foot.contact">Contact</a>
+      </div>
+      <div>
+        <h4 data-i="foot.contact">Contact</h4>
+        <a id="foot-wa" href="https://wa.me/393206891014" target="_blank" rel="noopener">WhatsApp +39 320 689 1014</a>
+        <a id="foot-tel" href="#" style="display:none"></a>
+        <a id="foot-mail" href="mailto:aura.intravel@gmail.com">aura.intravel@gmail.com</a>
+      </div>
+    </div>
+    <div class="foot-watermark" aria-hidden="true"><img src="assets/Aura_Arch_Logo.svg" alt=""><div class="foot-word">AURA</div></div>
+    <div class="foot-bottom">
+      <span>© <span id="yy"></span> Aura Rome Tours · Roma</span>
+      <span data-i="foot.pay">Stripe · Visa · Mastercard · Amex · Apple Pay · Google Pay</span>
+    </div>
+  </div>
+</footer>
+
+<script src="js/aura-booking.js?v=20260815-myg5"></script>
+<script>
+'use strict';
+/* ═══════════ COPY (pagina) ═══════════ */
+const P = {
+it:{
+ 'nav.tours':'Esperienze','nav.tourspage':'Tours','nav.how':'Il Metodo','nav.rev':'Voci','nav.book':'Prenota',
+ 'hero.k':'Roma · Tour privati in golf cart',
+ 'hero.h1':'La città eterna,|a passo d\'Aura.',
+ 'hero.sub':'Un golf cart riservato, un autista che conosce ogni vicolo, e Roma che vi scorre accanto alla velocità giusta: quella della meraviglia.',
+ 'hero.cta':'Prenota la tua data','hero.cta2':'Le esperienze',
+ 'hero.m1':'da · per gruppo','hero.m2':'ospiti per cart','hero.m3':'cancellazione gratis','hero.m4':'valutazione',
+ 'man.p':'Roma non si visita. |Si assapora.| Per questo abbiamo tolto i finestrini, l\'attesa e la fretta — e abbiamo lasciato solo voi, un cart riservato e duemilasettecento anni di bellezza a portata di sguardo.',
+ 'man.sig':'Aura Rome Tours · Est. Roma',
+ 'tours.k':'Le esperienze','tours.h':'I nostri modi<br>di dire <em>Roma</em>',
+ 'tours.side':'Itinerari curati come una collezione. Prezzi per gruppo, cart riservato, pickup incluso in centro. Scegliete il vostro.',
+ 'tours.from':'da','tours.pp':'a persona','tours.group':'per gruppo','tours.book':'Prenota questo tour','tours.stops':'tappe',
+ 'how.k':'Il metodo Aura','how.h':'Semplice come<br>un <em>espresso</em>',
+ 'how.1t':'Scegliete e prenotate','how.1p':'Data, orario, ospiti: 60 secondi online, pagamento protetto Stripe e conferma immediata via email.',
+ 'how.2t':'Vi veniamo a prendere','how.2p':'Direttamente in hotel o in un punto concordato del centro. Il cart vi aspetta, l\'acqua fresca anche.',
+ 'how.3t':'Roma fa il resto','how.3p':'Vicoli, piazze, panorami e soste fotografiche dove i bus non arrivano. Al vostro ritmo, sempre.',
+ 'num.k':'I numeri','num.h':'La misura<br>dell\'<em>eccellenza</em>',
+ 'num.side':'Pochi cart, disponibilità limitata ogni giorno: è una scelta. La cura non si produce in serie.',
+ 'num.1':'Ospiti accompagnati','num.2':'Valutazione media','num.3':'Paesi di provenienza','num.4':'Di pura meraviglia',
+ 'iti.k':'L\'itinerario firma','iti.h':'Tappa dopo<br><em>tappa</em>',
+ 'iti.side':'Il percorso della Full Roma Experience: dieci capolavori in tre ore. E se volete di più, il Tour Su Misura non ha limiti.',
+ 'iti.hint':'← Scorrete →',
+ 'rev.k':'Le voci','rev.h':'Parola<br>agli <em>ospiti</em>',
+ 'faq.k':'Tutto chiaro','faq.h':'Domande <em>frequenti</em>','faq.more':'Tutte le domande frequenti →',
+ 'fin.k':'Disponibilità limitata ogni giorno','fin.h':'Ci vediamo<br>a <em>Roma.</em>',
+ 'fin.p':'Scegliete la data, saliamo noi in sella alla logistica. Voi pensate solo a guardare.','fin.cta':'Prenota il tuo tour',
+ 'foot.about':'Tour privati in golf cart nel centro storico di Roma. La Città Eterna, senza fatica e senza folla.','foot.tours':'I Tour',
+ 'foot.nav':'Navigazione','foot.contact':'Contatti','foot.fast':'Prenotazione rapida','foot.pay':'Stripe · Visa · Mastercard · Amex · Apple Pay · Google Pay',
+ 'tick':['Roma','Tour privati','Pickup in hotel','Cart riservato','Da €390','Conferma immediata','Cancellazione gratuita 24h'],
+ 'marq':['Colosseo','Pantheon','Fontana di Trevi','Piazza Navona','Trastevere','Gianicolo','Aventino','Piazza di Spagna'],
+},
+en:{
+ 'nav.tours':'Experiences','nav.tourspage':'Tours','nav.how':'The Method','nav.rev':'Voices','nav.book':'Book now',
+ 'hero.k':'Rome · Private golf cart tours',
+ 'hero.h1':'The eternal city,|at Aura\'s pace.',
+ 'hero.sub':'A reserved golf cart, a driver who knows every alley, and Rome flowing past you at the right speed: the speed of wonder.',
+ 'hero.cta':'Book your date','hero.cta2':'The experiences',
+ 'hero.m1':'from · per group','hero.m2':'guests per cart','hero.m3':'free cancellation','hero.m4':'rating',
+ 'man.p':'You don\'t visit Rome. |You savour it.| So we removed the windows, the queues and the rush — leaving only you, a reserved cart and twenty-seven centuries of beauty within arm\'s reach.',
+ 'man.sig':'Aura Rome Tours · Est. Roma',
+ 'tours.k':'The experiences','tours.h':'Our ways<br>to say <em>Rome</em>',
+ 'tours.side':'Routes curated like a collection. Prices per group, reserved cart, pickup included in the centre. Choose yours.',
+ 'tours.from':'from','tours.pp':'per person','tours.group':'per group','tours.book':'Book this tour','tours.stops':'stops',
+ 'how.k':'The Aura method','how.h':'As simple as<br>an <em>espresso</em>',
+ 'how.1t':'Choose and book','how.1p':'Date, time, guests: 60 seconds online, Stripe-protected payment and instant email confirmation.',
+ 'how.2t':'We pick you up','how.2p':'Straight from your hotel or an agreed point in the centre. The cart is waiting — chilled water too.',
+ 'how.3t':'Rome does the rest','how.3p':'Alleys, squares, viewpoints and photo stops where buses can\'t go. Always at your pace.',
+ 'num.k':'The numbers','num.h':'The measure<br>of <em>excellence</em>',
+ 'num.side':'Few carts, limited daily availability: it\'s a choice. Care cannot be mass-produced.',
+ 'num.1':'Guests hosted','num.2':'Average rating','num.3':'Countries of origin','num.4':'Of pure wonder',
+ 'iti.k':'The signature route','iti.h':'Stop after<br><em>stop</em>',
+ 'iti.side':'The Full Roma Experience route: ten masterpieces in three hours. Want more? The Tailor-Made Tour has no limits.',
+ 'iti.hint':'← Scroll →',
+ 'rev.k':'The voices','rev.h':'Our guests,<br><em>verbatim</em>',
+ 'faq.k':'All clear','faq.h':'Frequently asked <em>questions</em>','faq.more':'All FAQs →',
+ 'fin.k':'Limited daily availability','fin.h':'See you<br>in <em>Rome.</em>',
+ 'fin.p':'You pick the date, we ride the logistics. All you have to do is look around.','fin.cta':'Book your tour',
+ 'foot.about':'Private golf cart tours in the historic centre of Rome. The Eternal City, without the fatigue or the crowds.','foot.tours':'Tours',
+ 'foot.nav':'Navigation','foot.contact':'Contact','foot.fast':'Quick booking','foot.pay':'Stripe · Visa · Mastercard · Amex · Apple Pay · Google Pay',
+ 'tick':['Rome','Private tours','Hotel pickup','Reserved cart','From €390','Instant confirmation','Free 24h cancellation'],
+ 'marq':['Colosseum','Pantheon','Trevi Fountain','Piazza Navona','Trastevere','Gianicolo','Aventine','Spanish Steps'],
+},
+fr:{
+ 'nav.tours':'Expériences','nav.tourspage':'Tours','nav.how':'La Méthode','nav.rev':'Voix','nav.book':'Réserver',
+ 'hero.k':'Rome · Tours privés en voiturette',
+ 'hero.h1':'La ville éternelle,|au rythme d\'Aura.',
+ 'hero.sub':'Une voiturette réservée, un chauffeur qui connaît chaque ruelle, et Rome qui défile à la bonne vitesse : celle de l\'émerveillement.',
+ 'hero.cta':'Réservez votre date','hero.cta2':'Les expériences',
+ 'hero.m1':'dès · par groupe','hero.m2':'hôtes par voiturette','hero.m3':'annulation gratuite','hero.m4':'note',
+ 'man.p':'Rome ne se visite pas. |Elle se savoure.| Nous avons donc retiré les vitres, l\'attente et la hâte — pour ne laisser que vous, une voiturette réservée et vingt-sept siècles de beauté à portée de regard.',
+ 'man.sig':'Aura Rome Tours · Est. Roma',
+ 'tours.k':'Les expériences','tours.h':'Nos façons<br>de dire <em>Rome</em>',
+ 'tours.side':'Des itinéraires composés comme une collection. Prix par groupe, voiturette réservée, pickup inclus au centre.',
+ 'tours.from':'dès','tours.pp':'par personne','tours.group':'par groupe','tours.book':'Réserver ce tour','tours.stops':'arrêts',
+ 'how.k':'La méthode Aura','how.h':'Simple comme<br>un <em>espresso</em>',
+ 'how.1t':'Choisissez et réservez','how.1p':'Date, horaire, hôtes : 60 secondes en ligne, paiement Stripe et confirmation immédiate.',
+ 'how.2t':'Nous venons vous chercher','how.2p':'À votre hôtel ou à un point convenu du centre. La voiturette vous attend, l\'eau fraîche aussi.',
+ 'how.3t':'Rome fait le reste','how.3p':'Ruelles, places, panoramas et pauses photo là où les bus ne passent pas. À votre rythme.',
+ 'num.k':'Les chiffres','num.h':'La mesure de<br>l\'<em>excellence</em>',
+ 'num.side':'Peu de voiturettes, disponibilité limitée : c\'est un choix. Le soin ne se produit pas en série.',
+ 'num.1':'Hôtes accompagnés','num.2':'Note moyenne','num.3':'Pays d\'origine','num.4':'De pur émerveillement',
+ 'iti.k':'L\'itinéraire signature','iti.h':'Arrêt après<br><em>arrêt</em>',
+ 'iti.side':'Le parcours Full Roma : dix chefs-d\'œuvre en trois heures. Envie de plus ? Le Tour Sur Mesure est sans limites.',
+ 'iti.hint':'← Faites défiler →',
+ 'rev.k':'Les voix','rev.h':'La parole<br>aux <em>hôtes</em>',
+ 'faq.k':'Tout est clair','faq.h':'Questions <em>fréquentes</em>',
+ 'fin.k':'Disponibilité quotidienne limitée','fin.h':'Rendez-vous<br>à <em>Rome.</em>',
+ 'fin.p':'Choisissez la date, nous nous chargeons de la logistique. Vous, contentez-vous de regarder.','fin.cta':'Réserver votre tour',
+ 'foot.about':'Tours privés en voiturette de golf dans le centre historique de Rome.','foot.tours':'Tours',
+ 'foot.nav':'Navigation','foot.contact':'Contact','foot.fast':'Réservation rapide','foot.pay':'Stripe · Visa · Mastercard · Amex · Apple Pay',
+ 'tick':['Rome','Tours privés','Pickup hôtel','Voiturette réservée','Dès €390','Confirmation immédiate','Annulation gratuite 24h'],
+ 'marq':['Colisée','Panthéon','Fontaine de Trevi','Piazza Navona','Trastevere','Gianicolo','Aventin','Place d\'Espagne'],
+},
+de:{
+ 'nav.tours':'Erlebnisse','nav.tourspage':'Touren','nav.how':'Die Methode','nav.rev':'Stimmen','nav.book':'Buchen',
+ 'hero.k':'Rom · Private Golfcart-Touren',
+ 'hero.h1':'Die ewige Stadt,|im Aura-Takt.',
+ 'hero.sub':'Ein reservierter Golfcart, ein Fahrer, der jede Gasse kennt, und Rom, das im richtigen Tempo an Ihnen vorbeizieht: dem des Staunens.',
+ 'hero.cta':'Datum sichern','hero.cta2':'Die Erlebnisse',
+ 'hero.m1':'ab · pro Gruppe','hero.m2':'Gäste pro Cart','hero.m3':'kostenlose Stornierung','hero.m4':'Bewertung',
+ 'man.p':'Rom besichtigt man nicht. |Man genießt es.| Also haben wir Fenster, Warteschlangen und Eile entfernt — übrig bleiben Sie, ein reservierter Cart und 2700 Jahre Schönheit zum Greifen nah.',
+ 'man.sig':'Aura Rome Tours · Est. Roma',
+ 'tours.k':'Die Erlebnisse','tours.h':'Unsere Art,<br><em>Rom</em> zu erleben',
+ 'tours.side':'Routen, kuratiert wie eine Kollektion. Preise pro Gruppe, reservierter Cart, Abholung im Zentrum inklusive.',
+ 'tours.from':'ab','tours.pp':'pro Person','tours.group':'pro Gruppe','tours.book':'Diese Tour buchen','tours.stops':'Stopps',
+ 'how.k':'Die Aura-Methode','how.h':'So einfach wie<br>ein <em>Espresso</em>',
+ 'how.1t':'Wählen und buchen','how.1p':'Datum, Uhrzeit, Gäste: 60 Sekunden online, Stripe-Zahlung, sofortige Bestätigung.',
+ 'how.2t':'Wir holen Sie ab','how.2p':'Direkt am Hotel oder an einem vereinbarten Punkt im Zentrum. Der Cart wartet — kühles Wasser auch.',
+ 'how.3t':'Rom erledigt den Rest','how.3p':'Gassen, Plätze, Aussichtspunkte und Fotostopps, wo Busse nicht hinkommen. Immer in Ihrem Tempo.',
+ 'num.k':'Die Zahlen','num.h':'Das Maß der<br><em>Exzellenz</em>',
+ 'num.side':'Wenige Carts, begrenzte Verfügbarkeit: eine bewusste Entscheidung. Sorgfalt ist keine Massenware.',
+ 'num.1':'Begleitete Gäste','num.2':'Ø Bewertung','num.3':'Herkunftsländer','num.4':'Pures Staunen',
+ 'iti.k':'Die Signature-Route','iti.h':'Stopp für<br><em>Stopp</em>',
+ 'iti.side':'Die Full-Roma-Route: zehn Meisterwerke in drei Stunden. Mehr? Die maßgeschneiderte Tour kennt keine Grenzen.',
+ 'iti.hint':'← Scrollen →',
+ 'rev.k':'Die Stimmen','rev.h':'Unsere Gäste,<br><em>wörtlich</em>',
+ 'faq.k':'Alles klar','faq.h':'Häufige <em>Fragen</em>',
+ 'fin.k':'Begrenzte tägliche Verfügbarkeit','fin.h':'Wir sehen uns<br>in <em>Rom.</em>',
+ 'fin.p':'Sie wählen das Datum, wir übernehmen die Logistik. Sie müssen nur schauen.','fin.cta':'Tour buchen',
+ 'foot.about':'Private Golfcart-Touren im historischen Zentrum Roms.','foot.tours':'Touren',
+ 'foot.nav':'Navigation','foot.contact':'Kontakt','foot.fast':'Schnellbuchung','foot.pay':'Stripe · Visa · Mastercard · Amex · Apple Pay',
+ 'tick':['Rom','Private Touren','Hotelabholung','Reservierter Cart','Ab €390','Sofortige Bestätigung','Kostenlose Stornierung 24h'],
+ 'marq':['Kolosseum','Pantheon','Trevi-Brunnen','Piazza Navona','Trastevere','Gianicolo','Aventin','Spanische Treppe'],
+},
+es:{
+ 'nav.tours':'Experiencias','nav.tourspage':'Tours','nav.how':'El Método','nav.rev':'Voces','nav.book':'Reservar',
+ 'hero.k':'Roma · Tours privados en carrito de golf',
+ 'hero.h1':'La ciudad eterna,|al paso de Aura.',
+ 'hero.sub':'Un carrito reservado, un conductor que conoce cada callejón, y Roma fluyendo a la velocidad justa: la del asombro.',
+ 'hero.cta':'Reserva tu fecha','hero.cta2':'Las experiencias',
+ 'hero.m1':'desde · por grupo','hero.m2':'huéspedes por carrito','hero.m3':'cancelación gratis','hero.m4':'valoración',
+ 'man.p':'Roma no se visita. |Se saborea.| Por eso quitamos las ventanillas, las colas y la prisa — dejando solo a vosotros, un carrito reservado y veintisiete siglos de belleza al alcance de la mirada.',
+ 'man.sig':'Aura Rome Tours · Est. Roma',
+ 'tours.k':'Las experiencias','tours.h':'Nuestras maneras<br>de decir <em>Roma</em>',
+ 'tours.side':'Itinerarios curados como una colección. Precios por grupo, carrito reservado, recogida incluida en el centro.',
+ 'tours.from':'desde','tours.pp':'por persona','tours.group':'por grupo','tours.book':'Reservar este tour','tours.stops':'paradas',
+ 'how.k':'El método Aura','how.h':'Tan simple como<br>un <em>espresso</em>',
+ 'how.1t':'Elige y reserva','how.1p':'Fecha, hora, huéspedes: 60 segundos online, pago Stripe y confirmación inmediata.',
+ 'how.2t':'Te recogemos','how.2p':'En tu hotel o en un punto acordado del centro. El carrito te espera, el agua fresca también.',
+ 'how.3t':'Roma hace el resto','how.3p':'Callejones, plazas, miradores y paradas de foto donde los buses no llegan. Siempre a tu ritmo.',
+ 'num.k':'Los números','num.h':'La medida de la<br><em>excelencia</em>',
+ 'num.side':'Pocos carritos, disponibilidad limitada: es una elección. El cuidado no se produce en serie.',
+ 'num.1':'Huéspedes acompañados','num.2':'Valoración media','num.3':'Países de origen','num.4':'De puro asombro',
+ 'iti.k':'La ruta firma','iti.h':'Parada tras<br><em>parada</em>',
+ 'iti.side':'La ruta Full Roma: diez obras maestras en tres horas. ¿Más? El Tour a Medida no tiene límites.',
+ 'iti.hint':'← Desliza →',
+ 'rev.k':'Las voces','rev.h':'La palabra,<br>a los <em>huéspedes</em>',
+ 'faq.k':'Todo claro','faq.h':'Preguntas <em>frecuentes</em>',
+ 'fin.k':'Disponibilidad diaria limitada','fin.h':'Nos vemos<br>en <em>Roma.</em>',
+ 'fin.p':'Tú eliges la fecha, nosotros conducimos la logística. Tú solo mira.','fin.cta':'Reserva tu tour',
+ 'foot.about':'Tours privados en carrito de golf por el centro histórico de Roma.','foot.tours':'Tours',
+ 'foot.nav':'Navegación','foot.contact':'Contacto','foot.fast':'Reserva rápida','foot.pay':'Stripe · Visa · Mastercard · Amex · Apple Pay',
+ 'tick':['Roma','Tours privados','Recogida en hotel','Carrito reservado','Desde €390','Confirmación inmediata','Cancelación gratis 24h'],
+ 'marq':['Coliseo','Panteón','Fontana di Trevi','Piazza Navona','Trastevere','Gianicolo','Aventino','Plaza de España'],
+}};
+
+/* copy sezione Esplora, per lingua */
+const ESP_I18N = {
+it:{'nav.esp':'Esplora','esp.k':'Esplora','esp.h':'La Roma che i bus<br><em>non vedranno mai</em>',
+ 'esp.side':'Trenta luoghi fotografati dai nostri tour: albe su Trevi, serrature segrete, quartieri fatati. Trascina, clicca, innamorati.',
+ 'esp.hint':'Trascina per esplorare · clicca per ingrandire'},
+en:{'nav.esp':'Explore','esp.k':'Explore','esp.h':'The Rome buses<br><em>will never see</em>',
+ 'esp.side':'Thirty places photographed on our tours: dawns over Trevi, secret keyholes, fairy-tale districts. Drag, click, fall in love.',
+ 'esp.hint':'Drag to explore · click to enlarge'},
+fr:{'nav.esp':'Explorer','esp.k':'Explorer','esp.h':'La Rome que les bus<br><em>ne verront jamais</em>',
+ 'esp.side':'Trente lieux photographiés lors de nos tours : aubes sur Trevi, serrures secrètes, quartiers féeriques.',
+ 'esp.hint':'Glissez pour explorer · cliquez pour agrandir'},
+de:{'nav.esp':'Entdecken','esp.k':'Entdecken','esp.h':'Das Rom, das Busse<br><em>nie sehen werden</em>',
+ 'esp.side':'Dreißig Orte, fotografiert auf unseren Touren: Morgenröte über Trevi, geheime Schlüssellöcher, Märchenviertel.',
+ 'esp.hint':'Ziehen zum Entdecken · Klicken zum Vergrößern'},
+es:{'nav.esp':'Explora','esp.k':'Explora','esp.h':'La Roma que los buses<br><em>nunca verán</em>',
+ 'esp.side':'Treinta lugares fotografiados en nuestros tours: amaneceres sobre Trevi, cerraduras secretas, barrios de cuento.',
+ 'esp.hint':'Arrastra para explorar · clic para ampliar'},
+};
+for (const l in ESP_I18N) Object.assign(P[l], ESP_I18N[l]);
+
+/* copy blocco recensioni Google */
+const G_I18N = {
+ it:{'rev.read':'Leggi su Google','rev.write':'Lascia una recensione ★','rev.g.sub':'Valutazione reale · Google','rev.g.count':'{n} recensioni su Google','rev.g.fallback':'Recensioni dei nostri ospiti'},
+ en:{'rev.read':'Read on Google','rev.write':'Leave a review ★','rev.g.sub':'Real rating · Google','rev.g.count':'{n} Google reviews','rev.g.fallback':'Reviews from our guests'},
+ fr:{'rev.read':'Lire sur Google','rev.write':'Laisser un avis ★','rev.g.sub':'Note réelle · Google','rev.g.count':'{n} avis Google','rev.g.fallback':'Les avis de nos hôtes'},
+ de:{'rev.read':'Auf Google lesen','rev.write':'Bewertung schreiben ★','rev.g.sub':'Echte Bewertung · Google','rev.g.count':'{n} Google-Bewertungen','rev.g.fallback':'Bewertungen unserer Gäste'},
+ es:{'rev.read':'Leer en Google','rev.write':'Dejar una reseña ★','rev.g.sub':'Valoración real · Google','rev.g.count':'{n} reseñas de Google','rev.g.fallback':'Reseñas de nuestros huéspedes'},
+};
+for (const l in G_I18N) Object.assign(P[l], G_I18N[l]);
+
+/* copy for the isolated MYG layout components */
+const LAYOUT_I18N = {
+ it:{
+  'way.k':'IL MODO AURA','way.h':'Roma, con il tempo di accorgersene.','way.p':'Un golf cart elettrico riservato, un autista locale e un percorso costruito intorno a voi. Le soste, il ritmo e le piccole deviazioni seguono la giornata.','way.sig':'AURA ROME TOURS · ESPERIENZE PRIVATE',
+  'exp.k':'ESPERIENZE PRIVATE','exp.h':'Scegliete come vivere Roma.','tours.swipe':'SCORRI PER ESPLORARE','tours.details':'Scheda del tour',
+  'how.k':'IL METODO AURA','how.h':'Semplice, curato,<br><em>interamente vostro.</em>','how.1t':'Scegliete la vostra esperienza','how.1p':'Selezionate data, orario e numero di ospiti. Il vostro cart privato viene confermato via email.','how.2t':'Ci incontriamo al vostro hotel','how.2p':'Il vostro autista arriva all’ingresso concordato nel centro di Roma, pronto quando lo siete voi.','how.3t':'Roma segue il vostro ritmo','how.3p':'Soste e piccole deviazioni si adattano alla giornata, alla luce e a ciò che vi interessa di più.',
+  'standard.k':'LO STANDARD AURA','standard.h':'Come deve sentirsi<br><em>un’esperienza privata.</em>','standard.side':'Quattro dettagli che trasformano un percorso a Roma in un’esperienza davvero privata.','standard.1t':'Solo il vostro gruppo','standard.1p':'Nessun posto condiviso. Il cart, il ritmo e le soste sono vostri.','standard.2t':'Comodità porta a porta','standard.2p':'Pickup e ritorno nel centro di Roma, coordinati intorno al vostro hotel.','standard.3t':'Un percorso che può cambiare','standard.3p':'Traffico, caldo e curiosità possono ridisegnare l’ordine senza interrompere l’esperienza.','standard.4t':'Giudizio locale','standard.4p':'Il vostro autista legge la città in tempo reale e sceglie la sequenza migliore.'
+ },
+ en:{
+  'way.k':'THE AURA WAY','way.h':'Rome, with time to notice it.','way.p':'A private electric cart, a local driver and a route shaped around you. The stops, the pace and the small detours follow the day.','way.sig':'AURA ROME TOURS · PRIVATE EXPERIENCES',
+  'exp.k':'PRIVATE EXPERIENCES','exp.h':'Choose how Rome should feel.','tours.swipe':'SWIPE TO EXPLORE','tours.details':'Tour details',
+  'how.k':'THE AURA METHOD','how.h':'Simple, considered,<br><em>entirely yours.</em>','how.1t':'Choose your experience','how.1p':'Select the date, time and number of guests. Your private cart is confirmed by email.','how.2t':'We meet you at your hotel','how.2p':'Your driver arrives at the agreed entrance in central Rome, ready when you are.','how.3t':'Rome follows your pace','how.3p':'Stops and small detours adapt to the day, the light and what interests you most.',
+  'standard.k':'THE AURA STANDARD','standard.h':'What private<br><em>should feel like.</em>','standard.side':'Four details that turn a route through Rome into a genuinely private experience.','standard.1t':'Only your party','standard.1p':'No shared seats. The cart, the pace and the stops are yours.','standard.2t':'Door to door ease','standard.2p':'Pickup and return in central Rome, coordinated around your hotel.','standard.3t':'A route that can change','standard.3p':'Traffic, heat and curiosity can reshape the order without disrupting the experience.','standard.4t':'Local judgement','standard.4p':'Your driver reads the city in real time and chooses the better sequence.'
+ },
+ fr:{
+  'way.k':'LA MANIÈRE AURA','way.h':'Rome, avec le temps de la remarquer.','way.p':'Une voiturette électrique privée, un chauffeur local et un itinéraire façonné autour de vous. Les arrêts, le rythme et les petits détours suivent la journée.','way.sig':'AURA ROME TOURS · EXPÉRIENCES PRIVÉES',
+  'exp.k':'EXPÉRIENCES PRIVÉES','exp.h':'Choisissez comment vivre Rome.','tours.swipe':'GLISSEZ POUR EXPLORER','tours.details':'Détails du tour',
+  'how.k':'LA MÉTHODE AURA','how.h':'Simple, soignée,<br><em>entièrement à vous.</em>','how.1t':'Choisissez votre expérience','how.1p':'Sélectionnez la date, l’heure et le nombre d’hôtes. Votre voiturette privée est confirmée par e-mail.','how.2t':'Nous vous retrouvons à l’hôtel','how.2p':'Votre chauffeur arrive à l’entrée convenue dans le centre de Rome, prêt quand vous l’êtes.','how.3t':'Rome suit votre rythme','how.3p':'Les arrêts et petits détours s’adaptent au jour, à la lumière et à vos envies.',
+  'standard.k':'LE STANDARD AURA','standard.h':'Ce que le privé<br><em>doit faire ressentir.</em>','standard.side':'Quatre détails qui transforment un parcours à Rome en expérience véritablement privée.','standard.1t':'Seulement votre groupe','standard.1p':'Aucune place partagée. La voiturette, le rythme et les arrêts sont à vous.','standard.2t':'Le confort porte à porte','standard.2p':'Prise en charge et retour dans le centre de Rome, coordonnés avec votre hôtel.','standard.3t':'Un parcours qui peut changer','standard.3p':'Trafic, chaleur et curiosité peuvent changer l’ordre sans perturber l’expérience.','standard.4t':'Le regard local','standard.4p':'Votre chauffeur lit la ville en temps réel et choisit la meilleure séquence.'
+ },
+ de:{
+  'way.k':'DIE AURA ART','way.h':'Rom, mit Zeit, es wirklich wahrzunehmen.','way.p':'Ein privater Elektro-Cart, ein lokaler Fahrer und eine Route, die sich nach Ihnen richtet. Stopps, Tempo und kleine Umwege folgen dem Tag.','way.sig':'AURA ROME TOURS · PRIVATE ERLEBNISSE',
+  'exp.k':'PRIVATE ERLEBNISSE','exp.h':'Wählen Sie, wie sich Rom anfühlen soll.','tours.swipe':'WISCHEN ZUM ENTDECKEN','tours.details':'Tourdetails',
+  'how.k':'DIE AURA METHODE','how.h':'Einfach, durchdacht,<br><em>ganz für Sie.</em>','how.1t':'Wählen Sie Ihr Erlebnis','how.1p':'Wählen Sie Datum, Uhrzeit und Gästezahl. Ihr privater Cart wird per E-Mail bestätigt.','how.2t':'Wir treffen Sie am Hotel','how.2p':'Ihr Fahrer kommt zum vereinbarten Eingang im Zentrum Roms und ist bereit, wenn Sie es sind.','how.3t':'Rom folgt Ihrem Tempo','how.3p':'Stopps und kleine Umwege passen sich dem Tag, dem Licht und Ihren Interessen an.',
+  'standard.k':'DER AURA STANDARD','standard.h':'So sollte sich privat<br><em>anfühlen.</em>','standard.side':'Vier Details, die eine Route durch Rom zu einem wirklich privaten Erlebnis machen.','standard.1t':'Nur Ihre Gruppe','standard.1p':'Keine geteilten Plätze. Cart, Tempo und Stopps gehören Ihnen.','standard.2t':'Komfort von Tür zu Tür','standard.2p':'Abholung und Rückfahrt im Zentrum Roms, abgestimmt auf Ihr Hotel.','standard.3t':'Eine Route, die sich ändern kann','standard.3p':'Verkehr, Hitze und Neugier können die Reihenfolge ändern, ohne das Erlebnis zu stören.','standard.4t':'Lokales Gespür','standard.4p':'Ihr Fahrer liest die Stadt in Echtzeit und wählt die bessere Reihenfolge.'
+ },
+ es:{
+  'way.k':'EL MODO AURA','way.h':'Roma, con tiempo para descubrirla.','way.p':'Un carrito eléctrico privado, un conductor local y una ruta diseñada a vuestro alrededor. Las paradas, el ritmo y los pequeños desvíos siguen el día.','way.sig':'AURA ROME TOURS · EXPERIENCIAS PRIVADAS',
+  'exp.k':'EXPERIENCIAS PRIVADAS','exp.h':'Elegid cómo queréis sentir Roma.','tours.swipe':'DESLIZA PARA EXPLORAR','tours.details':'Detalles del tour',
+  'how.k':'EL MÉTODO AURA','how.h':'Simple, cuidado,<br><em>totalmente vuestro.</em>','how.1t':'Elegid vuestra experiencia','how.1p':'Seleccionad fecha, hora y número de huéspedes. Vuestro carrito privado se confirma por correo.','how.2t':'Nos encontramos en vuestro hotel','how.2p':'El conductor llega a la entrada acordada en el centro de Roma, listo cuando vosotros lo estéis.','how.3t':'Roma sigue vuestro ritmo','how.3p':'Las paradas y pequeños desvíos se adaptan al día, a la luz y a lo que más os interese.',
+  'standard.k':'EL ESTÁNDAR AURA','standard.h':'Así debe sentirse<br><em>una experiencia privada.</em>','standard.side':'Cuatro detalles que convierten una ruta por Roma en una experiencia realmente privada.','standard.1t':'Solo vuestro grupo','standard.1p':'Sin asientos compartidos. El carrito, el ritmo y las paradas son vuestros.','standard.2t':'Comodidad puerta a puerta','standard.2p':'Recogida y regreso en el centro de Roma, coordinados con vuestro hotel.','standard.3t':'Una ruta que puede cambiar','standard.3p':'El tráfico, el calor y la curiosidad pueden cambiar el orden sin interrumpir la experiencia.','standard.4t':'Criterio local','standard.4p':'El conductor lee la ciudad en tiempo real y elige la mejor secuencia.'
+ }
+};
+for (const l in LAYOUT_I18N) Object.assign(P[l], LAYOUT_I18N[l]);
+
+const FAQS = {
+it:[
+ ['Dove ci venite a prendere?','Direttamente al vostro hotel o Airbnb nel centro di Roma, oppure in un punto di incontro concordato. Basta indicarlo nelle note della prenotazione.'],
+ ['Quanto si vede in 2,5 ore?','Con La Grande Bellezza vedete i punti iconici del centro storico con il giusto ritmo. La Full Roma Experience aggiunge tappe e più tempo per fermarsi.'],
+ ['I prezzi sono a persona?','No: i tour hanno un prezzo per gruppo — l\'intero cart è vostro, fino a 7 ospiti.'],
+ ['Possiamo portare bambini?','Assolutamente sì. Il seggiolino si prenota in anticipo, è gratuito, e il tour è adatto a tutte le età, senza barriere architettoniche.'],
+ ['Come funziona la cancellazione?','Gratuita fino a 24 ore prima del tour. Per qualsiasi imprevisto scriveteci su WhatsApp: troviamo sempre una soluzione.'],
+ ['Come pago?','Online con carta tramite Stripe (Visa, Mastercard, Amex, Apple Pay, Google Pay). Pagamento crittografato, conferma immediata.'],
+],
+en:[
+ ['Where do you pick us up?','Directly at your hotel or Airbnb in central Rome, or at an agreed meeting point. Just tell us in the booking notes.'],
+ ['How much do we see in 2.5 hours?','With La Grande Bellezza you cover Rome\'s icons at the right pace. The Full Roma Experience adds more stops and time to linger.'],
+ ['Are prices per person?','No: tours are priced per group — the whole cart is yours, up to 7 guests.'],
+ ['Can we bring children?','Absolutely. The child seat can be booked in advance free of charge and the tour suits all ages, with no barriers.'],
+ ['How does cancellation work?','Free up to 24 hours before the tour. For anything unexpected, message us on WhatsApp — we always find a solution.'],
+ ['How do I pay?','Online by card via Stripe (Visa, Mastercard, Amex, Apple Pay, Google Pay). Encrypted payment, instant confirmation.'],
+]};
+FAQS.fr = [
+ ['Où venez-vous nous chercher ?','Directement à votre hôtel ou Airbnb dans le centre de Rome, ou à un point de rendez-vous convenu. Indiquez-le simplement dans les notes de réservation.'],
+ ['Que voit-on en 2 h 30 ?','La Grande Bellezza couvre les icônes de Rome au bon rythme. La Full Roma Experience ajoute des arrêts et davantage de temps pour en profiter.'],
+ ['Les prix sont-ils par personne ?','Non : les tours sont facturés par groupe. Toute la voiturette est à vous, jusqu’à 7 hôtes.'],
+ ['Peut-on venir avec des enfants ?','Bien sûr. Le siège enfant peut être réservé gratuitement à l’avance et le tour convient à tous les âges.'],
+ ['Comment fonctionne l’annulation ?','Elle est gratuite jusqu’à 24 heures avant le tour. En cas d’imprévu, écrivez-nous sur WhatsApp : nous chercherons une solution.'],
+ ['Comment payer ?','En ligne par carte via Stripe : Visa, Mastercard, Amex, Apple Pay ou Google Pay. Le paiement est chiffré et la confirmation immédiate.'],
+];
+FAQS.de = [
+ ['Wo holen Sie uns ab?','Direkt an Ihrem Hotel oder Airbnb im Zentrum Roms oder an einem vereinbarten Treffpunkt. Geben Sie den Ort einfach in den Buchungsnotizen an.'],
+ ['Wie viel sehen wir in 2,5 Stunden?','La Grande Bellezza zeigt Ihnen Roms Wahrzeichen im richtigen Tempo. Die Full Roma Experience bietet mehr Stopps und mehr Zeit zum Verweilen.'],
+ ['Gelten die Preise pro Person?','Nein: Die Touren werden pro Gruppe berechnet. Der gesamte Cart gehört Ihnen, für bis zu 7 Gäste.'],
+ ['Können Kinder mitkommen?','Selbstverständlich. Ein Kindersitz kann vorab kostenlos reserviert werden und die Tour eignet sich für jedes Alter.'],
+ ['Wie funktioniert die Stornierung?','Bis 24 Stunden vor der Tour ist sie kostenlos. Schreiben Sie uns bei unvorhergesehenen Ereignissen über WhatsApp; wir suchen gemeinsam eine Lösung.'],
+ ['Wie bezahle ich?','Online per Karte über Stripe: Visa, Mastercard, Amex, Apple Pay oder Google Pay. Verschlüsselte Zahlung und sofortige Bestätigung.'],
+];
+FAQS.es = [
+ ['¿Dónde nos recogéis?','Directamente en vuestro hotel o Airbnb del centro de Roma, o en un punto de encuentro acordado. Solo tenéis que indicarlo en las notas de la reserva.'],
+ ['¿Cuánto vemos en 2,5 horas?','La Grande Bellezza recorre los iconos de Roma al ritmo adecuado. La Full Roma Experience añade más paradas y tiempo para disfrutar.'],
+ ['¿Los precios son por persona?','No: los tours tienen precio por grupo. Todo el carrito es vuestro, hasta 7 huéspedes.'],
+ ['¿Podemos llevar niños?','Por supuesto. La silla infantil se puede reservar gratis con antelación y el tour es apto para todas las edades.'],
+ ['¿Cómo funciona la cancelación?','Es gratuita hasta 24 horas antes del tour. Si surge un imprevisto, escribidnos por WhatsApp y buscaremos una solución.'],
+ ['¿Cómo pago?','Online con tarjeta mediante Stripe: Visa, Mastercard, Amex, Apple Pay o Google Pay. Pago cifrado y confirmación inmediata.'],
+];
+
+const FALLBACK_REVIEWS = [
+ {name:'Sarah & Mike',location:'New York',stars:5,text:'Best experience of our whole trip to Italy. Our driver knew every hidden corner and the cart made it effortless. Worth every euro.'},
+ {name:'Famiglia Ricci',location:'Milano',stars:5,text:'Con due bambini piccoli era impossibile girare Roma a piedi. Comodo, divertente — i bimbi non volevano più scendere.'},
+ {name:'Claire',location:'Paris',stars:5,text:'Rome by Night est magique. La fontaine de Trevi illuminée, sans la foule… inoubliable, du début à la fin.'},
+];
+
+/* ═══════════ HELPERS ═══════════ */
+const pt = k => (P[AURA.lang] && P[AURA.lang][k]) || P.en[k] || P.it[k] || k;
+const { loc, esc, eur, fromPrice } = AURA;
+const ROMAN = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+
+/* ═══════════ APPLY LANG ═══════════ */
+function applyLang() {
+  document.documentElement.lang = AURA.lang;
+  document.querySelectorAll('[data-i]').forEach(el => el.textContent = pt(el.dataset.i));
+  document.querySelectorAll('[data-i-html]').forEach(el => el.innerHTML = pt(el.dataset.iHtml));
+  document.getElementById('lang-sel').value = AURA.lang;
+
+  /* hero: titolo da CMS se presente, altrimenti copy i18n */
+  const cms = AURA.state.content.site_hero;
+  const cmsTitle = cms?.title && loc(cms.title);
+  const heroLines = cmsTitle ? cmsTitle.split('\n') : pt('hero.h1').split('|');
+  document.getElementById('hero-h1').innerHTML =
+    `<span class="mask-line"><span>${esc(heroLines[0] || '')}</span></span>` +
+    (heroLines[1] ? `<span class="mask-line l2"><span><em>${esc(heroLines[1])}</em></span></span>` : '');
+  const cmsSub = cms?.subtitle && loc(cms.subtitle);
+  document.getElementById('hero-sub').textContent = cmsSub || pt('hero.sub');
+
+  /* annuncio CMS */
+  /* barra annuncio: messaggio CMS + promo con codice (dal pannello Microwade) */
+  const ann = AURA.state.content.announcement;
+  const promo = AURA.state.content.promo;
+  const bar = document.getElementById('annbar');
+  const parts = [];
+  if (ann && loc(ann)) parts.push(esc(loc(ann)));
+  if (promo?.active && (loc(promo.labels) || promo.code)) {
+    parts.push(`🎁 ${esc(loc(promo.labels) || '')}${promo.code ? ` <b style="background:rgba(255,255,255,.18);border-radius:6px;padding:1px 8px;letter-spacing:.1em">${esc(promo.code)}</b>` : ''}`);
+  }
+  if (parts.length) { bar.innerHTML = parts.join(' · '); bar.style.display = 'block'; } else bar.style.display = 'none';
+
+  /* top ticker (the former dark-section marquee has intentionally been removed) */
+  const items = pt('tick');
+  const seq = items.map(x => `<span>✦&nbsp;&nbsp;<b>${esc(x)}</b></span>`).join('');
+  document.getElementById('ticker').innerHTML = seq + seq;
+
+  renderTours(); renderIti(); renderFaqs(); renderRevs(); renderEsplora();
+  applyGoogle(); /* mantiene voto/conteggio Google corretti anche al cambio lingua */
+}
+
+document.getElementById('lang-sel').addEventListener('change', e => { AURA.setLang(e.target.value); applyLang(); });
+
+/* ═══════════ TOURS · responsive editorial collection ═══════════ */
+const TOUR_ASSET_SLOTS = {
+  grande_bellezza:'grande-bellezza', full_roma:'full-roma', roma_night:'roma-by-night',
+  custom:'su-misura', tour_500:'tour-500', tour_van:'tour-van', concierge_van:'concierge-van'
+};
+let tourActiveIndex = 0, tourFloatTimer = null;
+function pauseFloatingAfterTour() {
+  document.body.classList.add('tour-interacting');
+  clearTimeout(tourFloatTimer);
+  tourFloatTimer = setTimeout(() => document.body.classList.remove('tour-interacting'), 800);
+}
+function updateTourCounter() {
+  const list = document.getElementById('tours-list');
+  const cards = [...list.children];
+  if (!cards.length) return;
+  const left = list.getBoundingClientRect().left;
+  tourActiveIndex = cards.reduce((best, card, i) => Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[best].getBoundingClientRect().left - left) ? i : best, 0);
+  document.getElementById('tour-count').textContent = `${tourActiveIndex + 1} / ${cards.length}`;
+}
+function tourGo(direction) {
+  const list = document.getElementById('tours-list');
+  const cards = [...list.children];
+  if (!cards.length) return;
+  const next = Math.max(0, Math.min(cards.length - 1, tourActiveIndex + direction));
+  cards[next].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block:'nearest', inline:'start' });
+  tourActiveIndex = next;
+  updateTourCounter();
+  pauseFloatingAfterTour();
+}
+function renderTours() {
+  const tours = AURA.state.tours || [];
+  const list = document.getElementById('tours-list');
+  list.innerHTML = tours.map((x, i) => {
+    const price = fromPrice(x);
+    const isShared = !x.pricing?.private && x.pricing?.shared;
+    const slot = TOUR_ASSET_SLOTS[x.id] || x.id;
+    return `<article class="tour-card ${i < 4 ? 'primary' : 'secondary'} rv" data-tour-index="${i}" data-asset-slot="${esc(slot)}">
+      <div class="tour-visual">
+        <img src="${AURA.rel(esc(x.image || '/media/home-card-grande.jpg'))}" alt="${esc(loc(x.names))}" width="800" height="600" loading="lazy"
+             onerror="this.onerror=null;this.src='${AURA.rel('/media/home-card-grande.jpg')}'">
+        ${x.hoverVideo ? `<video class="hvid" src="${AURA.rel(esc(x.hoverVideo))}" muted loop playsinline preload="none"></video>` : ''}
+        ${loc(x.badge) ? `<span class="badge">${esc(loc(x.badge))}</span>` : ''}
+        <span class="dur">${esc(x.duration || '')}</span>
+      </div>
+      <div class="tour-card-body">
+        <h3>${esc(loc(x.names))}</h3>
+        <div class="tg">${esc(loc(x.taglines))}</div>
+        <p class="ds">${esc(loc(x.descriptions))}</p>
+        <div class="chips">${(loc(x.features, []) || []).slice(0, 3).map(f => `<span>${esc(f)}</span>`).join('')}</div>
+        <div class="meta">
+          <div class="price"><b>${eur(price)}</b><span>${pt('tours.from')} · ${isShared ? pt('tours.pp') : pt('tours.group')}</span></div>
+          <button class="btn fill sm" data-book="${esc(x.id)}">${pt('tours.book')}</button>
+          ${x.slug ? `<a class="tlink" href="https://www.aurarometours.it/tour/${esc(x.slug)}/">${pt('tours.details')} →</a>` : ''}
+        </div>
+      </div>
+    </article>`;
+  }).join('');
+  list.onscroll = () => { updateTourCounter(); pauseFloatingAfterTour(); };
+  list.onpointerdown = pauseFloatingAfterTour;
+  document.querySelectorAll('[data-book]').forEach(el => el.onclick = () => AURA.openBooking(el.dataset.book));
+  document.querySelectorAll('.tour-card .hvid').forEach(v => {
+    const card = v.closest('.tour-card');
+    card.addEventListener('mouseenter', () => v.play().catch(() => {}));
+    card.addEventListener('mouseleave', () => { v.pause(); v.currentTime = 0; });
+  });
+  updateTourCounter();
+  observe();
+}
+
+/* ═══════════ ITINERARIO ═══════════ */
+/* abbina ogni tappa alla foto reale del luogo (scatti Esplora) */
+const STOP_IMG = [
+  [/colosseo|colosseum/i, '/media/scene1-full-roma.jpg'],
+  [/fori|imperiali|foro/i, '/media/esplora/via_appia.webp'],
+  [/venezia|vittoriano/i, '/media/esplora/vittoriano.webp'],
+  [/pantheon/i, '/media/esplora/pantheon.webp'],
+  [/navona/i, '/media/esplora/san_luigi.webp'],
+  [/trevi/i, '/media/esplora/trevi_alba.webp'],
+  [/spagna|spanish/i, '/media/esplora/pincio.webp'],
+  [/trastevere/i, '/media/esplora/trastevere.webp'],
+  [/gianicolo/i, '/media/esplora/gianicolo.webp'],
+  [/aventino|aranci|serratura/i, '/media/esplora/aventino.webp'],
+  [/monti/i, '/media/esplora/monti.webp'],
+  [/popolo/i, '/media/esplora/santa_maria_popolo.webp'],
+  [/appia/i, '/media/esplora/via_appia.webp'],
+];
+function stopImg(name) {
+  for (const [re, img] of STOP_IMG) if (re.test(name)) return img;
+  return '/media/esplora/monti.webp';
+}
+function renderIti() {
+  const full = (AURA.state.tours || []).find(x => x.id === 'full_roma');
+  const rawStops = (full?.stops?.length ? full.stops : ['Colosseo','Fori Imperiali','Piazza Venezia','Pantheon','Piazza Navona','Fontana di Trevi','Piazza di Spagna','Trastevere','Gianicolo','Aventino']);
+  const stops = rawStops.map(stop => typeof stop === 'string' ? { name:stop, blogUrl:null } : { name:stop.name || stop.label || '', blogUrl:stop.blogUrl || null });
+  document.getElementById('iti-track').innerHTML = stops.map((stop, i) => {
+    const s = stop.name;
+    return `<div class="iti-card rv" style="transition-delay:${Math.min(i * .05, .4)}s"${stop.blogUrl ? ` data-blog-url="${esc(stop.blogUrl)}"` : ''}>
+      <div class="im">
+        <span class="n">${ROMAN[i] || i + 1} / ${ROMAN[stops.length - 1] || stops.length}</span>
+        <img src="${AURA.rel(stopImg(s))}" alt="${esc(s)}" loading="lazy"
+             onerror="this.onerror=null;this.src='${AURA.rel('/media/esplora/monti.webp')}'">
+      </div>
+      <div class="bd"><h4>${esc(s)}</h4><p>Full Roma Experience</p></div>
+    </div>`;
+  }).join('');
+  observe();
+}
+
+/* ═══════════ FAQ ═══════════ */
+function renderFaqs() {
+  const list = document.getElementById('faq-list');
+  list.innerHTML = (FAQS[AURA.lang] || FAQS.en).map(([q, a]) =>
+    `<details class="faq"><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('');
+  list.querySelectorAll('details').forEach(detail => detail.addEventListener('toggle', () => {
+    const anyOpen = matchMedia('(max-width:767px)').matches && !!list.querySelector('details[open]');
+    document.body.classList.toggle('faq-open', anyOpen);
+  }));
+}
+
+/* ═══════════ ESPLORA — galleria Roma segreta ═══════════ */
+const ESPLORA = [
+ { f:'trevi_alba',            n:'Fontana di Trevi',        s:{it:'All\'alba, senza nessuno',en:'At dawn, all to yourself'} },
+ { f:'buco_della_serratura',  n:'Il Buco della Serratura', s:{it:'Aventino · il segreto meglio custodito',en:'Aventine · the best-kept secret'} },
+ { f:'giardino_aranci_panorama', n:'Giardino degli Aranci', s:{it:'Il panorama che non ti aspetti',en:'The view you don\'t expect'} },
+ { f:'coppede',               n:'Quartiere Coppedè',       s:{it:'Roma in versione fiaba',en:'Rome, fairy-tale edition'} },
+ { f:'gianicolo',             n:'Terrazza del Gianicolo',  s:{it:'Tutta la città in un solo sguardo',en:'The whole city in one glance'} },
+ { f:'villino_fate',          n:'Villino delle Fate',      s:{it:'Architettura da sogno',en:'Dreamlike architecture'} },
+ { f:'santignazio',           n:'Sant\'Ignazio',           s:{it:'La cupola che non esiste',en:'The dome that doesn\'t exist'} },
+ { f:'pantheon',              n:'Pantheon',                s:{it:'Duemila anni di perfezione',en:'Two thousand years of perfection'} },
+ { f:'san_luigi',             n:'San Luigi dei Francesi',  s:{it:'Tre Caravaggio, gratis',en:'Three Caravaggios, for free'} },
+ { f:'monti',                 n:'Rione Monti',             s:{it:'Il quartiere più cool di Roma',en:'Rome\'s coolest district'} },
+ { f:'trastevere',            n:'Trastevere',              s:{it:'Vicoli, edera e vita vera',en:'Alleys, ivy and real life'} },
+ { f:'santa_maria_popolo',    n:'Santa Maria del Popolo',  s:{it:'Un museo travestito da chiesa',en:'A museum disguised as a church'} },
+ { f:'pincio',                n:'Terrazza del Pincio',     s:{it:'Il tramonto dei romani',en:'Where Romans watch the sunset'} },
+ { f:'via_appia',             n:'Appia Antica',            s:{it:'La regina delle strade',en:'The queen of roads'} },
+ { f:'san_clemente_pioggia',  n:'San Clemente',            s:{it:'Tre epoche, una sotto l\'altra',en:'Three eras, one beneath the other'} },
+ { f:'vittoriano',            n:'Il Vittoriano',           s:{it:'Marmo che acceca',en:'Blinding marble'} },
+ { f:'minerva',               n:'Piazza della Minerva',    s:{it:'L\'elefantino del Bernini',en:'Bernini\'s little elephant'} },
+ { f:'aventino',              n:'Aventino',                s:{it:'Il colle del silenzio',en:'The hill of silence'} },
+];
+const ROMANE = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII','XIII','XIV','XV','XVI','XVII','XVIII'];
+let lbIdx = 0;
+
+function renderEsplora() {
+  document.getElementById('esp-track').innerHTML = ESPLORA.map((e, i) => `
+    <figure class="esp-item" data-lb="${i}">
+      <img src="${AURA.rel('/media/esplora/')}${e.f}.webp" alt="${esc(e.n)}" loading="lazy">
+      <figcaption class="cap">
+        <div class="rn">${ROMANE[i]} / ${ROMANE[ESPLORA.length - 1]}</div>
+        <h4>${esc(e.n)}</h4>
+        <p>${esc(loc(e.s))}</p>
+      </figcaption>
+    </figure>`).join('');
+  document.querySelectorAll('[data-lb]').forEach(el => el.addEventListener('click', () => {
+    if (espDragged) return;
+    lbOpen(parseInt(el.dataset.lb));
+  }));
+}
+
+/* drag-to-scroll */
+const espTrack = document.getElementById('esp-track');
+let espDown = false, espDragged = false, espStartX = 0, espStartScroll = 0;
+espTrack.addEventListener('pointerdown', e => {
+  espDown = true; espDragged = false;
+  espStartX = e.clientX; espStartScroll = espTrack.scrollLeft;
+  espTrack.classList.add('drag');
+});
+addEventListener('pointermove', e => {
+  if (!espDown) return;
+  const dx = e.clientX - espStartX;
+  if (Math.abs(dx) > 6) espDragged = true;
+  espTrack.scrollLeft = espStartScroll - dx;
+});
+addEventListener('pointerup', () => { espDown = false; espTrack.classList.remove('drag'); setTimeout(() => espDragged = false, 50); });
+
+/* lightbox */
+function lbOpen(i) {
+  lbIdx = i;
+  lbUpdate();
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  AURA.track('esplora_open', { spot: ESPLORA[i].n });
+}
+function lbClose() {
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function lbGo(d) { lbIdx = (lbIdx + d + ESPLORA.length) % ESPLORA.length; lbUpdate(); }
+function lbUpdate() {
+  const e = ESPLORA[lbIdx];
+  document.getElementById('lb-img').src = AURA.rel('/media/esplora/') + e.f + '.webp';
+  document.getElementById('lb-title').innerHTML = esc(e.n);
+  document.getElementById('lb-sub').textContent = loc(e.s);
+  document.getElementById('lb-cnt').textContent = ROMANE[lbIdx] + ' / ' + ROMANE[ESPLORA.length - 1];
+}
+document.getElementById('lb').addEventListener('click', e => { if (e.target.id === 'lb') lbClose(); });
+addEventListener('keydown', e => {
+  if (!document.getElementById('lb').classList.contains('open')) return;
+  if (e.key === 'Escape') lbClose();
+  if (e.key === 'ArrowLeft') lbGo(-1);
+  if (e.key === 'ArrowRight') lbGo(1);
+});
+
+/* ═══════════ REVIEWS slider (Google prima di tutto) ═══════════ */
+const G_MARK = `<svg viewBox="0 0 24 24"><path fill="#4285F4" d="M23.5 12.3c0-.9-.1-1.5-.3-2.2H12v4.1h6.5c-.1 1.1-.8 2.7-2.4 3.8l3.7 2.9c2.2-2 3.7-5 3.7-8.6z"/><path fill="#34A853" d="M12 24c3.2 0 5.9-1.1 7.9-2.9l-3.7-2.9c-1 .7-2.4 1.2-4.2 1.2-3.2 0-5.9-2.1-6.9-5.1L1.3 17.2C3.3 21.2 7.3 24 12 24z"/><path fill="#FBBC05" d="M5.1 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3L1.3 6.8C.5 8.4 0 10.1 0 12s.5 3.6 1.3 5.2l3.8-2.9z"/><path fill="#EA4335" d="M12 4.7c1.8 0 3 .8 3.7 1.4l3.3-3.2C17.9 1.1 15.2 0 12 0 7.3 0 3.3 2.8 1.3 6.8l3.8 2.9c1-3 3.7-5 6.9-5z"/></svg>`;
+let revIdx = 0, revList = FALLBACK_REVIEWS;
+
+function normalizeReviews() {
+  const g = AURA.state.google;
+  if (g && g.reviews && g.reviews.length) {
+    return g.reviews.map(r => ({ name: r.author, avatar: r.avatar, stars: r.rating, text: r.text, meta: r.time, isGoogle: true }));
+  }
+  const api = AURA.state.reviews;
+  const list = (api && api.length ? api : FALLBACK_REVIEWS);
+  return list.map(r => ({ name: r.name, avatar: null, stars: r.stars, text: r.text, meta: [r.location, r.tour_name].filter(Boolean).join(' · '), isGoogle: false }));
+}
+
+function renderRevs() {
+  revList = normalizeReviews().slice(0, 12);
+  revIdx = Math.min(revIdx, revList.length - 1);
+  const stage = document.getElementById('rev-stage');
+  stage.innerHTML = revList.map((r, i) => `
+    <article class="rev-slide" data-review-index="${i}">
+      <div class="stars">${'★'.repeat(Math.round(r.stars || 5))}</div>
+      <blockquote>"${esc(r.text)}"</blockquote>
+      <div class="rev-who-row">
+        ${r.avatar ? `<img src="${esc(r.avatar)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : `<span class="ini">${esc((r.name || 'A').charAt(0).toUpperCase())}</span>`}
+        <div class="wt"><b>${esc(r.name)}</b><span>${esc(r.meta || '')}</span></div>
+        ${r.isGoogle ? `<span class="rev-gmark">${G_MARK} Google</span>` : ''}
+      </div>
+    </article>`).join('');
+  stage.onscroll = updateReviewCounter;
+  document.getElementById('rev-cnt').textContent = (revIdx + 1) + ' / ' + revList.length;
+}
+
+function updateReviewCounter() {
+  const stage = document.getElementById('rev-stage');
+  const cards = [...stage.children];
+  if (!cards.length) return;
+  const left = stage.getBoundingClientRect().left;
+  revIdx = cards.reduce((best, card, i) => Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[best].getBoundingClientRect().left - left) ? i : best, 0);
+  document.getElementById('rev-cnt').textContent = (revIdx + 1) + ' / ' + revList.length;
+}
+
+/* dati Google → badge hero + colonna riassunto */
+function applyGoogle() {
+  const g = AURA.state.google;
+  const links = AURA.googleLinks;
+  document.getElementById('g-read').href = links.read(g);
+  document.getElementById('g-write').href = links.write(g);
+  document.getElementById('g-chip').href = links.read(g);
+  if (!g) return;
+  const rating = Number(g.rating).toFixed(1);
+  const stars = '★'.repeat(Math.round(g.rating));
+  document.getElementById('g-rating').textContent = rating;
+  document.getElementById('g-stars').textContent = stars;
+  document.getElementById('g-count').textContent = pt('rev.g.count').replace('{n}', g.total);
+  document.getElementById('g-chip-val').textContent = rating;
+  document.getElementById('g-chip-cnt').textContent = g.total + ' · Google';
+}
+function revGo(d) {
+  const cards = [...document.querySelectorAll('.rev-slide')];
+  if (!cards.length) return;
+  revIdx = (revIdx + d + cards.length) % cards.length;
+  cards[revIdx].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block:'nearest', inline:'start' });
+  document.getElementById('rev-cnt').textContent = (revIdx + 1) + ' / ' + revList.length;
+}
+
+/* ═══════════ MOTION ═══════════ */
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: 0.12 });
+function observe() { document.querySelectorAll('.rv:not(.in), .clip:not(.in)').forEach(el => io.observe(el)); }
+
+function counters() {
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const target = parseInt(el.dataset.count);
+    const obs = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting) return;
+      obs.disconnect();
+      const t0 = performance.now();
+      (function tick(now) {
+        const p = Math.min(1, (now - t0) / 1700);
+        el.textContent = Math.round(target * (1 - Math.pow(1 - p, 3))).toLocaleString('it-IT') + '+';
+        if (p < 1) requestAnimationFrame(tick);
+      })(t0);
+    }), { threshold: 0.5 });
+    obs.observe(el);
+  });
+}
+
+/* cursore custom */
+const cur = document.getElementById('cur');
+addEventListener('mousemove', e => { cur.style.left = e.clientX + 'px'; cur.style.top = e.clientY + 'px'; }, { passive: true });
+addEventListener('mouseover', e => {
+  cur.classList.toggle('big', !!e.target.closest('a,button,.au-opt,summary,select'));
+});
+
+/* preloader: contatore in numeri romani, via appena la pagina è pronta (max 1.6s) */
+const LOADER_STEPS = ['I','V','X','XXV','XL','L','LXX','LXXX','XC','C'];
+let loaderStep = 0, loaderDone = false;
+const loaderTick = setInterval(() => {
+  if (loaderStep < LOADER_STEPS.length - 1) {
+    document.getElementById('loader-pct').textContent = LOADER_STEPS[++loaderStep];
+  }
+}, 130);
+function liftLoader() {
+  if (loaderDone) return;
+  loaderDone = true;
+  clearInterval(loaderTick);
+  document.getElementById('loader-pct').textContent = 'C';
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('off');
+    document.body.classList.add('ready');
+  }, 180);
+}
+addEventListener('load', () => setTimeout(liftLoader, 300));
+setTimeout(liftLoader, 1600);
+
+/* barra progresso lettura */
+const prog = document.getElementById('prog');
+addEventListener('scroll', () => {
+  const h = document.documentElement;
+  prog.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
+}, { passive: true });
+
+/* Su mobile i pulsanti flottanti scompaiono solo quando toccherebbero contenuti leggibili o interattivi. */
+let floatCollisionTick = false;
+function syncFloatingCollision() {
+  if (floatCollisionTick) return;
+  floatCollisionTick = true;
+  requestAnimationFrame(() => {
+    floatCollisionTick = false;
+    if (innerWidth > 767) { document.body.classList.remove('float-collision'); return; }
+    const floats = ['aura-chat-fab','aura-wa-fab'].map(id => document.getElementById(id)?.getBoundingClientRect()).filter(Boolean);
+    const targets = [...document.querySelectorAll('p,h1,h2,h3,h4,blockquote,summary,a,button,.price,.tour-swipe-controls,.rev-nav')];
+    const hit = targets.some(el => {
+      if (el.closest('#aura-chat,#aura-bk,#aura-chat-fab,#aura-wa-fab,#mobmenu')) return false;
+      const style = getComputedStyle(el);
+      if (style.display === 'none' || style.visibility === 'hidden') return false;
+      const r = el.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight || !r.width || !r.height) return false;
+      return floats.some(f => r.left < f.right + 4 && r.right > f.left - 4 && r.top < f.bottom + 4 && r.bottom > f.top - 4);
+    });
+    document.body.classList.toggle('float-collision', hit);
+  });
+}
+addEventListener('scroll', syncFloatingCollision, { passive:true });
+addEventListener('resize', syncFloatingCollision, { passive:true });
+addEventListener('load', syncFloatingCollision, { once:true });
+
+/* nav: si nasconde scendendo, riappare salendo */
+const navEl = document.querySelector('nav');
+let lastY = 0;
+addEventListener('scroll', () => {
+  const y = scrollY;
+  navEl.classList.toggle('hide', y > 320 && y > lastY);
+  lastY = y;
+}, { passive: true });
+
+/* bottoni magnetici (desktop) */
+if (matchMedia('(hover:hover) and (pointer:fine)').matches) {
+  document.addEventListener('mousemove', e => {
+    const b = e.target.closest('.btn');
+    document.querySelectorAll('.btn.mag').forEach(el => { if (el !== b) { el.style.transform = ''; el.classList.remove('mag'); } });
+    if (!b) return;
+    const r = b.getBoundingClientRect();
+    const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+    b.classList.add('mag');
+    b.style.transform = `translate(${dx * 0.18}px, ${dy * 0.3}px)`;
+  }, { passive: true });
+}
+
+/* parallasse leggera sulle immagini dei tour (sul wrapper .par, così
+   lo zoom hover dell'img resta gestito dal CSS senza conflitti) */
+let pxTicking = false;
+addEventListener('scroll', () => {
+  if (pxTicking) return;
+  pxTicking = true;
+  requestAnimationFrame(() => {
+    document.querySelectorAll('.trow .visual .par').forEach(par => {
+      const r = par.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > innerHeight) return;
+      const p = (r.top + r.height / 2 - innerHeight / 2) / innerHeight;
+      par.style.transform = `translateY(${p * -26}px)`;
+    });
+    pxTicking = false;
+  });
+}, { passive: true });
+
+function openMob() {
+  document.getElementById('mobmenu').classList.add('open');
+  document.body.classList.add('aura-overlay-open');
+}
+function mob() {
+  document.getElementById('mobmenu').classList.remove('open');
+  document.body.classList.remove('aura-overlay-open');
+}
+
+/* contatti dal CMS */
+function applySettings() {
+  const s = AURA.state.settings;
+  const wa = document.getElementById('foot-wa');
+  wa.href = s.whatsappHref; wa.textContent = 'WhatsApp ' + s.whatsapp;
+  const tel = document.getElementById('foot-tel');
+  if (s.phone) { tel.style.display = ''; tel.textContent = s.phone; tel.href = 'tel:' + String(s.phone).replace(/\s/g, ''); }
+  else { tel.style.display = 'none'; }
+  const mail = document.getElementById('foot-mail');
+  mail.textContent = s.email; mail.href = 'mailto:' + s.email;
+}
+
+/* ═══════════ BOOT ═══════════ */
+document.getElementById('yy').textContent = new Date().getFullYear();
+applyLang(); observe(); counters();
+document.querySelectorAll('.aura-way-visual,.steps-grid,.standard-grid,#rev-stage').forEach(scroller => {
+  scroller.addEventListener('pointerdown', pauseFloatingAfterTour, { passive:true });
+  scroller.addEventListener('scroll', pauseFloatingAfterTour, { passive:true });
+});
+document.addEventListener('aura:data', () => { applyLang(); applySettings(); applyGoogle(); });
+AURA.load();
+AURA.track('page_view');
+syncFloatingCollision();
+</script>
+<!-- CONFIG STRIPE: inserisci qui la publishable key (pk_live_…) prima del deploy -->
+<script>window.AURA_STRIPE_PK = window.AURA_STRIPE_PK || 'pk_live_51TAyh0DA0G6rBB5Atjc7xAsOsriLimaORjEOlJuLQ3Wp74HkPUTH2qsiwRiQv5wWyXNIBP3uYHOFoAViMpfNzCmu00LtgxRI5x';</script>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<script>window.AURA_PREVIEW = true;</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ═══ TRACKING AURA — Google Ads + GA4 + Clarity (ripristinato dal sistema precedente) ═══ -->
+<!-- Production analytics are disabled in this public preview. -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+  gtag('js', new Date());
+  gtag('config', 'AW-18053970309');
+  gtag('config', 'G-DGX5MSN0T6');
+  window.AURA_ADS_SEND_TO = 'AW-18053970309/L8gQCJiH15scEIXz5qBD';
+  /* conversione Google Ads: chiamata al pagamento confermato (valore in EUR, dedup per bookingId) */
+  window.auraFireConversion = function(value, txnId){
+    try {
+      var p = { send_to: window.AURA_ADS_SEND_TO };
+      if (value != null) { p.value = Number(value) || 0; p.currency = 'EUR'; }
+      if (txnId) p.transaction_id = String(txnId);
+      gtag('event', 'conversion', p);
+      gtag('event', 'purchase', { transaction_id: txnId || '', value: Number(value) || 0, currency: 'EUR' });
+    } catch(_){}
+  };
+  /* Microsoft Clarity: heatmap e registrazione sessioni */
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    if (window.AURA_PREVIEW) return;
+    t=l.createElement(r);t.async=1;t.src='https://www.clarity.ms/tag/'+i;
+    y=l.getElementsByTagName(r)[0];if(y&&y.parentNode)y.parentNode.insertBefore(t,y);
+  })(window, document, 'clarity', 'script', 'wl9y0jbfoy');
+</script>
+<meta name="robots" content="noindex">
+<title>Prenotazione confermata — Aura Rome Tours</title>
+<link rel="icon" href="../aura-favicon/favicon.svg" type="image/svg+xml">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..700;1,9..144,300..700&family=Archivo:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--paper:#F7F2E9;--paper2:#EFE7D8;--ink:#1D160F;--ink2:#4a4033;--ink3:#8b7f6d;--terra:#A4441F;--line:rgba(29,22,15,.14);--serif:'Fraunces',Georgia,serif;--sans:'Archivo',system-ui,sans-serif}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--sans);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:min(560px,100%);background:#fff;border:1px solid var(--line);border-radius:26px;padding:50px 42px;text-align:center;box-shadow:0 30px 80px rgba(29,22,15,.1);animation:up .6s cubic-bezier(.22,1,.36,1) both}
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.brand{display:inline-flex;flex-direction:column;line-height:1}
+.brand .b1{font-family:var(--serif);font-weight:600;font-size:26px;letter-spacing:-.02em}
+.brand .b2{font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:var(--ink3);margin-top:4px}
+.icon{font-size:52px;margin:28px 0 14px}
+h1{font-family:var(--serif);font-size:36px;font-weight:500;line-height:1.1;letter-spacing:-.02em}
+h1 em{font-style:italic;color:var(--terra)}
+.sub{color:var(--ink2);font-size:14.5px;line-height:1.75;margin:16px 0 26px}
+.sub b{color:var(--ink)}
+.box{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:18px 22px;margin-bottom:26px;text-align:left}
+.box .row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;font-size:13.5px;border-bottom:1px solid var(--line)}
+.box .row:last-child{border:none}
+.box .row b{color:var(--ink)}
+.box .row .k{color:var(--ink3);font-size:11px;letter-spacing:.14em;text-transform:uppercase;padding-top:2px}
+.bid{font-family:ui-monospace,Consolas,monospace;color:var(--terra);font-weight:700}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;font-weight:600;font-size:12px;letter-spacing:.1em;text-transform:uppercase;padding:14px 26px;border:1px solid var(--ink);text-decoration:none;color:var(--ink);transition:.25s;margin:4px}
+.btn:hover{transform:translateY(-2px)}
+.btn.terra{background:var(--terra);border-color:var(--terra);color:#fff}
+.btn.wa{background:#1faa53;border-color:#1faa53;color:#fff}
+.spin{display:inline-block;width:22px;height:22px;border:2.5px solid var(--line);border-top-color:var(--terra);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+.note{font-size:11.5px;color:var(--ink3);margin-top:22px;line-height:1.7}
+</style>
+</head>
+<body>
+<div class="card">
+  <a class="brand" href="../"><span class="b1">Aura</span><span class="b2">Rome Tours</span></a>
+  <div id="content">
+    <div class="icon"><span class="spin"></span></div>
+    <h1>Verifica in corso…</h1>
+    <p class="sub">Stiamo confermando il tuo pagamento con la banca.</p>
+  </div>
+</div>
+<script>
+'use strict';
+const API = localStorage.getItem('aura_api') || 'https://back-end-production-8a61.up.railway.app';
+const qs = new URLSearchParams(location.search);
+const piId = qs.get('payment_intent');
+const bookingId = qs.get('booking');
+const redirect = qs.get('redirect_status');
+const WA = 'https://wa.me/393206891014';
+
+function esc(v){return String(v??'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+function fdate(v){if(!v)return '—';const s=String(v).slice(0,10);if(/^\d{4}-\d{2}-\d{2}$/.test(s)){const[y,m,d]=s.split('-');return d+'/'+m+'/'+y}return String(v)}
+
+function showOk(b){
+  const id = (b && b.id) || bookingId || '—';
+  document.getElementById('content').innerHTML = `
+    <div class="icon">🎉</div>
+    <h1>Ci vediamo <em>a Roma.</em></h1>
+    <p class="sub">Grazie${b?', <b>'+esc(b.name)+'</b>':''}! Il pagamento è confermato e la tua data è bloccata.
+    Ti abbiamo inviato un'email con tutti i dettagli.</p>
+    <div class="box">
+      <div class="row"><span class="k">Booking ID</span><span class="bid">${esc(id)}</span></div>
+      ${b?`
+      <div class="row"><span class="k">Tour</span><b>${esc(b.tour)}</b></div>
+      <div class="row"><span class="k">Data</span><b>${fdate(b.date)}${b.time?' · '+esc(b.time):''}</b></div>
+      <div class="row"><span class="k">Ospiti</span><b>${esc(b.people||'—')}</b></div>
+      ${b.amount?`<div class="row"><span class="k">Importo</span><b>€${esc(b.amount)}</b></div>`:''}`:''}
+    </div>
+    <a class="btn wa" href="${WA}?text=${encodeURIComponent('Ciao! Ho appena prenotato il tour ['+id+'] 🎉')}" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn" href="../">Torna al sito</a>
+    <p class="note">Conserva il Booking ID: servirà per assistenza e per la recensione dopo il tour.<br>Cancellazione gratuita fino a 24 ore prima.</p>`;
+  try{
+    fetch(API+'/analytics/track',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({event:'booking_success',page:'/booking-success',data:{booking:id}})});
+  }catch(_){}
+  /* conversione Google Ads — una sola volta per booking (evita doppioni al refresh) */
+  try{
+    if(window.auraFireConversion && id!=='—' && !localStorage.getItem('aura_conv_'+id)){
+      window.auraFireConversion(b&&b.amount?b.amount:null, id);
+      localStorage.setItem('aura_conv_'+id,'1');
+    }
+  }catch(_){}
+}
+
+function showPending(){
+  document.getElementById('content').innerHTML = `
+    <div class="icon">⏳</div>
+    <h1>Pagamento in <em>elaborazione</em></h1>
+    <p class="sub">La banca sta processando il pagamento: riceverai l'email di conferma entro pochi minuti.
+    Se non arriva, scrivici su WhatsApp con il tuo Booking ID${bookingId?' <span class="bid">'+esc(bookingId)+'</span>':''}.</p>
+    <a class="btn wa" href="${WA}" target="_blank" rel="noopener">WhatsApp</a>
+    <a class="btn" href="../">Torna al sito</a>`;
+}
+
+function showFail(){
+  document.getElementById('content').innerHTML = `
+    <div class="icon">😕</div>
+    <h1>Pagamento <em>non riuscito</em></h1>
+    <p class="sub">Nessun addebito effettuato. Puoi riprovare dal sito oppure scriverci su WhatsApp: ti aiutiamo a completare la prenotazione in un minuto.</p>
+    <a class="btn terra" href="../#tours">Riprova</a>
+    <a class="btn wa" href="${WA}" target="_blank" rel="noopener">WhatsApp</a>`;
+}
+
+async function verify(attempt=0){
+  if(redirect === 'failed'){ showFail(); return; }
+  try{
+    const p = new URLSearchParams();
+    if(piId) p.set('pi', piId); else if(bookingId) p.set('booking', bookingId);
+    const r = await fetch(API+'/booking-status?'+p).then(r=>r.json());
+    const confirmed = r.paymentStatus === 'succeeded' || (r.booking && r.booking.status === 'confirmed');
+    if(confirmed){ showOk(r.booking); return; }
+    if(r.paymentStatus === 'processing' || attempt < 4){ setTimeout(()=>verify(attempt+1), 2500); return; }
+    if(redirect === 'succeeded'){ showOk(r.booking); return; }
+    showPending();
+  }catch(_){
+    if(attempt < 3) return setTimeout(()=>verify(attempt+1), 2500);
+    if(redirect === 'succeeded') showOk(null); else showPending();
+  }
+}
+verify();
+</script>
+</body>
+</html>
