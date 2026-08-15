@@ -500,12 +500,21 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 30px}
 .experience-intro h2{font-size:clamp(28px,3.2vw,48px);justify-self:end}
 
 #tours{background:#F2E4D7;padding:112px 0}
-.tour-collection{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:24px}
-.tour-card{grid-column:span 3;background:#F4EDE5;border:1px solid rgba(142,104,55,.35);display:flex;flex-direction:column;min-width:0;overflow:hidden;transition:transform .35s var(--ease),border-color .25s}
-.tour-card.secondary{grid-column:span 2}
-.tour-card:hover{transform:translateY(-5px);border-color:#A4441F}
-.tour-card .tour-visual{position:relative;aspect-ratio:4/3;overflow:hidden;border-radius:999px 999px 0 0;background:#F2E4D7}
-.tour-card.secondary .tour-visual{aspect-ratio:4/5}
+.tour-showcase{background:rgba(244,237,229,.56);border:1px solid rgba(142,104,55,.34);border-radius:34px;padding:8px;box-shadow:0 24px 70px rgba(29,22,15,.08);overflow:hidden}
+.tour-group-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:5px;border-bottom:1px solid rgba(142,104,55,.18)}
+.tour-tab,.tour-option{appearance:none;border:0;color:#4a4033;background:transparent;transition:background .25s,color .25s,box-shadow .25s,transform .25s var(--ease)}
+.tour-tab{min-height:54px;border-radius:18px;font-size:14px;font-weight:600;letter-spacing:.02em}
+.tour-tab[aria-selected="true"]{background:#fff;color:#1D160F;box-shadow:0 3px 12px rgba(29,22,15,.1),inset 0 0 0 1px rgba(142,104,55,.16)}
+.tour-tab:focus-visible,.tour-option:focus-visible{outline:2px solid #A4441F;outline-offset:2px}
+.tour-option-tabs{display:flex;align-items:center;justify-content:center;gap:8px;overflow-x:auto;scrollbar-width:none;padding:16px 14px 18px;white-space:nowrap}
+.tour-option-tabs::-webkit-scrollbar{display:none}
+.tour-option{flex:none;border-radius:999px;padding:10px 16px;font-size:12px;border:1px solid transparent}
+.tour-option[aria-selected="true"]{background:#fff;color:#1D160F;border-color:rgba(142,104,55,.22);box-shadow:0 3px 10px rgba(29,22,15,.08)}
+.tour-active-card{padding:0 10px 10px}
+.tour-card{background:#F4EDE5;border:1px solid rgba(142,104,55,.28);display:grid;grid-template-columns:minmax(0,1.08fr) minmax(360px,.92fr);min-width:0;min-height:520px;overflow:hidden;border-radius:28px;animation:tour-panel-in .5s var(--ease) both}
+@keyframes tour-panel-in{from{opacity:.35;transform:translateY(10px)}to{opacity:1;transform:none}}
+.tour-card:hover{border-color:rgba(164,68,31,.65)}
+.tour-card .tour-visual{position:relative;min-height:520px;overflow:hidden;border-radius:999px 999px 24px 24px;background:#F2E4D7;margin:18px}
 .tour-card .tour-visual img,.tour-card .tour-visual video{width:100%;height:100%;object-fit:cover;transition:transform .8s var(--ease)}
 .tour-card:hover .tour-visual img{transform:scale(1.045)}
 .tour-card .hvid{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity .35s}
@@ -513,7 +522,7 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 30px}
 .tour-card .badge,.tour-card .dur{position:absolute;bottom:14px;z-index:2;border-radius:999px;padding:7px 12px;font-size:10px;font-weight:700;letter-spacing:.08em}
 .tour-card .badge{left:14px;background:#F4EDE5;color:#1D160F;border:1px solid rgba(142,104,55,.4)}
 .tour-card .dur{right:14px;background:#1D160F;color:#F4EDE5}
-.tour-card-body{display:flex;flex-direction:column;flex:1;padding:28px}
+.tour-card-body{display:flex;flex-direction:column;padding:54px 46px 42px 28px}
 .tour-card h3{font-family:var(--serif);font-size:clamp(27px,2.8vw,40px);line-height:1.05;font-weight:500}
 .tour-card .tg{font-family:var(--serif);font-style:italic;color:#A4441F;font-size:18px;margin-top:7px}
 .tour-card .ds{color:#1D160F;font-size:14px;line-height:1.7;margin-top:14px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
@@ -522,7 +531,7 @@ footer{background:var(--ink);color:var(--paper);padding:80px 0 30px}
 .tour-card .meta{margin-top:auto;padding-top:24px;display:grid;grid-template-columns:auto 1fr;gap:12px 18px;align-items:end}
 .tour-card .price b{font-family:var(--serif);font-size:30px;display:block}.tour-card .price span{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#8E6837}
 .tour-card .meta .btn{justify-self:end}.tour-card .meta .tlink{grid-column:1/-1}
-.tour-swipe-controls{display:none}
+.tour-swipe-controls{display:none!important}
 
 .steps{background:#F4EDE5;padding:112px 0;border-color:rgba(142,104,55,.35)}
 .steps-grid{gap:22px}
@@ -581,8 +590,26 @@ body.float-collision #aura-chat-fab,body.float-collision #aura-wa-fab{opacity:0!
   .faqs{padding:72px 0}.faq-layout{grid-template-columns:1fr;gap:36px}.faq-photo{position:relative;top:auto;aspect-ratio:4/3;max-height:240px}.faq summary{font-size:22px;line-height:1.2;padding:22px 0}.faq p{font-size:14px}
   footer{padding:52px 0 24px}.foot-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 20px;padding-bottom:34px}.foot-grid>div:first-child,.foot-grid>div:last-child{grid-column:1/-1}.foot-grid h4{margin-bottom:12px}.foot-grid a,.foot-grid p{font-size:13px;margin-bottom:7px}.foot-watermark{position:absolute;left:7vw;bottom:62px;width:86vw;height:210px;min-height:0;margin:0;z-index:0}.foot-bottom{padding-top:18px}
 }
+@media(max-width:767px){
+  .tour-showcase{border-radius:28px;padding:5px;margin-inline:0}
+  .tour-group-tabs{gap:3px;padding:4px}
+  .tour-tab{min-height:48px;border-radius:15px;font-size:12.5px;padding:0 4px}
+  .tour-option-tabs{justify-content:flex-start;margin-inline:-5px;padding:14px 14px 16px;scroll-padding-inline:14px}
+  .tour-option{padding:9px 14px;font-size:11.5px}
+  .tour-active-card{padding:0 5px 5px}
+  .tour-card,.tour-card.secondary{display:flex;flex-direction:column;flex:auto;max-height:none;min-height:0;border-radius:23px;scroll-snap-align:none}
+  .tour-card .tour-visual,.tour-card.secondary .tour-visual{height:290px;min-height:290px;aspect-ratio:auto;margin:10px;border-radius:999px 999px 18px 18px}
+  .tour-card-body{padding:20px 22px 24px}
+  .tour-card h3{font-size:33px}
+  .tour-card .tg{font-size:16px}
+  .tour-card .ds{display:block;font-size:13.5px;line-height:1.65;margin-top:11px}
+  .tour-card .chips{max-height:none;margin-top:13px}
+  .tour-card .meta{padding-top:18px;gap:12px}
+  .tour-card .meta .btn{grid-column:1/-1;width:100%}
+  .tour-card .price b{font-size:30px}
+}
 @media(max-width:380px){.nav-right{gap:5px}.nav-right .btn.sm{padding:10px 13px;font-size:10.5px}#hamb{width:38px;height:38px}}
-@media(prefers-reduced-motion:reduce){.book-seal-ring{animation:none}.tour-card,.standard-card,.step{scroll-behavior:auto}}
+@media(prefers-reduced-motion:reduce){.book-seal-ring{animation:none}.tour-card,.standard-card,.step{scroll-behavior:auto}.tour-card{animation:none}}
 </style>
 </head>
 <body>
@@ -722,12 +749,10 @@ setTimeout(function(){
       </div>
       <p class="side" data-i="tours.side">Routes curated like a collection. Prices per group, reserved cart, pickup included in the centre. Choose yours.</p>
     </div>
-    <div id="tours-list" class="tour-collection" aria-label="Aura private experiences"></div>
-    <div class="tour-swipe-controls" aria-label="Experience carousel controls">
-      <span data-i="tours.swipe">SWIPE TO EXPLORE</span>
-      <strong id="tour-count">1 / 7</strong>
-      <button type="button" onclick="tourGo(-1)" aria-label="Previous experience">←</button>
-      <button type="button" onclick="tourGo(1)" aria-label="Next experience">→</button>
+    <div class="tour-showcase rv" aria-label="Aura private experiences">
+      <div id="tour-groups" class="tour-group-tabs" role="tablist" aria-label="Experience type"></div>
+      <div id="tour-options" class="tour-option-tabs" role="tablist" aria-label="Choose an experience"></div>
+      <div id="tours-list" class="tour-active-card" aria-live="polite"></div>
     </div>
   </div>
 </section>
@@ -911,7 +936,7 @@ setTimeout(function(){
   </div>
 </footer>
 
-<script src="js/aura-booking.js?v=20260815-myg5"></script>
+<script src="js/aura-booking.js?v=20260815-myg6-cards"></script>
 <script>
 'use strict';
 /* ═══════════ COPY (pagina) ═══════════ */
@@ -1235,38 +1260,64 @@ const TOUR_ASSET_SLOTS = {
   grande_bellezza:'grande-bellezza', full_roma:'full-roma', roma_night:'roma-by-night',
   custom:'su-misura', tour_500:'tour-500', tour_van:'tour-van', concierge_van:'concierge-van'
 };
-let tourActiveIndex = 0, tourFloatTimer = null;
+const TOUR_GROUPS = [
+  { id:'cart', label:'Golf Cart', tours:['grande_bellezza','full_roma','roma_night','custom'] },
+  { id:'vintage', label:'Fiat 500', tours:['tour_500'] },
+  { id:'van', label:'Van', tours:['tour_van','concierge_van'] },
+];
+let tourActiveGroup = 'cart', tourActiveId = 'grande_bellezza', tourFloatTimer = null;
 function pauseFloatingAfterTour() {
   document.body.classList.add('tour-interacting');
   clearTimeout(tourFloatTimer);
   tourFloatTimer = setTimeout(() => document.body.classList.remove('tour-interacting'), 800);
 }
-function updateTourCounter() {
-  const list = document.getElementById('tours-list');
-  const cards = [...list.children];
-  if (!cards.length) return;
-  const left = list.getBoundingClientRect().left;
-  tourActiveIndex = cards.reduce((best, card, i) => Math.abs(card.getBoundingClientRect().left - left) < Math.abs(cards[best].getBoundingClientRect().left - left) ? i : best, 0);
-  document.getElementById('tour-count').textContent = `${tourActiveIndex + 1} / ${cards.length}`;
-}
-function tourGo(direction) {
-  const list = document.getElementById('tours-list');
-  const cards = [...list.children];
-  if (!cards.length) return;
-  const next = Math.max(0, Math.min(cards.length - 1, tourActiveIndex + direction));
-  cards[next].scrollIntoView({ behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth', block:'nearest', inline:'start' });
-  tourActiveIndex = next;
-  updateTourCounter();
+function selectTourGroup(groupId) {
+  const group = TOUR_GROUPS.find(g => g.id === groupId);
+  if (!group) return;
+  tourActiveGroup = groupId;
+  tourActiveId = group.tours[0];
+  renderTours();
   pauseFloatingAfterTour();
+}
+function selectTour(tourId) {
+  tourActiveId = tourId;
+  renderTours();
+  pauseFloatingAfterTour();
+}
+function wireTourTabKeys(container, selector) {
+  container.onkeydown = e => {
+    if (!['ArrowLeft','ArrowRight','Home','End'].includes(e.key)) return;
+    const tabs = [...container.querySelectorAll(selector)];
+    if (!tabs.length) return;
+    e.preventDefault();
+    const current = Math.max(0, tabs.indexOf(document.activeElement));
+    const next = e.key === 'Home' ? 0 : e.key === 'End' ? tabs.length - 1 : (current + (e.key === 'ArrowRight' ? 1 : -1) + tabs.length) % tabs.length;
+    tabs[next].focus();
+    tabs[next].click();
+  };
 }
 function renderTours() {
   const tours = AURA.state.tours || [];
+  const byId = new Map(tours.map(t => [t.id, t]));
+  const availableGroups = TOUR_GROUPS.map(group => ({ ...group, tours:group.tours.filter(id => byId.has(id)) })).filter(group => group.tours.length);
+  if (!availableGroups.length) return;
+  if (!availableGroups.some(group => group.id === tourActiveGroup)) tourActiveGroup = availableGroups[0].id;
+  const activeGroup = availableGroups.find(group => group.id === tourActiveGroup) || availableGroups[0];
+  if (!activeGroup.tours.includes(tourActiveId)) tourActiveId = activeGroup.tours[0];
+  const x = byId.get(tourActiveId) || byId.get(activeGroup.tours[0]);
+  const i = Math.max(0, tours.indexOf(x));
+  const price = fromPrice(x);
+  const isShared = !x.pricing?.private && x.pricing?.shared;
+  const slot = TOUR_ASSET_SLOTS[x.id] || x.id;
+  const groups = document.getElementById('tour-groups');
+  const options = document.getElementById('tour-options');
   const list = document.getElementById('tours-list');
-  list.innerHTML = tours.map((x, i) => {
-    const price = fromPrice(x);
-    const isShared = !x.pricing?.private && x.pricing?.shared;
-    const slot = TOUR_ASSET_SLOTS[x.id] || x.id;
-    return `<article class="tour-card ${i < 4 ? 'primary' : 'secondary'} rv" data-tour-index="${i}" data-asset-slot="${esc(slot)}">
+  groups.innerHTML = availableGroups.map(group => `<button class="tour-tab" type="button" role="tab" data-tour-group="${esc(group.id)}" aria-selected="${group.id === activeGroup.id}" tabindex="${group.id === activeGroup.id ? '0' : '-1'}">${esc(group.label)}</button>`).join('');
+  options.innerHTML = activeGroup.tours.map(id => {
+    const tour = byId.get(id);
+    return `<button class="tour-option" type="button" role="tab" data-tour-id="${esc(id)}" aria-selected="${id === tourActiveId}" tabindex="${id === tourActiveId ? '0' : '-1'}">${esc(loc(tour.names))}</button>`;
+  }).join('');
+  list.innerHTML = `<article class="tour-card" data-tour-index="${i}" data-asset-slot="${esc(slot)}">
       <div class="tour-visual">
         <img src="${AURA.rel(esc(x.image || '/media/home-card-grande.jpg'))}" alt="${esc(loc(x.names))}" width="800" height="600" loading="lazy"
              onerror="this.onerror=null;this.src='${AURA.rel('/media/home-card-grande.jpg')}'">
@@ -1286,16 +1337,22 @@ function renderTours() {
         </div>
       </div>
     </article>`;
-  }).join('');
-  list.onscroll = () => { updateTourCounter(); pauseFloatingAfterTour(); };
-  list.onpointerdown = pauseFloatingAfterTour;
-  document.querySelectorAll('[data-book]').forEach(el => el.onclick = () => AURA.openBooking(el.dataset.book));
-  document.querySelectorAll('.tour-card .hvid').forEach(v => {
+  groups.querySelectorAll('[data-tour-group]').forEach(button => button.onclick = () => selectTourGroup(button.dataset.tourGroup));
+  options.querySelectorAll('[data-tour-id]').forEach(button => button.onclick = () => selectTour(button.dataset.tourId));
+  wireTourTabKeys(groups, '[data-tour-group]');
+  wireTourTabKeys(options, '[data-tour-id]');
+  const selectedOption = options.querySelector('[aria-selected="true"]');
+  if (selectedOption) requestAnimationFrame(() => options.scrollTo({
+    left:selectedOption.offsetLeft - (options.clientWidth - selectedOption.offsetWidth) / 2,
+    behavior:matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth',
+  }));
+  const book = list.querySelector('[data-book]');
+  if (book) book.onclick = () => AURA.openBooking(book.dataset.book);
+  list.querySelectorAll('.tour-card .hvid').forEach(v => {
     const card = v.closest('.tour-card');
     card.addEventListener('mouseenter', () => v.play().catch(() => {}));
     card.addEventListener('mouseleave', () => { v.pause(); v.currentTime = 0; });
   });
-  updateTourCounter();
   observe();
 }
 

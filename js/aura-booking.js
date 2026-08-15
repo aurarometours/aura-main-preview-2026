@@ -806,6 +806,7 @@ function setWidgetLang(l) {
   const name = document.getElementById('au-ch-name');
   const sub = document.getElementById('au-ch-sub');
   const input = document.getElementById('aura-chat-input');
+  const book = document.getElementById('aura-chat-book');
   const wa = document.getElementById('aura-wa-fab');
   if (name) name.textContent = t('chatName');
   if (sub) sub.textContent = t('chatSub');
